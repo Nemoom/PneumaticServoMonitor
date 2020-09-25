@@ -52,6 +52,11 @@ namespace PneumaticServoMonitor
                     )
                 );
         }
+
+        private void btn_Setting_Click(object sender, EventArgs e)
+        {
+            new FormSetting().Show();
+        }
     }
 
     public class MyProgressBar : ProgressBar
