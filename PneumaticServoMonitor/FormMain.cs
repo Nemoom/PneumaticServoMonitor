@@ -57,6 +57,11 @@ namespace PneumaticServoMonitor
         {
             new FormSetting().Show();
         }
+
+        private void DDBtn_Calibration_Click(object sender, EventArgs e)
+        {
+            new FormCalibrate().Show();
+        }
     }
 
     public class MyProgressBar : ProgressBar
