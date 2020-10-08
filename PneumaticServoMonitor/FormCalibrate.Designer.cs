@@ -43,6 +43,7 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +73,7 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox4, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBox5, 5, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBox6, 5, 3);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 7, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -208,6 +210,15 @@
             this.textBox6.Size = new System.Drawing.Size(178, 28);
             this.textBox6.TabIndex = 13;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(611, 71);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(105, 30);
+            this.button2.TabIndex = 14;
+            this.button2.Text = "Reset";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // FormCalibrate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -244,5 +255,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Button button2;
     }
 }

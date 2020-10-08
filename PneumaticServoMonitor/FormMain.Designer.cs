@@ -151,7 +151,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 26);
             this.toolStripMenuItem1.Text = "退出";
             // 
             // DDBtn_Beam
