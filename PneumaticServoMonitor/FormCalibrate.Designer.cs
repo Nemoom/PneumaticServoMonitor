@@ -37,12 +37,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txt_ActualVoltage = new System.Windows.Forms.TextBox();
+            this.txt_CalVoltage1 = new System.Windows.Forms.TextBox();
+            this.txt_CalVoltage2 = new System.Windows.Forms.TextBox();
+            this.txt_ActualForce = new System.Windows.Forms.TextBox();
+            this.txt_CalForce1 = new System.Windows.Forms.TextBox();
+            this.txt_CalForce2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -67,12 +67,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 4, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 7, 1);
             this.tableLayoutPanel1.Controls.Add(this.button1, 7, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBox2, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox3, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.textBox4, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBox5, 5, 2);
-            this.tableLayoutPanel1.Controls.Add(this.textBox6, 5, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txt_ActualVoltage, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txt_CalVoltage1, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txt_CalVoltage2, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txt_ActualForce, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txt_CalForce1, 5, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txt_CalForce2, 5, 3);
             this.tableLayoutPanel1.Controls.Add(this.button2, 7, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -162,53 +162,53 @@
             this.button1.Text = "Calibrate";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txt_ActualVoltage
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(118, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(178, 28);
-            this.textBox1.TabIndex = 8;
+            this.txt_ActualVoltage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ActualVoltage.Location = new System.Drawing.Point(118, 29);
+            this.txt_ActualVoltage.Name = "txt_ActualVoltage";
+            this.txt_ActualVoltage.Size = new System.Drawing.Size(178, 28);
+            this.txt_ActualVoltage.TabIndex = 8;
             // 
-            // textBox2
+            // txt_CalVoltage1
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(118, 71);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(178, 28);
-            this.textBox2.TabIndex = 9;
+            this.txt_CalVoltage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_CalVoltage1.Location = new System.Drawing.Point(118, 71);
+            this.txt_CalVoltage1.Name = "txt_CalVoltage1";
+            this.txt_CalVoltage1.Size = new System.Drawing.Size(178, 28);
+            this.txt_CalVoltage1.TabIndex = 9;
             // 
-            // textBox3
+            // txt_CalVoltage2
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(118, 113);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(178, 28);
-            this.textBox3.TabIndex = 10;
+            this.txt_CalVoltage2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_CalVoltage2.Location = new System.Drawing.Point(118, 113);
+            this.txt_CalVoltage2.Name = "txt_CalVoltage2";
+            this.txt_CalVoltage2.Size = new System.Drawing.Size(178, 28);
+            this.txt_CalVoltage2.TabIndex = 10;
             // 
-            // textBox4
+            // txt_ActualForce
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(412, 29);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(178, 28);
-            this.textBox4.TabIndex = 11;
+            this.txt_ActualForce.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ActualForce.Location = new System.Drawing.Point(412, 29);
+            this.txt_ActualForce.Name = "txt_ActualForce";
+            this.txt_ActualForce.Size = new System.Drawing.Size(178, 28);
+            this.txt_ActualForce.TabIndex = 11;
             // 
-            // textBox5
+            // txt_CalForce1
             // 
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Location = new System.Drawing.Point(412, 71);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(178, 28);
-            this.textBox5.TabIndex = 12;
+            this.txt_CalForce1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_CalForce1.Location = new System.Drawing.Point(412, 71);
+            this.txt_CalForce1.Name = "txt_CalForce1";
+            this.txt_CalForce1.Size = new System.Drawing.Size(178, 28);
+            this.txt_CalForce1.TabIndex = 12;
             // 
-            // textBox6
+            // txt_CalForce2
             // 
-            this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Location = new System.Drawing.Point(412, 113);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(178, 28);
-            this.textBox6.TabIndex = 13;
+            this.txt_CalForce2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_CalForce2.Location = new System.Drawing.Point(412, 113);
+            this.txt_CalForce2.Name = "txt_CalForce2";
+            this.txt_CalForce2.Size = new System.Drawing.Size(178, 28);
+            this.txt_CalForce2.TabIndex = 13;
             // 
             // button2
             // 
@@ -249,12 +249,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txt_ActualVoltage;
+        private System.Windows.Forms.TextBox txt_CalVoltage1;
+        private System.Windows.Forms.TextBox txt_CalVoltage2;
+        private System.Windows.Forms.TextBox txt_ActualForce;
+        private System.Windows.Forms.TextBox txt_CalForce1;
+        private System.Windows.Forms.TextBox txt_CalForce2;
         private System.Windows.Forms.Button button2;
     }
 }

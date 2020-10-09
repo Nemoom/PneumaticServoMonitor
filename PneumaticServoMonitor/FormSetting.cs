@@ -63,14 +63,14 @@ namespace PneumaticServoMonitor
                     RecipeFile.WriteLine("Threshold_Position:" + txt_Threshold_Position.Text);
                     RecipeFile.WriteLine("StartIndex:" + txt_StartIndex.Text);
                     RecipeFile.WriteLine("Kp_Static:" + txt_Kp_Static.Text);
-                    RecipeFile.WriteLine("Tn_Static:" + txt_Tn_Static.Text);
-                    RecipeFile.WriteLine("Tv_Static:" + txt_Tv_Static.Text);
+                    RecipeFile.WriteLine("Tn_Static:" + txt_Ki_Static.Text);
+                    RecipeFile.WriteLine("Tv_Static:" + txt_Kd_Static.Text);
                     RecipeFile.WriteLine("Kp_Dynamic:" + txt_Kp_Dynamic.Text);
-                    RecipeFile.WriteLine("Tn_Dynamic:" + txt_Tn_Dynamic.Text);
-                    RecipeFile.WriteLine("Tv_Dynamic:" + txt_Tv_Dynamic.Text);
+                    RecipeFile.WriteLine("Tn_Dynamic:" + txt_Ki_Dynamic.Text);
+                    RecipeFile.WriteLine("Tv_Dynamic:" + txt_Kd_Dynamic.Text);
                     RecipeFile.WriteLine("Kp_Follow:" + txt_Kp_Follow.Text);
-                    RecipeFile.WriteLine("Tn_Follow:" + txt_Tn_Follow.Text);
-                    RecipeFile.WriteLine("Tv_Follow:" + txt_Tv_Follow.Text);
+                    RecipeFile.WriteLine("Tn_Follow:" + txt_Ki_Follow.Text);
+                    RecipeFile.WriteLine("Tv_Follow:" + txt_Kd_Follow.Text);
                 }
             }
         }
@@ -124,14 +124,14 @@ namespace PneumaticServoMonitor
                         txt_Threshold_Position.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_StartIndex.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kp_Static.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tn_Static.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tv_Static.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Ki_Static.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Kd_Static.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kp_Dynamic.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tn_Dynamic.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tv_Dynamic.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Ki_Dynamic.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Kd_Dynamic.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kp_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tn_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_Tv_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Ki_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_Kd_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
                     }
                     catch (Exception)
                     {

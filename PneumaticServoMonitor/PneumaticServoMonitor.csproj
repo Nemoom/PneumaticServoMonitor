@@ -231,11 +231,23 @@
     <Compile Include="FormCalibrate.Designer.cs">
       <DependentUpon>FormCalibrate.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormChooseRecipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChooseRecipe.Designer.cs">
+      <DependentUpon>FormChooseRecipe.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSensorReset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSensorReset.Designer.cs">
+      <DependentUpon>FormSensorReset.cs</DependentUpon>
     </Compile>
     <Compile Include="FormSetting.cs">
       <SubType>Form</SubType>
@@ -249,8 +261,14 @@
     <EmbeddedResource Include="FormCalibrate.resx">
       <DependentUpon>FormCalibrate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormChooseRecipe.resx">
+      <DependentUpon>FormChooseRecipe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSensorReset.resx">
+      <DependentUpon>FormSensorReset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSetting.resx">
       <DependentUpon>FormSetting.cs</DependentUpon>

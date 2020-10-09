@@ -39,7 +39,7 @@ namespace PneumaticServoMonitor
         private static string iniPath = "config.ini";
         public int periodIndex = 0;
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
-        #region ini文件中的参数
+        #region ini文件中的参数&对应变量
         public static string plcIP
         {
             get
@@ -73,6 +73,7 @@ namespace PneumaticServoMonitor
                 }
             }
         }
+        #region 保存数据相关参数
         public static string saveFile_path
         {
             get
@@ -207,7 +208,1302 @@ namespace PneumaticServoMonitor
                     ini.Write("DataMemory", value.ToString(), "saveFile");
                 }
             }
+        } 
+        #endregion
+        #region 系统参数
+        public static float sysPositionOffset
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("PositionOffset", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("PositionOffset", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("PositionOffset", value.ToString(), "system");
+                }
+            }
         }
+        public static float sysCalForce1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalForce1", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("CalForce1", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalForce1", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysCalForce2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalForce2", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("CalForce2", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalForce2", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysCalVoltage1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalVoltage1", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("CalVoltage1", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalVoltage1", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysCalVoltage2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalVoltage2", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("CalVoltage2", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalVoltage2", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysDefCalForce1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalForce1", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("DefCalForce1", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalForce1", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysDefCalForce2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalForce2", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("DefCalForce2", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalForce2", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysDefCalVoltage1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalVoltage1", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("DefCalVoltage1", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalVoltage1", value.ToString(), "system");
+                }
+            }
+        }
+        public static float sysDefCalVoltage2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalVoltage2", "system"))
+                    {
+                        return 0;
+                    }
+                    string mStr = ini.Read("DefCalVoltage2", "system");
+                    try
+                    {
+                        return Convert.ToSingle(mStr);
+                    }
+                    catch (Exception)
+                    {
+                        return 0;
+                    }
+
+                }
+                return 0;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalVoltage2", value.ToString(), "system");
+                }
+            }
+        }
+
+        public static string NodeID_sysPositionOffset
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("PositionOffset", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("PositionOffset", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("PositionOffset", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysCalForce1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalForce1", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CalForce1", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalForce1", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysCalForce2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalForce2", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CalForce2", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalForce2", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysCalVoltage1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalVoltage1", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CalVoltage1", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalVoltage1", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysCalVoltage2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CalVoltage2", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CalVoltage2", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CalVoltage2", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysDefCalForce1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalForce1", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DefCalForce1", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalForce1", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysDefCalForce2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalForce2", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DefCalForce2", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalForce2", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysDefCalVoltage1
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalVoltage1", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DefCalVoltage1", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalVoltage1", value.ToString(), "NodeID");
+                }
+            }
+        }
+        public static string NodeID_sysDefCalVoltage2
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DefCalVoltage2", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DefCalVoltage2", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DefCalVoltage2", value.ToString(), "NodeID");
+                }
+            }
+        }
+
+        #endregion
+
+        #region 系统状态
+        #region RunningFlag_R
+        public static bool RunningFlag_R;
+        public static string NodeID_RunningFlag
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("RunningFlag", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("RunningFlag", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("RunningFlag", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region StopFlag_R
+        public static bool StopFlag_R;
+        public static string NodeID_StopFlag
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("StopFlag", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("StopFlag", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("StopFlag", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region SystemError_R
+        public static bool SystemError_R;
+        public static string NodeID_SystemError
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("SystemError", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("SystemError", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("SystemError", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ErrorID_R
+        public static int ErrorID_R;
+        public static string NodeID_ErrorID
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ErrorID", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ErrorID", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ErrorID", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 控制
+        #region ForceClear_W
+        public static bool ForceClear_W;
+        public static string NodeID_ForceClear
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ForceClear", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ForceClear", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ForceClear", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region PositionClear_W
+        public static bool PositionClear_W;
+        public static string NodeID_PositionClear
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("PositionClear", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("PositionClear", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("PositionClear", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region TestStart_W
+        public static bool TestStart_W;
+        public static string NodeID_TestStart
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("TestStart", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("TestStart", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("TestStart", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region TestStop_W
+        public static bool TestStop_W;
+        public static string NodeID_TestStop
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("TestStop", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("TestStop", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("TestStop", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region TestEnable_W
+        public static bool TestEnable_W;
+        public static string NodeID_TestEnable
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("TestEnable", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("TestEnable", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("TestEnable", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region EMG_W
+        public static bool EMG_W;
+        public static string NodeID_EMG
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("EMG", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("EMG", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("EMG", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region FaultAck_W
+        public static bool FaultAck_W;
+        public static string NodeID_FaultAck
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("FaultAck", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("FaultAck", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("FaultAck", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region HeartBit_W
+        public static bool HeartBit_W;
+        public static string NodeID_HeartBit
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("HeartBit", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("HeartBit", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("HeartBit", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 配置按钮
+        #region ResetDefault_W
+        public static bool ResetDefault_W;
+        public static string NodeID_ResetDefault
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ResetDefault", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ResetDefault", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ResetDefault", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ReCalibrate_W
+        public static bool ReCalibrate_W;
+        public static string NodeID_ReCalibrate
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ReCalibrate", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ReCalibrate", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ReCalibrate", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ExcuteDone_W
+        public static bool ExcuteDone_W;
+        public static string NodeID_ExcuteDone
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ExcuteDone", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ExcuteDone", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ExcuteDone", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 实时显示
+        #region ActualVoltage_R
+        public static float ActualVoltage_R;
+        public static string NodeID_ActualVoltage
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ActualVoltage", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ActualVoltage", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ActualVoltage", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ActualForce_R
+        public static float ActualForce_R;
+        public static string NodeID_ActualForce
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ActualForce", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ActualForce", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ActualForce", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ActualPosition_R
+        public static float ActualPosition_R;
+        public static string NodeID_ActualPosition
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ActualPosition", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ActualPosition", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ActualPosition", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region CycleCount_R
+        public static float CycleCount_R;
+        public static string NodeID_CycleCount
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CycleCount", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CycleCount", "NodeID");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CycleCount", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #endregion
 
         #region DataPoolReady_R
         public static bool DataPoolReady_R;
@@ -317,7 +1613,6 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
-
         #region DataReceived_W
         public static bool DataReceived_W;
         public static string NodeID_DataReceived
@@ -355,6 +1650,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
 
+        #region Recipe NodeID
         #region Peak_W
         public static int Peak_W;
         public static string NodeID_Peak
@@ -500,7 +1796,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region ForceMax_W
-        public static double ForceMax_W;
+        public static float ForceMax_W;
         public static string NodeID_ForceMax
         {
             get
@@ -536,7 +1832,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region ForceMin_W
-        public static double ForceMin_W;
+        public static float ForceMin_W;
         public static string NodeID_ForceMin
         {
             get
@@ -572,7 +1868,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region PositionMax_W
-        public static double PositionMax_W;
+        public static float PositionMax_W;
         public static string NodeID_PositionMax
         {
             get
@@ -608,7 +1904,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region PositionMin_W
-        public static double PositionMin_W;
+        public static float PositionMin_W;
         public static string NodeID_PositionMin
         {
             get
@@ -860,20 +2156,20 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
-        #region Tn_Static_W
-        public static double Tn_Static_W;
-        public static string NodeID_Tn_Static
+        #region Ki_Static_W
+        public static double Ki_Static_W;
+        public static string NodeID_Ki_Static
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tn_Static", "NodeID"))
+                    if (!ini.KeyExists("Ki_Static", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tn_Static", "NodeID");
+                    string mStr = ini.Read("Ki_Static", "NodeID");
                     try
                     {
                         return mStr;
@@ -891,25 +2187,25 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tn_Static", value, "NodeID");
+                    ini.Write("Ki_Static", value, "NodeID");
                 }
             }
         }
         #endregion
-        #region Tv_Static_W
-        public static double Tv_Static_W;
-        public static string NodeID_Tv_Static
+        #region Kd_Static_W
+        public static double Kd_Static_W;
+        public static string NodeID_Kd_Static
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tv_Static", "NodeID"))
+                    if (!ini.KeyExists("Kd_Static", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tv_Static", "NodeID");
+                    string mStr = ini.Read("Kd_Static", "NodeID");
                     try
                     {
                         return mStr;
@@ -927,7 +2223,7 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tv_Static", value, "NodeID");
+                    ini.Write("Kd_Static", value, "NodeID");
                 }
             }
         }
@@ -968,20 +2264,20 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
-        #region Tn_Dynamic_W
-        public static double Tn_Dynamic_W;
-        public static string NodeID_Tn_Dynamic
+        #region Ki_Dynamic_W
+        public static double Ki_Dynamic_W;
+        public static string NodeID_Ki_Dynamic
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tn_Dynamic", "NodeID"))
+                    if (!ini.KeyExists("Ki_Dynamic", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tn_Dynamic", "NodeID");
+                    string mStr = ini.Read("Ki_Dynamic", "NodeID");
                     try
                     {
                         return mStr;
@@ -999,25 +2295,25 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tn_Dynamic", value, "NodeID");
+                    ini.Write("Ki_Dynamic", value, "NodeID");
                 }
             }
         }
         #endregion
-        #region Tv_Dynamic_W
-        public static double Tv_Dynamic_W;
-        public static string NodeID_Tv_Dynamic
+        #region Kd_Dynamic_W
+        public static double Kd_Dynamic_W;
+        public static string NodeID_Kd_Dynamic
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tv_Dynamic", "NodeID"))
+                    if (!ini.KeyExists("Kd_Dynamic", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tv_Dynamic", "NodeID");
+                    string mStr = ini.Read("Kd_Dynamic", "NodeID");
                     try
                     {
                         return mStr;
@@ -1035,7 +2331,7 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tv_Dynamic", value, "NodeID");
+                    ini.Write("Kd_Dynamic", value, "NodeID");
                 }
             }
         }
@@ -1076,20 +2372,20 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
-        #region Tn_Follow_W
-        public static double Tn_Follow_W;
-        public static string NodeID_Tn_Follow
+        #region Ki_Follow_W
+        public static double Ki_Follow_W;
+        public static string NodeID_Ki_Follow
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tn_Follow", "NodeID"))
+                    if (!ini.KeyExists("Ki_Follow", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tn_Follow", "NodeID");
+                    string mStr = ini.Read("Ki_Follow", "NodeID");
                     try
                     {
                         return mStr;
@@ -1107,25 +2403,25 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tn_Follow", value, "NodeID");
+                    ini.Write("Ki_Follow", value, "NodeID");
                 }
             }
         }
         #endregion
-        #region Tv_Follow_W
-        public static double Tv_Follow_W;
-        public static string NodeID_Tv_Follow
+        #region Kd_Follow_W
+        public static double Kd_Follow_W;
+        public static string NodeID_Kd_Follow
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("Tv_Follow", "NodeID"))
+                    if (!ini.KeyExists("Kd_Follow", "NodeID"))
                     {
                         return null;
                     }
-                    string mStr = ini.Read("Tv_Follow", "NodeID");
+                    string mStr = ini.Read("Kd_Follow", "NodeID");
                     try
                     {
                         return mStr;
@@ -1143,12 +2439,13 @@ namespace PneumaticServoMonitor
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    ini.Write("Tv_Follow", value, "NodeID");
+                    ini.Write("Kd_Follow", value, "NodeID");
                 }
             }
         }
+        #endregion 
         #endregion
-        #endregion   
+        #endregion
         #endregion
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -1168,7 +2465,7 @@ namespace PneumaticServoMonitor
             Ping ping = new Ping();
             if (ping.Send(plcIP, 100).Status == IPStatus.Success)
             {
-                //TrytoConnect();//建立OPC-UA连接
+                TrytoConnect();//建立OPC-UA连接
             }
             clock.Interval = 1000;
             clock.Tick += new EventHandler(clock_Tick);
@@ -1179,6 +2476,65 @@ namespace PneumaticServoMonitor
             browser.Navigate("http://www.baidu.com");
             mFormSetting = new FormSetting(this);
             /////////////tableLayoutPanel1.Enabled = false;
+            
+            //NodeID_sysCalForce1 = "";
+            //NodeID_sysCalForce2 = "";
+            //NodeID_sysCalVoltage1 = "";
+            //NodeID_sysCalVoltage2 = "";
+            //NodeID_sysDefCalForce1 = "";
+            //NodeID_sysDefCalForce2 = "";
+            //NodeID_sysDefCalVoltage1 = "";
+            //NodeID_sysDefCalVoltage2 = "";
+            //NodeID_sysPositionOffset = "";
+
+            //NodeID_ActualForce = "";
+            //NodeID_ActualPosition = "";
+            //NodeID_ActualVoltage = "";
+            //NodeID_ArrayLow = "";
+            //NodeID_ArrayPeak = "";
+
+            //NodeID_CycleCount = "";
+            //NodeID_DataPoolReady = "";
+            //NodeID_DataReceived = "";
+            //NodeID_EMG = "";
+            //NodeID_ErrorID = "";
+            //NodeID_ExcuteDone = "";
+            //NodeID_FaultAck = "";
+            //NodeID_ForceClear = "";
+            //NodeID_ForceMax = "";
+            //NodeID_ForceMin = "";
+            //NodeID_Frequence = "";
+            //NodeID_Kp_Dynamic = "";
+            //NodeID_Kp_Follow = "";
+            //NodeID_Kp_Static = "";
+            //NodeID_Tn_Dynamic = "";
+            //NodeID_Tn_Follow = "";
+            //NodeID_Tn_Static = "";
+            //NodeID_Tv_Dynamic = "";
+            //NodeID_Tv_Follow = "";
+            //NodeID_Tv_Static = "";
+            //NodeID_Low = "";
+            //NodeID_Peak = "";
+            //NodeID_PositionClear = "";
+            //NodeID_PositionMax = "";
+            //NodeID_PositionMin = "";
+            //NodeID_ReCalibrate = "";
+            //NodeID_ResetDefault = "";
+            //NodeID_RunningFlag = "";
+            //NodeID_StartIndex = "";
+            //NodeID_StopFlag = "";
+
+            //NodeID_SystemError = "";
+            //NodeID_TestEnable = "";
+            //NodeID_TestStart = "";
+            //NodeID_TestStop = "";
+
+            //NodeID_BrokenTest_Force = "";
+            //NodeID_BrokenTest_Position = "";
+            //NodeID_Threshold_Force = "";
+            //NodeID_Threshold_Position = "";
+            //NodeID_Times = "";
+
         }
         public async void TrytoConnect()
         {
@@ -1197,20 +2553,23 @@ namespace PneumaticServoMonitor
         {
             if (m_OpcUaClient.Connected)
             {
-                tableLayoutPanel1.Enabled = true;
-                //InvokeChangeButtonText(button4, "Disconnect");
-                
 
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
+                //timer1.Enabled = true;
             }
             else
             {
-                tableLayoutPanel1.Enabled = false;
-                //InvokeChangeButtonText(button4, "Connect");
-                
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
+                timer1.Enabled = false;
+
             }
             //throw new NotImplementedException();
         }
-
+        protected delegate void ChangeStatusHandler(Control Ctrl, bool b_Status);
+        void ChangeStatus(Control Ctrl, bool b_Status)
+        {
+            Ctrl.Enabled = b_Status;
+        }
         private void M_OpcUaClient_ConnectComplete(object sender, EventArgs e)
         {
             if (FormMain.m_OpcUaClient.Connected)
@@ -1223,6 +2582,13 @@ namespace PneumaticServoMonitor
                 Thread tStart = new Thread(start);
                 tStart.IsBackground = true;
                 tStart.Start();
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
+                timer1.Enabled = true;
+            }
+            else
+            {
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
+                timer1.Enabled = false;
             }
             //throw new NotImplementedException();
         }
@@ -1279,6 +2645,8 @@ namespace PneumaticServoMonitor
             }
         }
 
+
+
         #region InvokeChangeButtonText
         protected delegate void ChangeButtonTextHandler(Button buttonCtrl, string Txt);
         void InvokeChangeButtonText(Button buttonCtrl, string Txt)
@@ -1318,7 +2686,8 @@ namespace PneumaticServoMonitor
 
         private void btn_Setting_Click(object sender, EventArgs e)
         {
-            mFormSetting.Show();
+            //mFormSetting.Show();
+            new FormChooseRecipe().Show();
         }
 
         private void DDBtn_Calibration_Click(object sender, EventArgs e)
@@ -1329,6 +2698,91 @@ namespace PneumaticServoMonitor
         private void DDBtn_File_Click(object sender, EventArgs e)
         {
             _GetData();
+        }
+
+        private void btn_Start_Click(object sender, EventArgs e)
+        {
+            m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+            m_OpcUaClient.WriteNode(NodeID_TestStart, true);
+            Thread.Sleep(100);
+            m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+        }
+
+        private void btn_EMG_Click(object sender, EventArgs e)
+        {
+            if (btn_EMG.BackColor == Color.Red)
+            {
+                m_OpcUaClient.WriteNode(NodeID_EMG, false);
+                btn_EMG.BackColor = Color.Transparent;
+            }
+            else
+            {
+                m_OpcUaClient.WriteNode(NodeID_EMG, true);
+                btn_EMG.BackColor = Color.Red;
+            }
+        }
+
+        private void btn_Enable_Click(object sender, EventArgs e)
+        {
+            if (btn_Enable.BackColor == Color.Green)
+            {
+                m_OpcUaClient.WriteNode(NodeID_TestEnable, false);
+                btn_Enable.BackColor = Color.Transparent;
+            }
+            else
+            {
+                m_OpcUaClient.WriteNode(NodeID_TestEnable, true);
+                btn_Enable.BackColor = Color.Green;
+            }
+        }
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+            m_OpcUaClient.WriteNode(NodeID_TestStop, true);
+            Thread.Sleep(100);
+            m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            m_OpcUaClient.WriteNode(NodeID_HeartBit, !m_OpcUaClient.ReadNode<bool>(NodeID_HeartBit));
+            if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
+            {
+                btn_Start.BackColor = Color.Green;
+                pic_Running.Image = imageList_Status.Images[1];
+            }
+            else
+            {
+                btn_Start.BackColor = Color.Transparent;
+                pic_Running.Image = imageList_Status.Images[0];
+            }
+            if (m_OpcUaClient.ReadNode<bool>(NodeID_StopFlag))
+            {
+                btn_Stop.BackColor = Color.Green;
+                //pic_Running.Image = imageList_Status.Images[1];
+            }
+            else
+            {
+                btn_Stop.BackColor = Color.Transparent;
+                //pic_Running.Image = imageList_Status.Images[0];
+            }
+            if (m_OpcUaClient.ReadNode<bool>(NodeID_SystemError))
+            {
+               
+                pic_Error.Image = imageList_Status.Images[2];
+            }
+            else
+            {
+                pic_Error.Image = imageList_Status.Images[0];
+            }
+        }
+
+        private void btn_Reset_Click(object sender, EventArgs e)
+        {
+            m_OpcUaClient.WriteNode(NodeID_FaultAck, true);
+            Thread.Sleep(100);
+            m_OpcUaClient.WriteNode(NodeID_FaultAck, false);
         }
     }
 
