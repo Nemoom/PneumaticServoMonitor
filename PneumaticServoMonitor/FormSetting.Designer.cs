@@ -78,7 +78,6 @@
             this.txt_StartIndex = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label14 = new System.Windows.Forms.Label();
             this.btn_RecipeSave = new System.Windows.Forms.Button();
             this.panel19 = new System.Windows.Forms.Panel();
@@ -104,24 +103,25 @@
             this.panel28 = new System.Windows.Forms.Panel();
             this.txt_DataMemory = new System.Windows.Forms.TextBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.txt_Kp_Static = new System.Windows.Forms.TextBox();
-            this.txt_Kp_Dynamic = new System.Windows.Forms.TextBox();
-            this.txt_Kp_Follow = new System.Windows.Forms.TextBox();
-            this.txt_Ki_Static = new System.Windows.Forms.TextBox();
-            this.txt_Ki_Dynamic = new System.Windows.Forms.TextBox();
-            this.txt_Ki_Follow = new System.Windows.Forms.TextBox();
-            this.txt_Kd_Static = new System.Windows.Forms.TextBox();
-            this.txt_Kd_Dynamic = new System.Windows.Forms.TextBox();
-            this.txt_Kd_Follow = new System.Windows.Forms.TextBox();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.txt_PositionOffset = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.label12 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.panel18 = new System.Windows.Forms.Panel();
-            this.txt_PositionOffset = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
+            this.txt_Kp_Static = new System.Windows.Forms.NumericUpDown();
+            this.txt_Kp_Dynamic = new System.Windows.Forms.NumericUpDown();
+            this.txt_Kp_Follow = new System.Windows.Forms.NumericUpDown();
+            this.txt_Ki_Static = new System.Windows.Forms.NumericUpDown();
+            this.txt_Ki_Dynamic = new System.Windows.Forms.NumericUpDown();
+            this.txt_Ki_Follow = new System.Windows.Forms.NumericUpDown();
+            this.txt_Kd_Static = new System.Windows.Forms.NumericUpDown();
+            this.txt_Kd_Dynamic = new System.Windows.Forms.NumericUpDown();
+            this.txt_Kd_Follow = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -142,7 +142,6 @@
             this.panel24.SuspendLayout();
             this.panel16.SuspendLayout();
             this.panel17.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel15.SuspendLayout();
             this.panel25.SuspendLayout();
@@ -153,6 +152,16 @@
             this.panel23.SuspendLayout();
             this.panel28.SuspendLayout();
             this.panel18.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Static)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Dynamic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Follow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Static)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Dynamic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Follow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Static)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Dynamic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Follow)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -196,7 +205,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.53425F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.46575F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel6, 1, 3);
@@ -238,7 +247,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel4.Size = new System.Drawing.Size(259, 59);
+            this.panel4.Size = new System.Drawing.Size(258, 59);
             this.panel4.TabIndex = 1;
             // 
             // cmb_ProjectName
@@ -248,7 +257,7 @@
             this.cmb_ProjectName.Location = new System.Drawing.Point(0, 25);
             this.cmb_ProjectName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmb_ProjectName.Name = "cmb_ProjectName";
-            this.cmb_ProjectName.Size = new System.Drawing.Size(259, 29);
+            this.cmb_ProjectName.Size = new System.Drawing.Size(258, 29);
             this.cmb_ProjectName.TabIndex = 1;
             this.cmb_ProjectName.SelectedIndexChanged += new System.EventHandler(this.cmb_ProjectName_SelectedIndexChanged);
             // 
@@ -256,7 +265,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label1.Location = new System.Drawing.Point(0, 4);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label1.Name = "label1";
@@ -275,7 +284,7 @@
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel5.Size = new System.Drawing.Size(259, 59);
+            this.panel5.Size = new System.Drawing.Size(258, 59);
             this.panel5.TabIndex = 2;
             // 
             // txt_ProjectNumber
@@ -284,14 +293,14 @@
             this.txt_ProjectNumber.Location = new System.Drawing.Point(0, 25);
             this.txt_ProjectNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_ProjectNumber.Name = "txt_ProjectNumber";
-            this.txt_ProjectNumber.Size = new System.Drawing.Size(259, 28);
+            this.txt_ProjectNumber.Size = new System.Drawing.Size(258, 28);
             this.txt_ProjectNumber.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label2.Location = new System.Drawing.Point(0, 4);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label2.Name = "label2";
@@ -310,7 +319,7 @@
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel6.Size = new System.Drawing.Size(259, 59);
+            this.panel6.Size = new System.Drawing.Size(258, 59);
             this.panel6.TabIndex = 3;
             // 
             // txt_SampleNumber
@@ -319,14 +328,14 @@
             this.txt_SampleNumber.Location = new System.Drawing.Point(0, 25);
             this.txt_SampleNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_SampleNumber.Name = "txt_SampleNumber";
-            this.txt_SampleNumber.Size = new System.Drawing.Size(259, 28);
+            this.txt_SampleNumber.Size = new System.Drawing.Size(258, 28);
             this.txt_SampleNumber.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label3.Location = new System.Drawing.Point(0, 4);
             this.label3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label3.Name = "label3";
@@ -369,7 +378,7 @@
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel7.Size = new System.Drawing.Size(259, 65);
+            this.panel7.Size = new System.Drawing.Size(258, 65);
             this.panel7.TabIndex = 6;
             // 
             // txt_Peak
@@ -378,14 +387,14 @@
             this.txt_Peak.Location = new System.Drawing.Point(0, 25);
             this.txt_Peak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Peak.Name = "txt_Peak";
-            this.txt_Peak.Size = new System.Drawing.Size(259, 28);
+            this.txt_Peak.Size = new System.Drawing.Size(258, 28);
             this.txt_Peak.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label4.Location = new System.Drawing.Point(0, 4);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label4.Name = "label4";
@@ -404,7 +413,7 @@
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel9.Size = new System.Drawing.Size(259, 67);
+            this.panel9.Size = new System.Drawing.Size(258, 67);
             this.panel9.TabIndex = 7;
             // 
             // txt_Frequence
@@ -413,7 +422,7 @@
             this.txt_Frequence.Location = new System.Drawing.Point(0, 25);
             this.txt_Frequence.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Frequence.Name = "txt_Frequence";
-            this.txt_Frequence.Size = new System.Drawing.Size(259, 28);
+            this.txt_Frequence.Size = new System.Drawing.Size(258, 28);
             this.txt_Frequence.TabIndex = 1;
             this.txt_Frequence.Text = "10";
             // 
@@ -421,7 +430,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label6.Location = new System.Drawing.Point(0, 4);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label6.Name = "label6";
@@ -440,7 +449,7 @@
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel10.Size = new System.Drawing.Size(259, 64);
+            this.panel10.Size = new System.Drawing.Size(258, 64);
             this.panel10.TabIndex = 8;
             // 
             // txt_Times
@@ -449,14 +458,14 @@
             this.txt_Times.Location = new System.Drawing.Point(0, 25);
             this.txt_Times.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Times.Name = "txt_Times";
-            this.txt_Times.Size = new System.Drawing.Size(259, 28);
+            this.txt_Times.Size = new System.Drawing.Size(258, 28);
             this.txt_Times.TabIndex = 1;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label7.Location = new System.Drawing.Point(0, 4);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label7.Name = "label7";
@@ -475,7 +484,7 @@
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel8.Size = new System.Drawing.Size(259, 67);
+            this.panel8.Size = new System.Drawing.Size(258, 67);
             this.panel8.TabIndex = 9;
             // 
             // txt_Low
@@ -484,14 +493,14 @@
             this.txt_Low.Location = new System.Drawing.Point(0, 25);
             this.txt_Low.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Low.Name = "txt_Low";
-            this.txt_Low.Size = new System.Drawing.Size(259, 28);
+            this.txt_Low.Size = new System.Drawing.Size(258, 28);
             this.txt_Low.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label5.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label5.Location = new System.Drawing.Point(0, 4);
             this.label5.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label5.Name = "label5";
@@ -526,7 +535,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label8.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label8.Location = new System.Drawing.Point(0, 4);
             this.label8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label8.Name = "label8";
@@ -538,7 +547,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(194, 575);
+            this.button1.Location = new System.Drawing.Point(193, 575);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 37);
@@ -619,7 +628,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label9.Location = new System.Drawing.Point(0, 4);
             this.label9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label9.Name = "label9";
@@ -654,7 +663,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label10.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label10.Location = new System.Drawing.Point(0, 4);
             this.label10.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label10.Name = "label10";
@@ -689,7 +698,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label11.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label11.Location = new System.Drawing.Point(0, 4);
             this.label11.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label11.Name = "label11";
@@ -735,7 +744,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label20.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label20.Location = new System.Drawing.Point(0, 0);
             this.label20.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label20.Name = "label20";
@@ -781,7 +790,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label13.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label13.Location = new System.Drawing.Point(0, 4);
             this.label13.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label13.Name = "label13";
@@ -803,49 +812,16 @@
             this.panel17.Size = new System.Drawing.Size(266, 161);
             this.panel17.TabIndex = 8;
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 4;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Static, 1, 1);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Dynamic, 2, 1);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Follow, 3, 1);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Static, 1, 2);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Dynamic, 2, 2);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Follow, 3, 2);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Static, 1, 3);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Dynamic, 2, 3);
-            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Follow, 3, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.label15, 0, 2);
-            this.tableLayoutPanel5.Controls.Add(this.label22, 0, 3);
-            this.tableLayoutPanel5.Controls.Add(this.label24, 1, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label25, 2, 0);
-            this.tableLayoutPanel5.Controls.Add(this.label26, 3, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 25);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 4;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(266, 132);
-            this.tableLayoutPanel5.TabIndex = 1;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label14.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label14.Location = new System.Drawing.Point(0, 4);
             this.label14.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label14.Name = "label14";
             this.label14.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.label14.Size = new System.Drawing.Size(88, 21);
+            this.label14.Size = new System.Drawing.Size(90, 21);
             this.label14.TabIndex = 0;
             this.label14.Text = "补偿速率 PID";
             // 
@@ -887,7 +863,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label16.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label16.Location = new System.Drawing.Point(0, 4);
             this.label16.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label16.Name = "label16";
@@ -933,7 +909,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label21.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label21.Location = new System.Drawing.Point(0, 0);
             this.label21.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label21.Name = "label21";
@@ -1023,7 +999,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label17.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label17.Location = new System.Drawing.Point(0, 4);
             this.label17.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label17.Name = "label17";
@@ -1059,12 +1035,12 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label18.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label18.Location = new System.Drawing.Point(0, 4);
             this.label18.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label18.Name = "label18";
             this.label18.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.label18.Size = new System.Drawing.Size(98, 21);
+            this.label18.Size = new System.Drawing.Size(96, 21);
             this.label18.TabIndex = 0;
             this.label18.Text = "保存连续/峰谷";
             // 
@@ -1095,7 +1071,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label19.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label19.Location = new System.Drawing.Point(0, 4);
             this.label19.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label19.Name = "label19";
@@ -1143,7 +1119,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label23.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label23.Location = new System.Drawing.Point(0, 4);
             this.label23.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.label23.Name = "label23";
@@ -1152,68 +1128,74 @@
             this.label23.TabIndex = 0;
             this.label23.Text = "数据容量";
             // 
-            // txt_Kp_Static
+            // panel18
             // 
-            this.txt_Kp_Static.Location = new System.Drawing.Point(37, 23);
-            this.txt_Kp_Static.Name = "txt_Kp_Static";
-            this.txt_Kp_Static.Size = new System.Drawing.Size(71, 28);
-            this.txt_Kp_Static.TabIndex = 0;
+            this.tableLayoutPanel4.SetColumnSpan(this.panel18, 2);
+            this.panel18.Controls.Add(this.txt_PositionOffset);
+            this.panel18.Controls.Add(this.label27);
+            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel18.Location = new System.Drawing.Point(22, 356);
+            this.panel18.Margin = new System.Windows.Forms.Padding(0);
+            this.panel18.Name = "panel18";
+            this.panel18.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            this.panel18.Size = new System.Drawing.Size(266, 66);
+            this.panel18.TabIndex = 13;
             // 
-            // txt_Kp_Dynamic
+            // txt_PositionOffset
             // 
-            this.txt_Kp_Dynamic.Location = new System.Drawing.Point(114, 23);
-            this.txt_Kp_Dynamic.Name = "txt_Kp_Dynamic";
-            this.txt_Kp_Dynamic.Size = new System.Drawing.Size(71, 28);
-            this.txt_Kp_Dynamic.TabIndex = 1;
+            this.txt_PositionOffset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_PositionOffset.Location = new System.Drawing.Point(0, 25);
+            this.txt_PositionOffset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_PositionOffset.Name = "txt_PositionOffset";
+            this.txt_PositionOffset.Size = new System.Drawing.Size(266, 28);
+            this.txt_PositionOffset.TabIndex = 1;
             // 
-            // txt_Kp_Follow
+            // label27
             // 
-            this.txt_Kp_Follow.Location = new System.Drawing.Point(191, 23);
-            this.txt_Kp_Follow.Name = "txt_Kp_Follow";
-            this.txt_Kp_Follow.Size = new System.Drawing.Size(72, 28);
-            this.txt_Kp_Follow.TabIndex = 2;
+            this.label27.AutoSize = true;
+            this.label27.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label27.Location = new System.Drawing.Point(0, 4);
+            this.label27.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label27.Name = "label27";
+            this.label27.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            this.label27.Size = new System.Drawing.Size(64, 21);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "系统偏移";
             // 
-            // txt_Ki_Static
+            // tableLayoutPanel5
             // 
-            this.txt_Ki_Static.Location = new System.Drawing.Point(37, 60);
-            this.txt_Ki_Static.Name = "txt_Ki_Static";
-            this.txt_Ki_Static.Size = new System.Drawing.Size(71, 28);
-            this.txt_Ki_Static.TabIndex = 3;
-            // 
-            // txt_Ki_Dynamic
-            // 
-            this.txt_Ki_Dynamic.Location = new System.Drawing.Point(114, 60);
-            this.txt_Ki_Dynamic.Name = "txt_Ki_Dynamic";
-            this.txt_Ki_Dynamic.Size = new System.Drawing.Size(71, 28);
-            this.txt_Ki_Dynamic.TabIndex = 4;
-            // 
-            // txt_Ki_Follow
-            // 
-            this.txt_Ki_Follow.Location = new System.Drawing.Point(191, 60);
-            this.txt_Ki_Follow.Name = "txt_Ki_Follow";
-            this.txt_Ki_Follow.Size = new System.Drawing.Size(72, 28);
-            this.txt_Ki_Follow.TabIndex = 5;
-            // 
-            // txt_Kd_Static
-            // 
-            this.txt_Kd_Static.Location = new System.Drawing.Point(37, 97);
-            this.txt_Kd_Static.Name = "txt_Kd_Static";
-            this.txt_Kd_Static.Size = new System.Drawing.Size(71, 28);
-            this.txt_Kd_Static.TabIndex = 6;
-            // 
-            // txt_Kd_Dynamic
-            // 
-            this.txt_Kd_Dynamic.Location = new System.Drawing.Point(114, 97);
-            this.txt_Kd_Dynamic.Name = "txt_Kd_Dynamic";
-            this.txt_Kd_Dynamic.Size = new System.Drawing.Size(71, 28);
-            this.txt_Kd_Dynamic.TabIndex = 7;
-            // 
-            // txt_Kd_Follow
-            // 
-            this.txt_Kd_Follow.Location = new System.Drawing.Point(191, 97);
-            this.txt_Kd_Follow.Name = "txt_Kd_Follow";
-            this.txt_Kd_Follow.Size = new System.Drawing.Size(72, 28);
-            this.txt_Kd_Follow.TabIndex = 8;
+            this.tableLayoutPanel5.ColumnCount = 4;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.Controls.Add(this.label12, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label15, 0, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label22, 0, 3);
+            this.tableLayoutPanel5.Controls.Add(this.label24, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label25, 2, 0);
+            this.tableLayoutPanel5.Controls.Add(this.label26, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Static, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Dynamic, 2, 1);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kp_Follow, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Static, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Dynamic, 2, 2);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Ki_Follow, 3, 2);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Static, 1, 3);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Dynamic, 2, 3);
+            this.tableLayoutPanel5.Controls.Add(this.txt_Kd_Follow, 3, 3);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 25);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 4;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(266, 132);
+            this.tableLayoutPanel5.TabIndex = 3;
             // 
             // label12
             // 
@@ -1272,40 +1254,77 @@
             this.label26.Text = "Follow";
             this.label26.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // panel18
+            // txt_Kp_Static
             // 
-            this.tableLayoutPanel4.SetColumnSpan(this.panel18, 2);
-            this.panel18.Controls.Add(this.txt_PositionOffset);
-            this.panel18.Controls.Add(this.label27);
-            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel18.Location = new System.Drawing.Point(22, 356);
-            this.panel18.Margin = new System.Windows.Forms.Padding(0);
-            this.panel18.Name = "panel18";
-            this.panel18.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel18.Size = new System.Drawing.Size(266, 66);
-            this.panel18.TabIndex = 13;
+            this.txt_Kp_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Static.Location = new System.Drawing.Point(37, 23);
+            this.txt_Kp_Static.Name = "txt_Kp_Static";
+            this.txt_Kp_Static.Size = new System.Drawing.Size(71, 28);
+            this.txt_Kp_Static.TabIndex = 15;
             // 
-            // txt_PositionOffset
+            // txt_Kp_Dynamic
             // 
-            this.txt_PositionOffset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_PositionOffset.Location = new System.Drawing.Point(0, 25);
-            this.txt_PositionOffset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txt_PositionOffset.Name = "txt_PositionOffset";
-            this.txt_PositionOffset.Size = new System.Drawing.Size(266, 28);
-            this.txt_PositionOffset.TabIndex = 1;
+            this.txt_Kp_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Dynamic.Location = new System.Drawing.Point(114, 23);
+            this.txt_Kp_Dynamic.Name = "txt_Kp_Dynamic";
+            this.txt_Kp_Dynamic.Size = new System.Drawing.Size(71, 28);
+            this.txt_Kp_Dynamic.TabIndex = 16;
             // 
-            // label27
+            // txt_Kp_Follow
             // 
-            this.label27.AutoSize = true;
-            this.label27.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label27.Font = new System.Drawing.Font("MetaPlusLF", 8F);
-            this.label27.Location = new System.Drawing.Point(0, 4);
-            this.label27.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label27.Name = "label27";
-            this.label27.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.label27.Size = new System.Drawing.Size(64, 21);
-            this.label27.TabIndex = 0;
-            this.label27.Text = "系统偏移";
+            this.txt_Kp_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Follow.Location = new System.Drawing.Point(191, 23);
+            this.txt_Kp_Follow.Name = "txt_Kp_Follow";
+            this.txt_Kp_Follow.Size = new System.Drawing.Size(72, 28);
+            this.txt_Kp_Follow.TabIndex = 17;
+            // 
+            // txt_Ki_Static
+            // 
+            this.txt_Ki_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Static.Location = new System.Drawing.Point(37, 60);
+            this.txt_Ki_Static.Name = "txt_Ki_Static";
+            this.txt_Ki_Static.Size = new System.Drawing.Size(71, 28);
+            this.txt_Ki_Static.TabIndex = 18;
+            // 
+            // txt_Ki_Dynamic
+            // 
+            this.txt_Ki_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Dynamic.Location = new System.Drawing.Point(114, 60);
+            this.txt_Ki_Dynamic.Name = "txt_Ki_Dynamic";
+            this.txt_Ki_Dynamic.Size = new System.Drawing.Size(71, 28);
+            this.txt_Ki_Dynamic.TabIndex = 19;
+            // 
+            // txt_Ki_Follow
+            // 
+            this.txt_Ki_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Follow.Location = new System.Drawing.Point(191, 60);
+            this.txt_Ki_Follow.Name = "txt_Ki_Follow";
+            this.txt_Ki_Follow.Size = new System.Drawing.Size(72, 28);
+            this.txt_Ki_Follow.TabIndex = 20;
+            // 
+            // txt_Kd_Static
+            // 
+            this.txt_Kd_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Static.Location = new System.Drawing.Point(37, 97);
+            this.txt_Kd_Static.Name = "txt_Kd_Static";
+            this.txt_Kd_Static.Size = new System.Drawing.Size(71, 28);
+            this.txt_Kd_Static.TabIndex = 21;
+            // 
+            // txt_Kd_Dynamic
+            // 
+            this.txt_Kd_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Dynamic.Location = new System.Drawing.Point(114, 97);
+            this.txt_Kd_Dynamic.Name = "txt_Kd_Dynamic";
+            this.txt_Kd_Dynamic.Size = new System.Drawing.Size(71, 28);
+            this.txt_Kd_Dynamic.TabIndex = 22;
+            // 
+            // txt_Kd_Follow
+            // 
+            this.txt_Kd_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Follow.Location = new System.Drawing.Point(191, 97);
+            this.txt_Kd_Follow.Name = "txt_Kd_Follow";
+            this.txt_Kd_Follow.Size = new System.Drawing.Size(72, 28);
+            this.txt_Kd_Follow.TabIndex = 23;
             // 
             // FormSetting
             // 
@@ -1356,8 +1375,6 @@
             this.panel16.PerformLayout();
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel5.PerformLayout();
             this.panel19.ResumeLayout(false);
             this.panel19.PerformLayout();
             this.panel15.ResumeLayout(false);
@@ -1376,6 +1393,17 @@
             this.panel28.PerformLayout();
             this.panel18.ResumeLayout(false);
             this.panel18.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Static)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Dynamic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kp_Follow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Static)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Dynamic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Ki_Follow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Static)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Dynamic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_Kd_Follow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1435,13 +1463,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Panel panel25;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
         public System.Windows.Forms.TextBox txt_ProjectNumber;
         public System.Windows.Forms.TextBox txt_SampleNumber;
         public System.Windows.Forms.RadioButton rdo_ForceControl;
@@ -1464,17 +1485,24 @@
         public System.Windows.Forms.CheckBox chk_BrokenTest_Force;
         public System.Windows.Forms.TextBox txt_Threshold_Position;
         public System.Windows.Forms.CheckBox chk_BrokenTest_Position;
-        public System.Windows.Forms.TextBox txt_Kp_Static;
-        public System.Windows.Forms.TextBox txt_Kp_Dynamic;
-        public System.Windows.Forms.TextBox txt_Kp_Follow;
-        public System.Windows.Forms.TextBox txt_Ki_Static;
-        public System.Windows.Forms.TextBox txt_Ki_Dynamic;
-        public System.Windows.Forms.TextBox txt_Ki_Follow;
-        public System.Windows.Forms.TextBox txt_Kd_Static;
-        public System.Windows.Forms.TextBox txt_Kd_Dynamic;
-        public System.Windows.Forms.TextBox txt_Kd_Follow;
         private System.Windows.Forms.Panel panel18;
         public System.Windows.Forms.TextBox txt_PositionOffset;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown txt_Kp_Static;
+        private System.Windows.Forms.NumericUpDown txt_Kp_Dynamic;
+        private System.Windows.Forms.NumericUpDown txt_Kp_Follow;
+        private System.Windows.Forms.NumericUpDown txt_Ki_Static;
+        private System.Windows.Forms.NumericUpDown txt_Ki_Dynamic;
+        private System.Windows.Forms.NumericUpDown txt_Ki_Follow;
+        private System.Windows.Forms.NumericUpDown txt_Kd_Static;
+        private System.Windows.Forms.NumericUpDown txt_Kd_Dynamic;
+        private System.Windows.Forms.NumericUpDown txt_Kd_Follow;
     }
 }

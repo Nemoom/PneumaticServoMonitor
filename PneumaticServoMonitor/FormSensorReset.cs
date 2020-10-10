@@ -16,5 +16,41 @@ namespace PneumaticServoMonitor
         {
             InitializeComponent();
         }
+
+        private void Tbn_Reset_Click(object sender, EventArgs e)
+        {
+            //更新至ini文件
+            FormMain.sysDefCalVoltage1 = Convert.ToSingle(txt_DefCalVoltage1.Text);
+            FormMain.sysDefCalVoltage2 = Convert.ToSingle(txt_DefCalVoltage2.Text);
+            FormMain.sysDefCalForce1 = Convert.ToSingle(txt_DefCalForce1.Text);
+            FormMain.sysDefCalForce2 = Convert.ToSingle(txt_DefCalForce2.Text);
+            //将界面的值写给PLC
+            if (FormMain.m_OpcUaClient.Connected)
+            {
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysDefCalVoltage1, FormMain.sysDefCalVoltage1);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysDefCalVoltage2, FormMain.sysDefCalVoltage2);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysDefCalForce1, FormMain.sysDefCalForce1);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysDefCalForce2, FormMain.sysDefCalForce2);
+            }
+        }
+
+        private void FormSensorReset_Load(object sender, EventArgs e)
+        {
+            if (FormMain.sysDefCalVoltage1 == 0 && FormMain.sysDefCalVoltage2 == 0)
+            {
+                //FormMain.sysDefCalVoltage1=
+                //FormMain.sysDefCalVoltage2=
+                //FormMain.sysDefCalForce1=
+                //FormMain.sysDefCalForce2=
+            }
+            else
+            {
+
+            }
+            txt_DefCalVoltage1.Text = FormMain.sysDefCalVoltage1.ToString();
+            txt_DefCalVoltage2.Text = FormMain.sysDefCalVoltage2.ToString();
+            txt_DefCalForce1.Text = FormMain.sysDefCalForce1.ToString();
+            txt_DefCalForce2.Text = FormMain.sysDefCalForce2.ToString();
+        }
     }
 }

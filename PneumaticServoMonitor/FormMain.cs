@@ -36,6 +36,10 @@ namespace PneumaticServoMonitor
         }
         public FormSetting mFormSetting;
         public static OpcUaClient m_OpcUaClient;
+        public static string ProjectName;
+        public static string ProjectNumber;
+        public static string SampleNumber;
+        public static string strRecipe;
         private static string iniPath = "config.ini";
         public int periodIndex = 0;
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
@@ -2121,7 +2125,7 @@ namespace PneumaticServoMonitor
         #endregion
         #region PID
         #region Kp_Static_W
-        public static double Kp_Static_W;
+        public static float Kp_Static_W;
         public static string NodeID_Kp_Static
         {
             get
@@ -2157,7 +2161,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Ki_Static_W
-        public static double Ki_Static_W;
+        public static float Ki_Static_W;
         public static string NodeID_Ki_Static
         {
             get
@@ -2193,7 +2197,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Kd_Static_W
-        public static double Kd_Static_W;
+        public static float Kd_Static_W;
         public static string NodeID_Kd_Static
         {
             get
@@ -2229,7 +2233,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Kp_Dynamic_W
-        public static double Kp_Dynamic_W;
+        public static float Kp_Dynamic_W;
         public static string NodeID_Kp_Dynamic
         {
             get
@@ -2265,7 +2269,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Ki_Dynamic_W
-        public static double Ki_Dynamic_W;
+        public static float Ki_Dynamic_W;
         public static string NodeID_Ki_Dynamic
         {
             get
@@ -2301,7 +2305,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Kd_Dynamic_W
-        public static double Kd_Dynamic_W;
+        public static float Kd_Dynamic_W;
         public static string NodeID_Kd_Dynamic
         {
             get
@@ -2337,7 +2341,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Kp_Follow_W
-        public static double Kp_Follow_W;
+        public static float Kp_Follow_W;
         public static string NodeID_Kp_Follow
         {
             get
@@ -2373,7 +2377,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Ki_Follow_W
-        public static double Ki_Follow_W;
+        public static float Ki_Follow_W;
         public static string NodeID_Ki_Follow
         {
             get
@@ -2409,7 +2413,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Kd_Follow_W
-        public static double Kd_Follow_W;
+        public static float Kd_Follow_W;
         public static string NodeID_Kd_Follow
         {
             get
@@ -2447,7 +2451,97 @@ namespace PneumaticServoMonitor
         #endregion
         #endregion
         #endregion
+        public void RecipeChanged(string mProjectName)
+        {
+            ProjectName = mProjectName;
+            string RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + ProjectName + ".recipe");
+            using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
+            {
+                RecipeFile.ReadLine();
+                RecipeFile.ReadLine();
+                RecipeFile.ReadLine();
+                strRecipe = RecipeFile.ReadToEnd();
+            }
+            using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
+            {
+                try
+                {
+                    RecipeFile.ReadLine();
+                    ProjectNumber = RecipeFile.ReadLine().Split(':')[1];
+                    SampleNumber = RecipeFile.ReadLine().Split(':')[1];
+                    string controlType = RecipeFile.ReadLine().Split(':')[1];
+                    Peak_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    Low_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    Frequence_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    Times_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    ForceMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    ForceMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    PositionMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    PositionMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    RecipeFile.ReadLine();
+                    //BrokenTest_Force.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                    Threshold_Force_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
+                    RecipeFile.ReadLine();
+                    //BrokenTest_Position.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                    Threshold_Position_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
+                    StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    Kp_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Ki_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Kd_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Kp_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Ki_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Kd_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Kp_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Ki_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    Kd_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                }
+                catch (Exception)
+                {
 
+                }
+            }
+
+            try
+            {
+                if (m_OpcUaClient.Connected)
+                {
+                    m_OpcUaClient.WriteNode(NodeID_Peak, Peak_W);
+                    m_OpcUaClient.WriteNode(NodeID_Low, Low_W);
+                    m_OpcUaClient.WriteNode(NodeID_Frequence, Frequence_W);
+                    m_OpcUaClient.WriteNode(NodeID_ForceMax, ForceMax_W);
+                    m_OpcUaClient.WriteNode(NodeID_ForceMin, ForceMin_W);
+                    m_OpcUaClient.WriteNode(NodeID_PositionMax, PositionMax_W);
+                    m_OpcUaClient.WriteNode(NodeID_PositionMin, PositionMin_W);
+                    m_OpcUaClient.WriteNode(NodeID_Times, Times_W);
+                    m_OpcUaClient.WriteNode(NodeID_StartIndex,StartIndex_W);
+                    m_OpcUaClient.WriteNode(NodeID_Kp_Static ,Kp_Static_W );
+                    m_OpcUaClient.WriteNode(NodeID_Ki_Static ,Ki_Static_W );
+                    m_OpcUaClient.WriteNode(NodeID_Kd_Static ,Kd_Static_W );
+                    m_OpcUaClient.WriteNode(NodeID_Kp_Dynamic,Kp_Dynamic_W);
+                    m_OpcUaClient.WriteNode(NodeID_Ki_Dynamic,Ki_Dynamic_W);
+                    m_OpcUaClient.WriteNode(NodeID_Kd_Dynamic,Kd_Dynamic_W);
+                    m_OpcUaClient.WriteNode(NodeID_Kp_Follow ,Kp_Follow_W );
+                    m_OpcUaClient.WriteNode(NodeID_Ki_Follow ,Ki_Follow_W );
+                    m_OpcUaClient.WriteNode(NodeID_Kd_Follow, Kd_Follow_W );
+
+                }
+                updateForm();
+                
+
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void updateForm()
+        {
+            txt_CurParams.Text = strRecipe;
+            txt_ProjectName.Text = ProjectName;
+            txt_ProjectNumber.Text = ProjectNumber;
+            txt_SampleNumber.Text = SampleNumber;
+            txt_Path.Text = saveFile_path;
+        }
         private void FormMain_Load(object sender, EventArgs e)
         {
             m_OpcUaClient = new OpcUaClient();
@@ -2548,7 +2642,6 @@ namespace PneumaticServoMonitor
                 ClientUtils.HandleException("Connected Failed", ex);
             }
         }
-
         private void M_OpcUaClient_OpcStatusChange(object sender, OpcUaStatusEventArgs e)
         {
             if (m_OpcUaClient.Connected)
@@ -2598,14 +2691,15 @@ namespace PneumaticServoMonitor
             {
                 try
                 {
-                    //while (!m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
-                    //{
-                    //    Thread.Sleep(50);
-                    //}
-                    //ArrayPeak_R = m_OpcUaClient.ReadNode(NodeID_ArrayPeak);
-                    //ArrayLow_R = m_OpcUaClient.ReadNode(NodeID_ArrayLow);
-                    ArrayPeak_R = new float[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
-                    ArrayLow_R  = new float[] { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1 };
+                    while (!m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
+                    {
+                        Thread.Sleep(50);
+                    }
+                    ArrayPeak_R = new float[10];
+                    ArrayLow_R = new float[10];
+                    DataValue DataValuePeak = m_OpcUaClient.ReadNode(NodeID_ArrayPeak);
+                    DataValue DataValueLow = m_OpcUaClient.ReadNode(NodeID_ArrayLow);
+
                     //write csv
                     string csvFilePath = Path.Combine(DateTime.Now.ToString("yyyyMMdd") + ".csv");
                     if (!File.Exists(csvFilePath))
@@ -2630,12 +2724,12 @@ namespace PneumaticServoMonitor
                             csvFile.WriteLine(line);
                         }
                     }
-                    //m_OpcUaClient.WriteNode(NodeID_DataReceived, true);
-                    //while (m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
-                    //{
-                    //    Thread.Sleep(50);
-                    //}
-                    //m_OpcUaClient.WriteNode(NodeID_DataReceived, false);
+                    m_OpcUaClient.WriteNode(NodeID_DataReceived, true);
+                    while (m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
+                    {
+                        Thread.Sleep(50);
+                    }
+                    m_OpcUaClient.WriteNode(NodeID_DataReceived, false);
                 }
                 catch (Exception)
                 {
@@ -2687,7 +2781,7 @@ namespace PneumaticServoMonitor
         private void btn_Setting_Click(object sender, EventArgs e)
         {
             //mFormSetting.Show();
-            new FormChooseRecipe().Show();
+            new FormChooseRecipe(this).Show();
         }
 
         private void DDBtn_Calibration_Click(object sender, EventArgs e)
@@ -2697,7 +2791,7 @@ namespace PneumaticServoMonitor
 
         private void DDBtn_File_Click(object sender, EventArgs e)
         {
-            _GetData();
+            
         }
 
         private void btn_Start_Click(object sender, EventArgs e)
@@ -2783,6 +2877,51 @@ namespace PneumaticServoMonitor
             m_OpcUaClient.WriteNode(NodeID_FaultAck, true);
             Thread.Sleep(100);
             m_OpcUaClient.WriteNode(NodeID_FaultAck, false);
+        }
+
+        private void Btn_ForceClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_PositionClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_2Zero_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_Lock_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DDBtn_Adjust_Click(object sender, EventArgs e)
+        {
+            new FormPID().Show();
+        }
+
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Btn_Calibrate_Click(object sender, EventArgs e)
+        {
+            new FormCalibrate().Show();
+        }
+
+        private void Btn_PIDadjust_Click(object sender, EventArgs e)
+        {
+            new FormPID().Show();
+        }
+
+        private void Btn_RecipeManagement_Click(object sender, EventArgs e)
+        {
+            mFormSetting.Show();
         }
     }
 

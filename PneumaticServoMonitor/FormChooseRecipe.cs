@@ -13,11 +13,13 @@ namespace PneumaticServoMonitor
 {
     public partial class FormChooseRecipe : Form
     {
-        public FormChooseRecipe()
+        public FormChooseRecipe(FormMain mFormMain)
         {
             InitializeComponent();
+            _FormMain = mFormMain;
         }
-
+        FormMain _FormMain;
+        System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private void FormChooseRecipe_Load(object sender, EventArgs e)
         {
             if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
@@ -26,7 +28,7 @@ namespace PneumaticServoMonitor
             }
             DirectoryInfo d = new DirectoryInfo(System.Environment.CurrentDirectory + "\\Recipe");
             FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.recipe");
-            System.Windows.Forms.TableLayoutPanel tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel1.ColumnCount = 5;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -53,6 +55,22 @@ namespace PneumaticServoMonitor
             
             panel1.Controls.Add(tableLayoutPanel1);
             tableLayoutPanel1.SuspendLayout();
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            foreach (var item in tableLayoutPanel1.Controls)
+            {
+                if (item.GetType().Name == "RadioButton")
+                {
+                    RadioButton mRadioButton = (RadioButton)item;
+                    if (mRadioButton.Checked)
+                    {
+                        _FormMain.RecipeChanged(mRadioButton.Text);
+                        this.Close();
+                    }
+                }
+            }
         }
     }
 }

@@ -31,24 +31,31 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.DDBtn_Beam = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Adjust = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Calibration = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_clock = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_SampleNumber = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_ProjectName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_ProjectNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txt_Path = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_Setting = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_Lock = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel_ProgressBar = new System.Windows.Forms.Panel();
@@ -63,6 +70,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
+            this.btn_Enable = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.lbl_ActualPosition = new System.Windows.Forms.Label();
@@ -81,24 +89,20 @@
             this.panel14 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
+            this.pic_Error = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel16 = new System.Windows.Forms.Panel();
+            this.pic_Running = new System.Windows.Forms.PictureBox();
             this.btn_EMG = new System.Windows.Forms.Button();
             this.imageList_Status = new System.Windows.Forms.ImageList(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pic_Error = new System.Windows.Forms.PictureBox();
-            this.pic_Running = new System.Windows.Forms.PictureBox();
-            this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.DDBtn_Beam = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DDBtn_Calibration = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-            this.帮助文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_Enable = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.DDBtn_Setting = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btn_Calibrate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_PIDadjust = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_RecipeManagement = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -117,9 +121,8 @@
             this.panel15.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel17.SuspendLayout();
-            this.panel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Error)).BeginInit();
+            this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Running)).BeginInit();
             this.SuspendLayout();
             // 
@@ -129,14 +132,72 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.DDBtn_File,
             this.DDBtn_Beam,
+            this.DDBtn_Adjust,
             this.DDBtn_Calibration,
-            this.DDBtn_Help,
-            this.toolStripSplitButton1});
+            this.DDBtn_Setting,
+            this.DDBtn_Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1065, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // DDBtn_File
+            // 
+            this.DDBtn_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.DDBtn_File.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_File.Image")));
+            this.DDBtn_File.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_File.Name = "DDBtn_File";
+            this.DDBtn_File.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_File.Text = "文件";
+            this.DDBtn_File.Click += new System.EventHandler(this.DDBtn_File_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem1.Text = "退出";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
+            // 
+            // DDBtn_Beam
+            // 
+            this.DDBtn_Beam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Beam.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Beam.Image")));
+            this.DDBtn_Beam.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Beam.Name = "DDBtn_Beam";
+            this.DDBtn_Beam.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_Beam.Text = "横梁";
+            // 
+            // DDBtn_Adjust
+            // 
+            this.DDBtn_Adjust.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Adjust.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Adjust.Image")));
+            this.DDBtn_Adjust.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Adjust.Name = "DDBtn_Adjust";
+            this.DDBtn_Adjust.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_Adjust.Text = "修正";
+            this.DDBtn_Adjust.Click += new System.EventHandler(this.DDBtn_Adjust_Click);
+            // 
+            // DDBtn_Calibration
+            // 
+            this.DDBtn_Calibration.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Calibration.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Calibration.Image")));
+            this.DDBtn_Calibration.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Calibration.Name = "DDBtn_Calibration";
+            this.DDBtn_Calibration.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_Calibration.Text = "校准";
+            this.DDBtn_Calibration.Click += new System.EventHandler(this.DDBtn_Calibration_Click);
+            // 
+            // DDBtn_Help
+            // 
+            this.DDBtn_Help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Help.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Help.Image")));
+            this.DDBtn_Help.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Help.Name = "DDBtn_Help";
+            this.DDBtn_Help.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_Help.Text = "帮助";
             // 
             // tableLayoutPanel1
             // 
@@ -177,6 +238,17 @@
             this.label_clock.TabIndex = 8;
             this.label_clock.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(23, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(228, 55);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // panel1
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -196,7 +268,7 @@
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.btn_Setting, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button2, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btn_Lock, 2, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(332, 19);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 0, 0, 0);
@@ -213,7 +285,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.Controls.Add(this.textBox3);
+            this.panel4.Controls.Add(this.txt_SampleNumber);
             this.panel4.Controls.Add(this.label3);
             this.panel4.Location = new System.Drawing.Point(3, 47);
             this.panel4.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -222,19 +294,19 @@
             this.panel4.Size = new System.Drawing.Size(198, 47);
             this.panel4.TabIndex = 2;
             // 
-            // textBox3
+            // txt_SampleNumber
             // 
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Location = new System.Drawing.Point(0, 23);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(198, 28);
-            this.textBox3.TabIndex = 1;
+            this.txt_SampleNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_SampleNumber.Location = new System.Drawing.Point(0, 23);
+            this.txt_SampleNumber.Name = "txt_SampleNumber";
+            this.txt_SampleNumber.Size = new System.Drawing.Size(198, 28);
+            this.txt_SampleNumber.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label3.Location = new System.Drawing.Point(0, 3);
             this.label3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label3.Name = "label3";
@@ -248,7 +320,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.textBox2);
+            this.panel3.Controls.Add(this.txt_ProjectName);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Location = new System.Drawing.Point(211, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -257,19 +329,19 @@
             this.panel3.Size = new System.Drawing.Size(198, 47);
             this.panel3.TabIndex = 1;
             // 
-            // textBox2
+            // txt_ProjectName
             // 
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Location = new System.Drawing.Point(0, 23);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(198, 28);
-            this.textBox2.TabIndex = 1;
+            this.txt_ProjectName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ProjectName.Location = new System.Drawing.Point(0, 23);
+            this.txt_ProjectName.Name = "txt_ProjectName";
+            this.txt_ProjectName.Size = new System.Drawing.Size(198, 28);
+            this.txt_ProjectName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label2.Location = new System.Drawing.Point(0, 3);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label2.Name = "label2";
@@ -283,7 +355,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.txt_ProjectNumber);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(3, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -292,19 +364,19 @@
             this.panel2.Size = new System.Drawing.Size(198, 47);
             this.panel2.TabIndex = 0;
             // 
-            // textBox1
+            // txt_ProjectNumber
             // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 28);
-            this.textBox1.TabIndex = 1;
+            this.txt_ProjectNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ProjectNumber.Location = new System.Drawing.Point(0, 23);
+            this.txt_ProjectNumber.Name = "txt_ProjectNumber";
+            this.txt_ProjectNumber.Size = new System.Drawing.Size(198, 28);
+            this.txt_ProjectNumber.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label1.Location = new System.Drawing.Point(0, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label1.Name = "label1";
@@ -318,7 +390,7 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel5.Controls.Add(this.textBox4);
+            this.panel5.Controls.Add(this.txt_Path);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Location = new System.Drawing.Point(211, 47);
             this.panel5.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
@@ -327,19 +399,19 @@
             this.panel5.Size = new System.Drawing.Size(198, 47);
             this.panel5.TabIndex = 3;
             // 
-            // textBox4
+            // txt_Path
             // 
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Location = new System.Drawing.Point(0, 23);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(198, 28);
-            this.textBox4.TabIndex = 1;
+            this.txt_Path.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Path.Location = new System.Drawing.Point(0, 23);
+            this.txt_Path.Name = "txt_Path";
+            this.txt_Path.Size = new System.Drawing.Size(198, 28);
+            this.txt_Path.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label4.Location = new System.Drawing.Point(0, 3);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label4.Name = "label4";
@@ -360,16 +432,17 @@
             this.btn_Setting.UseVisualStyleBackColor = true;
             this.btn_Setting.Click += new System.EventHandler(this.btn_Setting_Click);
             // 
-            // button2
+            // btn_Lock
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(422, 57);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 32);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "锁定操作面板";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_Lock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Lock.Location = new System.Drawing.Point(422, 57);
+            this.btn_Lock.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
+            this.btn_Lock.Name = "btn_Lock";
+            this.btn_Lock.Size = new System.Drawing.Size(108, 32);
+            this.btn_Lock.TabIndex = 5;
+            this.btn_Lock.Text = "锁定操作面板";
+            this.btn_Lock.UseVisualStyleBackColor = true;
+            this.btn_Lock.Click += new System.EventHandler(this.Btn_Lock_Click);
             // 
             // panel7
             // 
@@ -416,12 +489,13 @@
             this.btn_2Zero.TabIndex = 1;
             this.btn_2Zero.Text = "清零";
             this.btn_2Zero.UseVisualStyleBackColor = true;
+            this.btn_2Zero.Click += new System.EventHandler(this.Btn_2Zero_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label12.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label12.Location = new System.Drawing.Point(3, 0);
             this.label12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label12.Name = "label12";
@@ -504,6 +578,7 @@
             this.txt_CurParams.Location = new System.Drawing.Point(0, 23);
             this.txt_CurParams.Multiline = true;
             this.txt_CurParams.Name = "txt_CurParams";
+            this.txt_CurParams.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txt_CurParams.Size = new System.Drawing.Size(202, 174);
             this.txt_CurParams.TabIndex = 1;
             // 
@@ -511,7 +586,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label7.Location = new System.Drawing.Point(0, 3);
             this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label7.Name = "label7";
@@ -541,6 +616,17 @@
             this.btn_Stop.Text = "停止测试";
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
+            // btn_Enable
+            // 
+            this.btn_Enable.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_Enable.Location = new System.Drawing.Point(208, 43);
+            this.btn_Enable.Name = "btn_Enable";
+            this.btn_Enable.Size = new System.Drawing.Size(93, 34);
+            this.btn_Enable.TabIndex = 5;
+            this.btn_Enable.Text = "使能";
+            this.btn_Enable.UseVisualStyleBackColor = true;
+            this.btn_Enable.Click += new System.EventHandler(this.btn_Enable_Click);
             // 
             // panel8
             // 
@@ -587,12 +673,13 @@
             this.btn_PositionClear.TabIndex = 4;
             this.btn_PositionClear.Text = "清零";
             this.btn_PositionClear.UseVisualStyleBackColor = true;
+            this.btn_PositionClear.Click += new System.EventHandler(this.Btn_PositionClear_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label9.Location = new System.Drawing.Point(0, 0);
             this.label9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label9.Name = "label9";
@@ -657,12 +744,13 @@
             this.btn_ForceClear.TabIndex = 4;
             this.btn_ForceClear.Text = "清零";
             this.btn_ForceClear.UseVisualStyleBackColor = true;
+            this.btn_ForceClear.Click += new System.EventHandler(this.Btn_ForceClear_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label6.Name = "label6";
@@ -707,7 +795,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label11.Font = new System.Drawing.Font("MetaPlusLF", 8F);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label11.Location = new System.Drawing.Point(0, 3);
             this.label11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label11.Name = "label11";
@@ -749,6 +837,17 @@
             this.panel17.Size = new System.Drawing.Size(22, 35);
             this.panel17.TabIndex = 17;
             // 
+            // pic_Error
+            // 
+            this.pic_Error.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status;
+            this.pic_Error.Location = new System.Drawing.Point(0, 0);
+            this.pic_Error.Name = "pic_Error";
+            this.pic_Error.Size = new System.Drawing.Size(22, 24);
+            this.pic_Error.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pic_Error.TabIndex = 14;
+            this.pic_Error.TabStop = false;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -768,6 +867,17 @@
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(22, 35);
             this.panel16.TabIndex = 15;
+            // 
+            // pic_Running
+            // 
+            this.pic_Running.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pic_Running.Image = global::PneumaticServoMonitor.Properties.Resources.status;
+            this.pic_Running.Location = new System.Drawing.Point(0, 0);
+            this.pic_Running.Name = "pic_Running";
+            this.pic_Running.Size = new System.Drawing.Size(22, 24);
+            this.pic_Running.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pic_Running.TabIndex = 14;
+            this.pic_Running.TabStop = false;
             // 
             // btn_EMG
             // 
@@ -789,116 +899,43 @@
             this.imageList_Status.Images.SetKeyName(2, "status-busy.png");
             this.imageList_Status.Images.SetKeyName(3, "status-away.png");
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(23, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(228, 55);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pic_Error
-            // 
-            this.pic_Error.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status;
-            this.pic_Error.Location = new System.Drawing.Point(0, 0);
-            this.pic_Error.Name = "pic_Error";
-            this.pic_Error.Size = new System.Drawing.Size(22, 24);
-            this.pic_Error.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pic_Error.TabIndex = 14;
-            this.pic_Error.TabStop = false;
-            // 
-            // pic_Running
-            // 
-            this.pic_Running.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pic_Running.Image = global::PneumaticServoMonitor.Properties.Resources.status;
-            this.pic_Running.Location = new System.Drawing.Point(0, 0);
-            this.pic_Running.Name = "pic_Running";
-            this.pic_Running.Size = new System.Drawing.Size(22, 24);
-            this.pic_Running.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pic_Running.TabIndex = 14;
-            this.pic_Running.TabStop = false;
-            // 
-            // DDBtn_File
-            // 
-            this.DDBtn_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.DDBtn_File.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_File.Image")));
-            this.DDBtn_File.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_File.Name = "DDBtn_File";
-            this.DDBtn_File.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_File.Text = "文件";
-            this.DDBtn_File.Click += new System.EventHandler(this.DDBtn_File_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 26);
-            this.toolStripMenuItem1.Text = "退出";
-            // 
-            // DDBtn_Beam
-            // 
-            this.DDBtn_Beam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Beam.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Beam.Image")));
-            this.DDBtn_Beam.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Beam.Name = "DDBtn_Beam";
-            this.DDBtn_Beam.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Beam.Text = "横梁";
-            // 
-            // DDBtn_Calibration
-            // 
-            this.DDBtn_Calibration.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Calibration.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Calibration.Image")));
-            this.DDBtn_Calibration.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Calibration.Name = "DDBtn_Calibration";
-            this.DDBtn_Calibration.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Calibration.Text = "校准";
-            this.DDBtn_Calibration.Click += new System.EventHandler(this.DDBtn_Calibration_Click);
-            // 
-            // DDBtn_Help
-            // 
-            this.DDBtn_Help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Help.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Help.Image")));
-            this.DDBtn_Help.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Help.Name = "DDBtn_Help";
-            this.DDBtn_Help.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Help.Text = "帮助";
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.帮助文件ToolStripMenuItem});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(58, 28);
-            this.toolStripSplitButton1.Text = "帮助";
-            // 
-            // 帮助文件ToolStripMenuItem
-            // 
-            this.帮助文件ToolStripMenuItem.Name = "帮助文件ToolStripMenuItem";
-            this.帮助文件ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
-            this.帮助文件ToolStripMenuItem.Text = "帮助文件";
-            // 
-            // btn_Enable
-            // 
-            this.btn_Enable.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_Enable.Location = new System.Drawing.Point(208, 43);
-            this.btn_Enable.Name = "btn_Enable";
-            this.btn_Enable.Size = new System.Drawing.Size(93, 34);
-            this.btn_Enable.TabIndex = 5;
-            this.btn_Enable.Text = "使能";
-            this.btn_Enable.UseVisualStyleBackColor = true;
-            this.btn_Enable.Click += new System.EventHandler(this.btn_Enable_Click);
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // DDBtn_Setting
+            // 
+            this.DDBtn_Setting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Setting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btn_Calibrate,
+            this.btn_PIDadjust,
+            this.btn_RecipeManagement});
+            this.DDBtn_Setting.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Setting.Image")));
+            this.DDBtn_Setting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Setting.Name = "DDBtn_Setting";
+            this.DDBtn_Setting.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_Setting.Text = "设置";
+            // 
+            // btn_Calibrate
+            // 
+            this.btn_Calibrate.Name = "btn_Calibrate";
+            this.btn_Calibrate.Size = new System.Drawing.Size(224, 26);
+            this.btn_Calibrate.Text = "传感器校准";
+            this.btn_Calibrate.Click += new System.EventHandler(this.Btn_Calibrate_Click);
+            // 
+            // btn_PIDadjust
+            // 
+            this.btn_PIDadjust.Name = "btn_PIDadjust";
+            this.btn_PIDadjust.Size = new System.Drawing.Size(224, 26);
+            this.btn_PIDadjust.Text = "PID修正";
+            this.btn_PIDadjust.Click += new System.EventHandler(this.Btn_PIDadjust_Click);
+            // 
+            // btn_RecipeManagement
+            // 
+            this.btn_RecipeManagement.Name = "btn_RecipeManagement";
+            this.btn_RecipeManagement.Size = new System.Drawing.Size(224, 26);
+            this.btn_RecipeManagement.Text = "配方管理";
+            this.btn_RecipeManagement.Click += new System.EventHandler(this.Btn_RecipeManagement_Click);
             // 
             // FormMain
             // 
@@ -918,6 +955,7 @@
             this.toolStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -947,9 +985,8 @@
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel17.ResumeLayout(false);
-            this.panel16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Error)).EndInit();
+            this.panel16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic_Running)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -963,28 +1000,26 @@
         private System.Windows.Forms.ToolStripDropDownButton DDBtn_Beam;
         private System.Windows.Forms.ToolStripDropDownButton DDBtn_Calibration;
         private System.Windows.Forms.ToolStripDropDownButton DDBtn_Help;
-        private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 帮助文件ToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label_clock;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_SampleNumber;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_ProjectName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_ProjectNumber;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txt_Path;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_Setting;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_Lock;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel12;
@@ -1025,6 +1060,11 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.Button btn_Enable;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripDropDownButton DDBtn_Adjust;
+        private System.Windows.Forms.ToolStripDropDownButton DDBtn_Setting;
+        private System.Windows.Forms.ToolStripMenuItem btn_Calibrate;
+        private System.Windows.Forms.ToolStripMenuItem btn_PIDadjust;
+        private System.Windows.Forms.ToolStripMenuItem btn_RecipeManagement;
     }
 }
 

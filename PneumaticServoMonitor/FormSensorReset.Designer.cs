@@ -151,6 +151,7 @@
             this.tbn_Reset.TabIndex = 14;
             this.tbn_Reset.Text = "Reset";
             this.tbn_Reset.UseVisualStyleBackColor = true;
+            this.tbn_Reset.Click += new System.EventHandler(this.Tbn_Reset_Click);
             // 
             // FormSensorReset
             // 
@@ -164,6 +165,7 @@
             this.MinimizeBox = false;
             this.Name = "FormSensorReset";
             this.Text = "恢复出厂设置";
+            this.Load += new System.EventHandler(this.FormSensorReset_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

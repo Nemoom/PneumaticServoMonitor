@@ -102,11 +102,12 @@ namespace PneumaticServoMonitor
                         RecipeFile.ReadLine();
                         txt_ProjectNumber.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_SampleNumber.Text = RecipeFile.ReadLine().Split(':')[1];
-                        if (RecipeFile.ReadLine().Split(':')[1] == "Force")
+                        string controlType = RecipeFile.ReadLine().Split(':')[1];
+                        if (controlType == "Force")
                         {
                             rdo_ForceControl.Checked = true;
                         }
-                        else if (RecipeFile.ReadLine().Split(':')[1] == "Positon")
+                        else if (controlType == "Positon")
                         {
                             rdo_PositionControl.Checked = true;
                         }

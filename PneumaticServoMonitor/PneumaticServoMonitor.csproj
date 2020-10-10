@@ -243,6 +243,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPID.Designer.cs">
+      <DependentUpon>FormPID.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSensorReset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPID.resx">
+      <DependentUpon>FormPID.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSensorReset.resx">
       <DependentUpon>FormSensorReset.cs</DependentUpon>
