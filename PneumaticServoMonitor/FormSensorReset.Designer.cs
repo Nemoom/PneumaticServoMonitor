@@ -164,6 +164,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSensorReset";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "恢复出厂设置";
             this.Load += new System.EventHandler(this.FormSensorReset_Load);
             this.tableLayoutPanel1.ResumeLayout(false);

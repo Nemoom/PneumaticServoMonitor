@@ -12,6 +12,7 @@ using System.Net;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.IO;
+using Gecko;
 
 namespace PneumaticServoMonitor
 {
@@ -2480,10 +2481,12 @@ namespace PneumaticServoMonitor
                     PositionMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     RecipeFile.ReadLine();
                     //BrokenTest_Force.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    Threshold_Force_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
+                    RecipeFile.ReadLine();
+                    //Threshold_Force_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
                     RecipeFile.ReadLine();
                     //BrokenTest_Position.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    Threshold_Position_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
+                    RecipeFile.ReadLine();
+                    //Threshold_Position_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
                     StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
                     Kp_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     Ki_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
@@ -2495,7 +2498,7 @@ namespace PneumaticServoMonitor
                     Ki_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     Kd_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                 }
@@ -2505,15 +2508,15 @@ namespace PneumaticServoMonitor
             {
                 if (m_OpcUaClient.Connected)
                 {
-                    m_OpcUaClient.WriteNode(NodeID_Peak, Peak_W);
-                    m_OpcUaClient.WriteNode(NodeID_Low, Low_W);
-                    m_OpcUaClient.WriteNode(NodeID_Frequence, Frequence_W);
-                    m_OpcUaClient.WriteNode(NodeID_ForceMax, ForceMax_W);
-                    m_OpcUaClient.WriteNode(NodeID_ForceMin, ForceMin_W);
-                    m_OpcUaClient.WriteNode(NodeID_PositionMax, PositionMax_W);
-                    m_OpcUaClient.WriteNode(NodeID_PositionMin, PositionMin_W);
-                    m_OpcUaClient.WriteNode(NodeID_Times, Times_W);
-                    m_OpcUaClient.WriteNode(NodeID_StartIndex,StartIndex_W);
+                    m_OpcUaClient.WriteNode(NodeID_Peak, (short)Peak_W);
+                    m_OpcUaClient.WriteNode(NodeID_Low, (short)Low_W);
+                    m_OpcUaClient.WriteNode(NodeID_Frequence, (short)Frequence_W);
+                    m_OpcUaClient.WriteNode(NodeID_ForceMax, (float)ForceMax_W);
+                    m_OpcUaClient.WriteNode(NodeID_ForceMin, (float)ForceMin_W);
+                    m_OpcUaClient.WriteNode(NodeID_PositionMax, (float)PositionMax_W);
+                    m_OpcUaClient.WriteNode(NodeID_PositionMin, (float)PositionMin_W);
+                    m_OpcUaClient.WriteNode(NodeID_Times, (short)Times_W);
+                    m_OpcUaClient.WriteNode(NodeID_StartIndex, (short)StartIndex_W);
                     m_OpcUaClient.WriteNode(NodeID_Kp_Static ,Kp_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Ki_Static ,Ki_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Kd_Static ,Kd_Static_W );
@@ -2529,7 +2532,7 @@ namespace PneumaticServoMonitor
                 
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
@@ -2564,12 +2567,16 @@ namespace PneumaticServoMonitor
             clock.Interval = 1000;
             clock.Tick += new EventHandler(clock_Tick);
             clock.Start();
-            WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
-            browser.Dock = DockStyle.Fill;
-            panel1.Controls.Add(browser);
-            browser.Navigate("http://www.baidu.com");
+            Gecko.GeckoWebBrowser geckoWebBrowser1 = new GeckoWebBrowser();
+            geckoWebBrowser1.Dock = DockStyle.Fill;
+            panel1.Controls.Add(geckoWebBrowser1);
+            geckoWebBrowser1.Navigate("http://192.168.2.10:8080/webvisu.htm");
+            //WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
+            //browser.Dock = DockStyle.Fill;
+            //panel1.Controls.Add(browser);
+            //browser.Navigate("http://192.168.2.10:8080/webvisu.htm");
             mFormSetting = new FormSetting(this);
-            /////////////tableLayoutPanel1.Enabled = false;
+            tableLayoutPanel1.Enabled = false;
             
             //NodeID_sysCalForce1 = "";
             //NodeID_sysCalForce2 = "";
@@ -2734,7 +2741,7 @@ namespace PneumaticServoMonitor
                 catch (Exception)
                 {
 
-                    throw;
+                    
                 }
             }
         }
