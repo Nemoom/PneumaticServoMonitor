@@ -27,7 +27,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -245,6 +245,12 @@
     <Compile Include="FormChooseRecipe.Designer.cs">
       <DependentUpon>FormChooseRecipe.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCommSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCommSetting.Designer.cs">
+      <DependentUpon>FormCommSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormChooseRecipe.resx">
       <DependentUpon>FormChooseRecipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCommSetting.resx">
+      <DependentUpon>FormCommSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

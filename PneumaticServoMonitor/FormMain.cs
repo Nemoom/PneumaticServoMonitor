@@ -27,14 +27,15 @@ namespace PneumaticServoMonitor
             //    Size = new Size(Width - 60, 50),
             //    Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom
             //};
-            MyProgressBar progressBar = new MyProgressBar();
+            progressBar = new MyProgressBar();
             progressBar.Dock = DockStyle.Fill;
             panel_ProgressBar.Controls.Add(progressBar);
 
-            var timer = new System.Windows.Forms.Timer { Interval = 150 };
-            timer.Tick += (s, e) => progressBar.Value = progressBar.Value % 100 + 1;
-            timer.Start();
+            //var timer = new System.Windows.Forms.Timer { Interval = 150 };
+            //timer.Tick += (s, e) => progressBar.Value = progressBar.Value % 100 + 1;
+            //timer.Start();
         }
+        MyProgressBar progressBar;
         public FormSetting mFormSetting;
         public static OpcUaClient m_OpcUaClient;
         public static string ProjectName;
@@ -78,19 +79,18 @@ namespace PneumaticServoMonitor
                 }
             }
         }
-        #region 保存数据相关参数
-        public static string saveFile_path
+        public static string plcWebSite
         {
             get
             {
                 if (File.Exists(iniPath))
                 {
                     IniFile ini = new IniFile(iniPath);
-                    if (!ini.KeyExists("path", "saveFile"))
+                    if (!ini.KeyExists("plcWebSite", "network"))
                     {
                         return null;
                     }
-                    string mIP = ini.Read("path", "saveFile");
+                    string mIP = ini.Read("plcWebSite", "network");
                     try
                     {
                         return mIP;
@@ -102,6 +102,41 @@ namespace PneumaticServoMonitor
 
                 }
                 return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("plcWebSite", value, "network");
+                }
+            }
+        }
+
+        #region 保存数据相关参数
+        public static string saveFile_path
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("path", "saveFile"))
+                    {
+                        return "";
+                    }
+                    string mIP = ini.Read("path", "saveFile");
+                    try
+                    {
+                        return mIP;
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+
+                }
+                return "";
             }
             set
             {
@@ -1473,7 +1508,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region CycleCount_R
-        public static float CycleCount_R;
+        public static int CycleCount_R;
         public static string NodeID_CycleCount
         {
             get
@@ -2547,95 +2582,43 @@ namespace PneumaticServoMonitor
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            m_OpcUaClient = new OpcUaClient();
-            //设置匿名连接
-            m_OpcUaClient.UserIdentity = new UserIdentity(new AnonymousIdentityToken());
-            //设置用户名连接
-            //m_OpcUaClient.UserIdentity = new UserIdentity( "user", "password" );
-
-            //使用证书连接
-            //X509Certificate2 certificate = new X509Certificate2("[证书的路径]", "[密钥]", X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
-            //m_OpcUaClient.UserIdentity = new UserIdentity(certificate);
-
-            m_OpcUaClient.ConnectComplete += M_OpcUaClient_ConnectComplete;
-            m_OpcUaClient.OpcStatusChange += M_OpcUaClient_OpcStatusChange;
-            Ping ping = new Ping();
-            if (ping.Send(plcIP, 100).Status == IPStatus.Success)
+            if (plcIP!=""&&plcWebSite!="")
             {
-                TrytoConnect();//建立OPC-UA连接
+                m_OpcUaClient = new OpcUaClient();
+                //设置匿名连接
+                m_OpcUaClient.UserIdentity = new UserIdentity(new AnonymousIdentityToken());
+                //设置用户名连接
+                //m_OpcUaClient.UserIdentity = new UserIdentity( "user", "password" );
+
+                //使用证书连接
+                //X509Certificate2 certificate = new X509Certificate2("[证书的路径]", "[密钥]", X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
+                //m_OpcUaClient.UserIdentity = new UserIdentity(certificate);
+
+                m_OpcUaClient.ConnectComplete += M_OpcUaClient_ConnectComplete;
+                m_OpcUaClient.OpcStatusChange += M_OpcUaClient_OpcStatusChange;
+                Ping ping = new Ping();
+                if (ping.Send(plcIP, 100).Status == IPStatus.Success)
+                {
+                    TrytoConnect();//建立OPC-UA连接
+                }
+                clock.Interval = 1000;
+                clock.Tick += new EventHandler(clock_Tick);
+                clock.Start();
+                Gecko.GeckoWebBrowser geckoWebBrowser1 = new GeckoWebBrowser();
+                geckoWebBrowser1.Dock = DockStyle.Fill;
+                panel1.Controls.Add(geckoWebBrowser1);
+                geckoWebBrowser1.Navigate(plcWebSite);
+                //WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
+                //browser.Dock = DockStyle.Fill;
+                //panel1.Controls.Add(browser);
+                //browser.Navigate("http://192.168.2.10:8080/webvisu.htm");
+                mFormSetting = new FormSetting(this);
+                tableLayoutPanel1.Enabled = false;      
             }
-            clock.Interval = 1000;
-            clock.Tick += new EventHandler(clock_Tick);
-            clock.Start();
-            Gecko.GeckoWebBrowser geckoWebBrowser1 = new GeckoWebBrowser();
-            geckoWebBrowser1.Dock = DockStyle.Fill;
-            panel1.Controls.Add(geckoWebBrowser1);
-            geckoWebBrowser1.Navigate("http://192.168.2.10:8080/webvisu.htm");
-            //WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
-            //browser.Dock = DockStyle.Fill;
-            //panel1.Controls.Add(browser);
-            //browser.Navigate("http://192.168.2.10:8080/webvisu.htm");
-            mFormSetting = new FormSetting(this);
-            tableLayoutPanel1.Enabled = false;
-            
-            //NodeID_sysCalForce1 = "";
-            //NodeID_sysCalForce2 = "";
-            //NodeID_sysCalVoltage1 = "";
-            //NodeID_sysCalVoltage2 = "";
-            //NodeID_sysDefCalForce1 = "";
-            //NodeID_sysDefCalForce2 = "";
-            //NodeID_sysDefCalVoltage1 = "";
-            //NodeID_sysDefCalVoltage2 = "";
-            //NodeID_sysPositionOffset = "";
-
-            //NodeID_ActualForce = "";
-            //NodeID_ActualPosition = "";
-            //NodeID_ActualVoltage = "";
-            //NodeID_ArrayLow = "";
-            //NodeID_ArrayPeak = "";
-
-            //NodeID_CycleCount = "";
-            //NodeID_DataPoolReady = "";
-            //NodeID_DataReceived = "";
-            //NodeID_EMG = "";
-            //NodeID_ErrorID = "";
-            //NodeID_ExcuteDone = "";
-            //NodeID_FaultAck = "";
-            //NodeID_ForceClear = "";
-            //NodeID_ForceMax = "";
-            //NodeID_ForceMin = "";
-            //NodeID_Frequence = "";
-            //NodeID_Kp_Dynamic = "";
-            //NodeID_Kp_Follow = "";
-            //NodeID_Kp_Static = "";
-            //NodeID_Tn_Dynamic = "";
-            //NodeID_Tn_Follow = "";
-            //NodeID_Tn_Static = "";
-            //NodeID_Tv_Dynamic = "";
-            //NodeID_Tv_Follow = "";
-            //NodeID_Tv_Static = "";
-            //NodeID_Low = "";
-            //NodeID_Peak = "";
-            //NodeID_PositionClear = "";
-            //NodeID_PositionMax = "";
-            //NodeID_PositionMin = "";
-            //NodeID_ReCalibrate = "";
-            //NodeID_ResetDefault = "";
-            //NodeID_RunningFlag = "";
-            //NodeID_StartIndex = "";
-            //NodeID_StopFlag = "";
-
-            //NodeID_SystemError = "";
-            //NodeID_TestEnable = "";
-            //NodeID_TestStart = "";
-            //NodeID_TestStop = "";
-
-            //NodeID_BrokenTest_Force = "";
-            //NodeID_BrokenTest_Position = "";
-            //NodeID_Threshold_Force = "";
-            //NodeID_Threshold_Position = "";
-            //NodeID_Times = "";
-
+            else
+            {
+                new FormCommSetting().Show();
+            }
         }
         public async void TrytoConnect()
         {
@@ -2692,6 +2675,7 @@ namespace PneumaticServoMonitor
             }
             //throw new NotImplementedException();
         }
+        bool logOpened = false;
         public void _GetData()
         {
             while (true)
@@ -2702,18 +2686,51 @@ namespace PneumaticServoMonitor
                     {
                         Thread.Sleep(50);
                     }
-                    ArrayPeak_R = new float[10];
-                    ArrayLow_R = new float[10];
+                   
                     DataValue DataValuePeak = m_OpcUaClient.ReadNode(NodeID_ArrayPeak);
                     DataValue DataValueLow = m_OpcUaClient.ReadNode(NodeID_ArrayLow);
-
+                    ArrayPeak_R = (float[])DataValuePeak.Value;
+                    ArrayLow_R= (float[])DataValueLow.Value;
                     //write csv
-                    string csvFilePath = Path.Combine(DateTime.Now.ToString("yyyyMMdd") + ".csv");
-                    if (!File.Exists(csvFilePath))
-                    { periodIndex = 0; }
+                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + ".csv");
+                    if (saveFile_path!="")
+                    {
+                        if (!Directory.Exists(saveFile_path))
+                        {
+                            Directory.CreateDirectory(saveFile_path);
+                        }
+                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + ".csv");
+                    }
                     else
                     {
-                        //重新计算periodIndex
+                        saveFile_path = System.Environment.CurrentDirectory + "\\Log";
+                        if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log"))
+                        {
+                            Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log");
+                        }
+                    }
+                    if (!File.Exists(csvFilePath))
+                    { periodIndex = 0; logOpened = true; }
+                    else
+                    {
+                        if (!logOpened)
+                        {
+                            //重新计算periodIndex
+                            using (StreamReader sr = new StreamReader(csvFilePath))
+                            {
+                                string sline;
+                                while ((sline = sr.ReadLine()) != null)
+                                {
+                                    if (sline.Replace(" ", "") != "")
+                                    {
+                                        periodIndex++;
+                                    }
+                                }
+                            }
+                            periodIndex = periodIndex - 1;
+                            logOpened = true;
+                        }
+                        
                     }
                     string line = string.Empty;
                     using (StreamWriter csvFile = new StreamWriter(csvFilePath, true, Encoding.UTF8))
@@ -2724,7 +2741,7 @@ namespace PneumaticServoMonitor
                             csvFile.WriteLine(line);
                         }
                         
-                        for (int i = 0; i < ArrayPeak_R.Length; i++)
+                        for (int i = 0; i < 10; i++)
                         {
                             periodIndex++;
                             line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
@@ -2877,6 +2894,12 @@ namespace PneumaticServoMonitor
             {
                 pic_Error.Image = imageList_Status.Images[0];
             }
+            if (Times_W!=0)
+            {
+                progressBar.Value = m_OpcUaClient.ReadNode<short>(NodeID_CycleCount) / Times_W;
+
+            }
+            //progressBar.Value % 100 + 1;
         }
 
         private void btn_Reset_Click(object sender, EventArgs e)
@@ -2929,6 +2952,11 @@ namespace PneumaticServoMonitor
         private void Btn_RecipeManagement_Click(object sender, EventArgs e)
         {
             mFormSetting.Show();
+        }
+
+        private void btn_CommSetting_Click(object sender, EventArgs e)
+        {
+            new FormCommSetting().Show();
         }
     }
 

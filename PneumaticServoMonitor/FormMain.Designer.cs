@@ -40,6 +40,7 @@
             this.btn_Calibrate = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_PIDadjust = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_RecipeManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_CommSetting = new System.Windows.Forms.ToolStripMenuItem();
             this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_clock = new System.Windows.Forms.Label();
@@ -61,20 +62,19 @@
             this.btn_Setting = new System.Windows.Forms.Button();
             this.btn_Lock = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.txt_CurParams = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_Reset = new System.Windows.Forms.Button();
+            this.btn_Enable = new System.Windows.Forms.Button();
+            this.btn_Start = new System.Windows.Forms.Button();
+            this.btn_Stop = new System.Windows.Forms.Button();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel_ProgressBar = new System.Windows.Forms.Panel();
             this.btn_2Zero = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.panel_bottom = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_Reset = new System.Windows.Forms.Button();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.txt_CurParams = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btn_Start = new System.Windows.Forms.Button();
-            this.btn_Stop = new System.Windows.Forms.Button();
-            this.btn_Enable = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.lbl_ActualPosition = new System.Windows.Forms.Label();
@@ -109,10 +109,9 @@
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel12.SuspendLayout();
-            this.panel_bottom.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.panel10.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -169,6 +168,7 @@
             this.DDBtn_Beam.Name = "DDBtn_Beam";
             this.DDBtn_Beam.Size = new System.Drawing.Size(53, 24);
             this.DDBtn_Beam.Text = "横梁";
+            this.DDBtn_Beam.Visible = false;
             // 
             // DDBtn_Adjust
             // 
@@ -178,6 +178,7 @@
             this.DDBtn_Adjust.Name = "DDBtn_Adjust";
             this.DDBtn_Adjust.Size = new System.Drawing.Size(53, 24);
             this.DDBtn_Adjust.Text = "修正";
+            this.DDBtn_Adjust.Visible = false;
             this.DDBtn_Adjust.Click += new System.EventHandler(this.DDBtn_Adjust_Click);
             // 
             // DDBtn_Calibration
@@ -188,6 +189,7 @@
             this.DDBtn_Calibration.Name = "DDBtn_Calibration";
             this.DDBtn_Calibration.Size = new System.Drawing.Size(53, 24);
             this.DDBtn_Calibration.Text = "校准";
+            this.DDBtn_Calibration.Visible = false;
             this.DDBtn_Calibration.Click += new System.EventHandler(this.DDBtn_Calibration_Click);
             // 
             // DDBtn_Setting
@@ -196,7 +198,8 @@
             this.DDBtn_Setting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btn_Calibrate,
             this.btn_PIDadjust,
-            this.btn_RecipeManagement});
+            this.btn_RecipeManagement,
+            this.btn_CommSetting});
             this.DDBtn_Setting.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Setting.Image")));
             this.DDBtn_Setting.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DDBtn_Setting.Name = "DDBtn_Setting";
@@ -206,23 +209,30 @@
             // btn_Calibrate
             // 
             this.btn_Calibrate.Name = "btn_Calibrate";
-            this.btn_Calibrate.Size = new System.Drawing.Size(167, 26);
+            this.btn_Calibrate.Size = new System.Drawing.Size(224, 26);
             this.btn_Calibrate.Text = "传感器校准";
             this.btn_Calibrate.Click += new System.EventHandler(this.Btn_Calibrate_Click);
             // 
             // btn_PIDadjust
             // 
             this.btn_PIDadjust.Name = "btn_PIDadjust";
-            this.btn_PIDadjust.Size = new System.Drawing.Size(167, 26);
+            this.btn_PIDadjust.Size = new System.Drawing.Size(224, 26);
             this.btn_PIDadjust.Text = "PID修正";
             this.btn_PIDadjust.Click += new System.EventHandler(this.Btn_PIDadjust_Click);
             // 
             // btn_RecipeManagement
             // 
             this.btn_RecipeManagement.Name = "btn_RecipeManagement";
-            this.btn_RecipeManagement.Size = new System.Drawing.Size(167, 26);
+            this.btn_RecipeManagement.Size = new System.Drawing.Size(224, 26);
             this.btn_RecipeManagement.Text = "配方管理";
             this.btn_RecipeManagement.Click += new System.EventHandler(this.Btn_RecipeManagement_Click);
+            // 
+            // btn_CommSetting
+            // 
+            this.btn_CommSetting.Name = "btn_CommSetting";
+            this.btn_CommSetting.Size = new System.Drawing.Size(224, 26);
+            this.btn_CommSetting.Text = "通信配置";
+            this.btn_CommSetting.Click += new System.EventHandler(this.btn_CommSetting_Click);
             // 
             // DDBtn_Help
             // 
@@ -275,7 +285,6 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(23, 22);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(228, 55);
@@ -331,6 +340,7 @@
             // txt_SampleNumber
             // 
             this.txt_SampleNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_SampleNumber.Enabled = false;
             this.txt_SampleNumber.Location = new System.Drawing.Point(0, 23);
             this.txt_SampleNumber.Name = "txt_SampleNumber";
             this.txt_SampleNumber.Size = new System.Drawing.Size(198, 28);
@@ -366,6 +376,7 @@
             // txt_ProjectName
             // 
             this.txt_ProjectName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ProjectName.Enabled = false;
             this.txt_ProjectName.Location = new System.Drawing.Point(0, 23);
             this.txt_ProjectName.Name = "txt_ProjectName";
             this.txt_ProjectName.Size = new System.Drawing.Size(198, 28);
@@ -401,6 +412,7 @@
             // txt_ProjectNumber
             // 
             this.txt_ProjectNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_ProjectNumber.Enabled = false;
             this.txt_ProjectNumber.Location = new System.Drawing.Point(0, 23);
             this.txt_ProjectNumber.Name = "txt_ProjectNumber";
             this.txt_ProjectNumber.Size = new System.Drawing.Size(198, 28);
@@ -436,6 +448,7 @@
             // txt_Path
             // 
             this.txt_Path.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Path.Enabled = false;
             this.txt_Path.Location = new System.Drawing.Point(0, 23);
             this.txt_Path.Name = "txt_Path";
             this.txt_Path.Size = new System.Drawing.Size(198, 28);
@@ -480,9 +493,10 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.panel10);
+            this.panel7.Controls.Add(this.tableLayoutPanel4);
             this.panel7.Controls.Add(this.panel12);
             this.panel7.Controls.Add(this.label10);
-            this.panel7.Controls.Add(this.panel_bottom);
             this.panel7.Controls.Add(this.panel8);
             this.panel7.Controls.Add(this.lbl_placeholder);
             this.panel7.Controls.Add(this.panel6);
@@ -493,13 +507,114 @@
             this.panel7.Size = new System.Drawing.Size(304, 443);
             this.panel7.TabIndex = 10;
             // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.txt_CurParams);
+            this.panel10.Controls.Add(this.label7);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(0, 140);
+            this.panel10.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Padding = new System.Windows.Forms.Padding(0, 30, 0, 3);
+            this.panel10.Size = new System.Drawing.Size(304, 120);
+            this.panel10.TabIndex = 1;
+            // 
+            // txt_CurParams
+            // 
+            this.txt_CurParams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_CurParams.Location = new System.Drawing.Point(0, 50);
+            this.txt_CurParams.Multiline = true;
+            this.txt_CurParams.Name = "txt_CurParams";
+            this.txt_CurParams.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txt_CurParams.Size = new System.Drawing.Size(304, 67);
+            this.txt_CurParams.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label7.Location = new System.Drawing.Point(0, 30);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.label7.Size = new System.Drawing.Size(64, 20);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "当前参数";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 3;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 3F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.btn_Reset, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.btn_Enable, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.btn_Start, 2, 1);
+            this.tableLayoutPanel4.Controls.Add(this.btn_Stop, 2, 3);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 260);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 5;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 2F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(304, 107);
+            this.tableLayoutPanel4.TabIndex = 15;
+            // 
+            // btn_Reset
+            // 
+            this.btn_Reset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Reset.Location = new System.Drawing.Point(3, 58);
+            this.btn_Reset.Name = "btn_Reset";
+            this.btn_Reset.Size = new System.Drawing.Size(144, 44);
+            this.btn_Reset.TabIndex = 4;
+            this.btn_Reset.Text = "复位";
+            this.btn_Reset.UseVisualStyleBackColor = true;
+            this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
+            // 
+            // btn_Enable
+            // 
+            this.btn_Enable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Enable.Location = new System.Drawing.Point(3, 5);
+            this.btn_Enable.Name = "btn_Enable";
+            this.btn_Enable.Size = new System.Drawing.Size(144, 44);
+            this.btn_Enable.TabIndex = 5;
+            this.btn_Enable.Text = "使能";
+            this.btn_Enable.UseVisualStyleBackColor = true;
+            this.btn_Enable.Click += new System.EventHandler(this.btn_Enable_Click);
+            // 
+            // btn_Start
+            // 
+            this.btn_Start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Start.Location = new System.Drawing.Point(156, 5);
+            this.btn_Start.Name = "btn_Start";
+            this.btn_Start.Size = new System.Drawing.Size(145, 44);
+            this.btn_Start.TabIndex = 2;
+            this.btn_Start.Text = "开始测试";
+            this.btn_Start.UseVisualStyleBackColor = true;
+            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            // 
+            // btn_Stop
+            // 
+            this.btn_Stop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Stop.Location = new System.Drawing.Point(156, 58);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(145, 44);
+            this.btn_Stop.TabIndex = 3;
+            this.btn_Stop.Text = "停止测试";
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.panel_ProgressBar);
             this.panel12.Controls.Add(this.btn_2Zero);
             this.panel12.Controls.Add(this.label12);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel12.Location = new System.Drawing.Point(0, 167);
+            this.panel12.Location = new System.Drawing.Point(0, 367);
             this.panel12.Margin = new System.Windows.Forms.Padding(0);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -543,124 +658,11 @@
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.label10.Font = new System.Drawing.Font("Calibri", 4F);
-            this.label10.Location = new System.Drawing.Point(0, 231);
+            this.label10.Location = new System.Drawing.Point(0, 431);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 9);
             this.label10.TabIndex = 13;
             this.label10.Text = "                               ";
-            // 
-            // panel_bottom
-            // 
-            this.panel_bottom.Controls.Add(this.tableLayoutPanel3);
-            this.panel_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_bottom.Location = new System.Drawing.Point(0, 240);
-            this.panel_bottom.Name = "panel_bottom";
-            this.panel_bottom.Size = new System.Drawing.Size(304, 200);
-            this.panel_bottom.TabIndex = 12;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67.65676F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32.34324F));
-            this.tableLayoutPanel3.Controls.Add(this.btn_Reset, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.panel10, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.btn_Start, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.btn_Stop, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.btn_Enable, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 4;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(304, 200);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // btn_Reset
-            // 
-            this.btn_Reset.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_Reset.Location = new System.Drawing.Point(208, 163);
-            this.btn_Reset.Name = "btn_Reset";
-            this.btn_Reset.Size = new System.Drawing.Size(93, 34);
-            this.btn_Reset.TabIndex = 4;
-            this.btn_Reset.Text = "复位";
-            this.btn_Reset.UseVisualStyleBackColor = true;
-            this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
-            // 
-            // panel10
-            // 
-            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.Controls.Add(this.txt_CurParams);
-            this.panel10.Controls.Add(this.label7);
-            this.panel10.Location = new System.Drawing.Point(3, 0);
-            this.panel10.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.panel10.Name = "panel10";
-            this.panel10.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.tableLayoutPanel3.SetRowSpan(this.panel10, 4);
-            this.panel10.Size = new System.Drawing.Size(202, 200);
-            this.panel10.TabIndex = 1;
-            // 
-            // txt_CurParams
-            // 
-            this.txt_CurParams.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_CurParams.Location = new System.Drawing.Point(0, 23);
-            this.txt_CurParams.Multiline = true;
-            this.txt_CurParams.Name = "txt_CurParams";
-            this.txt_CurParams.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_CurParams.Size = new System.Drawing.Size(202, 174);
-            this.txt_CurParams.TabIndex = 1;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label7.Location = new System.Drawing.Point(0, 3);
-            this.label7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
-            this.label7.Name = "label7";
-            this.label7.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.label7.Size = new System.Drawing.Size(64, 20);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "当前参数";
-            // 
-            // btn_Start
-            // 
-            this.btn_Start.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_Start.Location = new System.Drawing.Point(208, 83);
-            this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(93, 34);
-            this.btn_Start.TabIndex = 2;
-            this.btn_Start.Text = "开始测试";
-            this.btn_Start.UseVisualStyleBackColor = true;
-            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
-            // 
-            // btn_Stop
-            // 
-            this.btn_Stop.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_Stop.Location = new System.Drawing.Point(208, 123);
-            this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(93, 34);
-            this.btn_Stop.TabIndex = 3;
-            this.btn_Stop.Text = "停止测试";
-            this.btn_Stop.UseVisualStyleBackColor = true;
-            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
-            // 
-            // btn_Enable
-            // 
-            this.btn_Enable.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btn_Enable.Location = new System.Drawing.Point(208, 43);
-            this.btn_Enable.Name = "btn_Enable";
-            this.btn_Enable.Size = new System.Drawing.Size(93, 34);
-            this.btn_Enable.TabIndex = 5;
-            this.btn_Enable.Text = "使能";
-            this.btn_Enable.UseVisualStyleBackColor = true;
-            this.btn_Enable.Click += new System.EventHandler(this.btn_Enable_Click);
             // 
             // panel8
             // 
@@ -693,7 +695,7 @@
             this.lbl_ActualPosition.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
             this.lbl_ActualPosition.Name = "lbl_ActualPosition";
             this.lbl_ActualPosition.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lbl_ActualPosition.Size = new System.Drawing.Size(221, 44);
+            this.lbl_ActualPosition.Size = new System.Drawing.Size(202, 44);
             this.lbl_ActualPosition.TabIndex = 5;
             this.lbl_ActualPosition.Text = "0.000";
             this.lbl_ActualPosition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -701,9 +703,9 @@
             // btn_PositionClear
             // 
             this.btn_PositionClear.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_PositionClear.Location = new System.Drawing.Point(221, 20);
+            this.btn_PositionClear.Location = new System.Drawing.Point(202, 20);
             this.btn_PositionClear.Name = "btn_PositionClear";
-            this.btn_PositionClear.Size = new System.Drawing.Size(75, 44);
+            this.btn_PositionClear.Size = new System.Drawing.Size(94, 44);
             this.btn_PositionClear.TabIndex = 4;
             this.btn_PositionClear.Text = "清零";
             this.btn_PositionClear.UseVisualStyleBackColor = true;
@@ -713,12 +715,12 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(0, 0);
             this.label9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label9.Name = "label9";
             this.label9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.label9.Size = new System.Drawing.Size(64, 20);
+            this.label9.Size = new System.Drawing.Size(68, 20);
             this.label9.TabIndex = 3;
             this.label9.Text = "实时位移";
             // 
@@ -764,7 +766,7 @@
             this.lbl_ActualForce.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
             this.lbl_ActualForce.Name = "lbl_ActualForce";
             this.lbl_ActualForce.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lbl_ActualForce.Size = new System.Drawing.Size(221, 44);
+            this.lbl_ActualForce.Size = new System.Drawing.Size(202, 44);
             this.lbl_ActualForce.TabIndex = 5;
             this.lbl_ActualForce.Text = "0.000";
             this.lbl_ActualForce.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -772,9 +774,9 @@
             // btn_ForceClear
             // 
             this.btn_ForceClear.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_ForceClear.Location = new System.Drawing.Point(221, 20);
+            this.btn_ForceClear.Location = new System.Drawing.Point(202, 20);
             this.btn_ForceClear.Name = "btn_ForceClear";
-            this.btn_ForceClear.Size = new System.Drawing.Size(75, 44);
+            this.btn_ForceClear.Size = new System.Drawing.Size(94, 44);
             this.btn_ForceClear.TabIndex = 4;
             this.btn_ForceClear.Text = "清零";
             this.btn_ForceClear.UseVisualStyleBackColor = true;
@@ -784,12 +786,12 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(0, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label6.Name = "label6";
             this.label6.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
-            this.label6.Size = new System.Drawing.Size(64, 20);
+            this.label6.Size = new System.Drawing.Size(68, 20);
             this.label6.TabIndex = 3;
             this.label6.Text = "实时载荷";
             // 
@@ -812,17 +814,18 @@
             this.panel15.Location = new System.Drawing.Point(0, 0);
             this.panel15.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.panel15.Name = "panel15";
-            this.panel15.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.panel15.Padding = new System.Windows.Forms.Padding(0, 30, 0, 3);
             this.panel15.Size = new System.Drawing.Size(172, 350);
             this.panel15.TabIndex = 13;
             // 
             // textBox6
             // 
             this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox6.Location = new System.Drawing.Point(0, 23);
+            this.textBox6.Enabled = false;
+            this.textBox6.Location = new System.Drawing.Point(0, 50);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(172, 324);
+            this.textBox6.Size = new System.Drawing.Size(172, 297);
             this.textBox6.TabIndex = 1;
             // 
             // label11
@@ -830,7 +833,7 @@
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label11.Location = new System.Drawing.Point(0, 3);
+            this.label11.Location = new System.Drawing.Point(0, 30);
             this.label11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label11.Name = "label11";
             this.label11.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
@@ -967,12 +970,11 @@
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.panel12.ResumeLayout(false);
-            this.panel12.PerformLayout();
-            this.panel_bottom.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
@@ -1026,8 +1028,6 @@
         private System.Windows.Forms.Button btn_2Zero;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel_bottom;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.TextBox txt_CurParams;
         private System.Windows.Forms.Label label7;
@@ -1065,6 +1065,8 @@
         private System.Windows.Forms.ToolStripMenuItem btn_Calibrate;
         private System.Windows.Forms.ToolStripMenuItem btn_PIDadjust;
         private System.Windows.Forms.ToolStripMenuItem btn_RecipeManagement;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.ToolStripMenuItem btn_CommSetting;
     }
 }
 
