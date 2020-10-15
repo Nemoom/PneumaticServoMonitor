@@ -2725,6 +2725,7 @@ namespace PneumaticServoMonitor
         {
             if (FormMain.m_OpcUaClient.Connected)
             {
+                firstUpdateForm();
                 //通信建立完成，可以开始read&Write
                 ThreadStart start = delegate
                 {
@@ -2743,6 +2744,27 @@ namespace PneumaticServoMonitor
             }
             //throw new NotImplementedException();
         }
+        public void firstUpdateForm()
+        {
+            if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
+            {
+                btn_Enable.BackColor = Color.Green;
+            }
+            else
+            {
+                btn_Enable.BackColor = Color.Transparent;
+            }
+            //try
+            //{
+            //    string curProjectName = m_OpcUaClient.ReadNode<bool>().ToString();
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
+        }
+
         bool logOpened = false;
         public void _GetData()
         {

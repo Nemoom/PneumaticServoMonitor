@@ -55,7 +55,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Size = new System.Drawing.Size(900, 591);
-            this.splitContainer1.SplitterDistance = 517;
+            this.splitContainer1.SplitterDistance = 516;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -65,7 +65,7 @@
             this.panel1.Location = new System.Drawing.Point(30, 30);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(840, 487);
+            this.panel1.Size = new System.Drawing.Size(840, 486);
             this.panel1.TabIndex = 0;
             // 
             // button1
@@ -91,6 +91,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormChooseRecipe";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormChooseRecipe";
             this.Load += new System.EventHandler(this.FormChooseRecipe_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

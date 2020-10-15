@@ -28,50 +28,160 @@ namespace PneumaticServoMonitor
             }
             else
             {
-                if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
+                if (cmb_ProjectName.Text == "")
                 {
-                    Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Recipe");
+                    MessageBox.Show("测试方案名不可以为空");
+                    cmb_ProjectName.Focus();
                 }
-                RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
-                if (File.Exists(RecipeFilePath))
-                { File.Delete(RecipeFilePath); }
-                string line = string.Empty;
-                using (StreamWriter RecipeFile = new StreamWriter(RecipeFilePath, true, Encoding.UTF8))
+                else if (txt_ProjectNumber.Text == "")
                 {
-                    RecipeFile.WriteLine("ProjectName:" + cmb_ProjectName.Text);
-                    RecipeFile.WriteLine("ProjectNumber:" + txt_ProjectNumber.Text);
-                    RecipeFile.WriteLine("SampleNumber:" + txt_SampleNumber.Text);
-                    if (rdo_ForceControl.Checked)
-                    {
-                        RecipeFile.WriteLine("ControlMode:Force");
-                    }
-                    else if (rdo_PositionControl.Checked)
-                    {
-                        RecipeFile.WriteLine("ControlMode:Position");
-                    }
-                    RecipeFile.WriteLine("Peak:" + txt_Peak.Text);
-                    RecipeFile.WriteLine("Low:" + txt_Low.Text);
-                    RecipeFile.WriteLine("Frequence:" + txt_Frequence.Text);
-                    RecipeFile.WriteLine("Times:" + txt_Times.Text);
-                    RecipeFile.WriteLine("ForceMax:" + txt_ForceMax.Text);
-                    RecipeFile.WriteLine("ForceMin:" + txt_ForceMin.Text);
-                    RecipeFile.WriteLine("PositionMax:" + txt_PositionMax.Text);
-                    RecipeFile.WriteLine("PositionMin:" + txt_PositionMin.Text);
-                    RecipeFile.WriteLine("BrokenTest_Force:" + chk_BrokenTest_Force.Checked.ToString());
-                    RecipeFile.WriteLine("Threshold_Force:" + txt_Threshold_Force.Text);
-                    RecipeFile.WriteLine("BrokenTest_Position:" + chk_BrokenTest_Position.Checked.ToString());
-                    RecipeFile.WriteLine("Threshold_Position:" + txt_Threshold_Position.Text);
-                    RecipeFile.WriteLine("StartIndex:" + txt_StartIndex.Text);
-                    RecipeFile.WriteLine("Kp_Static:" + txt_Kp_Static.Text);
-                    RecipeFile.WriteLine("Tn_Static:" + txt_Ki_Static.Text);
-                    RecipeFile.WriteLine("Tv_Static:" + txt_Kd_Static.Text);
-                    RecipeFile.WriteLine("Kp_Dynamic:" + txt_Kp_Dynamic.Text);
-                    RecipeFile.WriteLine("Tn_Dynamic:" + txt_Ki_Dynamic.Text);
-                    RecipeFile.WriteLine("Tv_Dynamic:" + txt_Kd_Dynamic.Text);
-                    RecipeFile.WriteLine("Kp_Follow:" + txt_Kp_Follow.Text);
-                    RecipeFile.WriteLine("Tn_Follow:" + txt_Ki_Follow.Text);
-                    RecipeFile.WriteLine("Tv_Follow:" + txt_Kd_Follow.Text);
+                    MessageBox.Show("项目号不可以为空");
+                    txt_ProjectNumber.Focus();
                 }
+                else if (txt_SampleNumber.Text == "")
+                {
+                    MessageBox.Show("样品编号不可以为空");
+                    txt_SampleNumber.Focus();
+                }
+                else if (txt_Peak.Text == "")
+                {
+                    MessageBox.Show("波峰不可以为空");
+                    txt_Peak.Focus();
+                }
+                else if (txt_Low.Text == "")
+                {
+                    MessageBox.Show("波谷不可以为空");
+                    txt_Low.Focus();
+                }
+                else if (txt_Frequence.Text == "")
+                {
+                    MessageBox.Show("频率不可以为空");
+                    txt_Frequence.Focus();
+                }
+                else if (txt_Times.Text == "")
+                {
+                    MessageBox.Show("循环次数不可以为空");
+                    txt_Times.Focus();
+                }
+                else if (txt_ForceMax.Text == "")
+                {
+                    MessageBox.Show("载荷上限不可以为空");
+                    txt_ForceMax.Focus();
+                }
+                else if (txt_ForceMin.Text == "")
+                {
+                    MessageBox.Show("载荷下限不可以为空");
+                    txt_ForceMin.Focus();
+                }
+                else if (txt_PositionMax.Text == "")
+                {
+                    MessageBox.Show("位置上限不可以为空");
+                    txt_PositionMax.Focus();
+                }
+                else if (txt_PositionMin.Text == "")
+                {
+                    MessageBox.Show("位置下限不可以为空");
+                    txt_PositionMin.Focus();
+                }
+                else if (txt_StartIndex.Text == "")
+                {
+                    MessageBox.Show("初始次数不可以为空");
+                    txt_StartIndex.Focus();
+                }
+                else if (txt_Kp_Static.Text == "")
+                {
+                    MessageBox.Show("Kp_Static不可以为空");
+                    txt_Kp_Static.Focus();
+                }
+                else if (txt_Ki_Static.Text == "")
+                {
+                    MessageBox.Show("Ki_Static不可以为空");
+                    txt_Ki_Static.Focus();
+                }
+                else if (txt_Kd_Static.Text == "")
+                {
+                    MessageBox.Show("Kd_Static不可以为空");
+                    txt_Kd_Static.Focus();
+                }
+                else if (txt_Kp_Dynamic.Text == "")
+                {
+                    MessageBox.Show("Kp_Dynamic不可以为空");
+                    txt_Kp_Dynamic.Focus();
+                }
+                else if (txt_Ki_Dynamic.Text == "")
+                {
+                    MessageBox.Show("Ki_Dynamic不可以为空");
+                    txt_Ki_Dynamic.Focus();
+                }
+                else if (txt_Kd_Dynamic.Text == "")
+                {
+                    MessageBox.Show("Kd_Dynamic不可以为空");
+                    txt_Kd_Dynamic.Focus();
+                }
+                else if (txt_Kp_Follow.Text == "")
+                {
+                    MessageBox.Show("Kp_Follow不可以为空");
+                    txt_Kp_Follow.Focus();
+                }
+                else if (txt_Ki_Follow.Text == "")
+                {
+                    MessageBox.Show("Ki_Follow不可以为空");
+                    txt_Ki_Follow.Focus();
+                }
+                else if (txt_Kd_Follow.Text == "")
+                {
+                    MessageBox.Show("Kd_Follow不可以为空");
+                    txt_Kd_Follow.Focus();
+                }
+                else
+                {
+                    if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
+                    {
+                        Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Recipe");
+                    }
+                    RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
+                    if (File.Exists(RecipeFilePath))
+                    { File.Delete(RecipeFilePath); }
+                    string line = string.Empty;
+                    using (StreamWriter RecipeFile = new StreamWriter(RecipeFilePath, true, Encoding.UTF8))
+                    {
+                        RecipeFile.WriteLine("ProjectName:" + cmb_ProjectName.Text);
+                        RecipeFile.WriteLine("ProjectNumber:" + txt_ProjectNumber.Text);
+                        RecipeFile.WriteLine("SampleNumber:" + txt_SampleNumber.Text);
+                        if (rdo_ForceControl.Checked)
+                        {
+                            RecipeFile.WriteLine("ControlMode:Force");
+                        }
+                        else if (rdo_PositionControl.Checked)
+                        {
+                            RecipeFile.WriteLine("ControlMode:Position");
+                        }
+                        RecipeFile.WriteLine("Peak:" + txt_Peak.Text);
+                        RecipeFile.WriteLine("Low:" + txt_Low.Text);
+                        RecipeFile.WriteLine("Frequence:" + txt_Frequence.Text);
+                        RecipeFile.WriteLine("Times:" + txt_Times.Text);
+                        RecipeFile.WriteLine("ForceMax:" + txt_ForceMax.Text);
+                        RecipeFile.WriteLine("ForceMin:" + txt_ForceMin.Text);
+                        RecipeFile.WriteLine("PositionMax:" + txt_PositionMax.Text);
+                        RecipeFile.WriteLine("PositionMin:" + txt_PositionMin.Text);
+                        RecipeFile.WriteLine("BrokenTest_Force:" + chk_BrokenTest_Force.Checked.ToString());
+                        RecipeFile.WriteLine("Threshold_Force:" + txt_Threshold_Force.Text);
+                        RecipeFile.WriteLine("BrokenTest_Position:" + chk_BrokenTest_Position.Checked.ToString());
+                        RecipeFile.WriteLine("Threshold_Position:" + txt_Threshold_Position.Text);
+                        RecipeFile.WriteLine("StartIndex:" + txt_StartIndex.Text);
+                        RecipeFile.WriteLine("Kp_Static:" + txt_Kp_Static.Text);
+                        RecipeFile.WriteLine("Ki_Static:" + txt_Ki_Static.Text);
+                        RecipeFile.WriteLine("Kd_Static:" + txt_Kd_Static.Text);
+                        RecipeFile.WriteLine("Kp_Dynamic:" + txt_Kp_Dynamic.Text);
+                        RecipeFile.WriteLine("Ki_Dynamic:" + txt_Ki_Dynamic.Text);
+                        RecipeFile.WriteLine("Kd_Dynamic:" + txt_Kd_Dynamic.Text);
+                        RecipeFile.WriteLine("Kp_Follow:" + txt_Kp_Follow.Text);
+                        RecipeFile.WriteLine("Ki_Follow:" + txt_Ki_Follow.Text);
+                        RecipeFile.WriteLine("Kd_Follow:" + txt_Kd_Follow.Text);
+                    }
+                    MessageBox.Show("配方" + cmb_ProjectName.Text + "保存成功");
+                }
+               
             }
         }
 
@@ -133,10 +243,110 @@ namespace PneumaticServoMonitor
                         txt_Kp_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Ki_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kd_Follow.Text = RecipeFile.ReadLine().Split(':')[1];
+                        if (txt_ProjectNumber.Text == "")
+                        {
+                            MessageBox.Show("项目号为空");
+                            txt_ProjectNumber.Focus();
+                        }
+                        else if (txt_SampleNumber.Text == "")
+                        {
+                            MessageBox.Show("样品编号为空");
+                            txt_SampleNumber.Focus();
+                        }
+                        else if (txt_Peak.Text == "")
+                        {
+                            MessageBox.Show("波峰值为空");
+                            txt_Peak.Focus();
+                        }
+                        else if (txt_Low.Text == "")
+                        {
+                            MessageBox.Show("波谷值为空");
+                            txt_Low.Focus();
+                        }
+                        else if (txt_Frequence.Text == "")
+                        {
+                            MessageBox.Show("频率值为空");
+                            txt_Frequence.Focus();
+                        }
+                        else if (txt_Times.Text == "")
+                        {
+                            MessageBox.Show("循环次数为空");
+                            txt_Times.Focus();
+                        }
+                        else if (txt_ForceMax.Text == "")
+                        {
+                            MessageBox.Show("载荷上限为空");
+                            txt_ForceMax.Focus();
+                        }
+                        else if (txt_ForceMin.Text == "")
+                        {
+                            MessageBox.Show("载荷下限为空");
+                            txt_ForceMin.Focus();
+                        }
+                        else if (txt_PositionMax.Text == "")
+                        {
+                            MessageBox.Show("位置上限为空");
+                            txt_PositionMax.Focus();
+                        }
+                        else if (txt_PositionMin.Text == "")
+                        {
+                            MessageBox.Show("位置下限为空");
+                            txt_PositionMin.Focus();
+                        }
+                        else if (txt_StartIndex.Text == "")
+                        {
+                            MessageBox.Show("初始次数为空");
+                            txt_StartIndex.Focus();
+                        }
+                        else if (txt_Kp_Static.Text == "")
+                        {
+                            MessageBox.Show("Kp_Static为空");
+                            txt_Kp_Static.Focus();
+                        }
+                        else if (txt_Ki_Static.Text == "")
+                        {
+                            MessageBox.Show("Ki_Static为空");
+                            txt_Ki_Static.Focus();
+                        }
+                        else if (txt_Kd_Static.Text == "")
+                        {
+                            MessageBox.Show("Kd_Static为空");
+                            txt_Kd_Static.Focus();
+                        }
+                        else if (txt_Kp_Dynamic.Text == "")
+                        {
+                            MessageBox.Show("Kp_Dynamic为空");
+                            txt_Kp_Dynamic.Focus();
+                        }
+                        else if (txt_Ki_Dynamic.Text == "")
+                        {
+                            MessageBox.Show("Ki_Dynamic为空");
+                            txt_Ki_Dynamic.Focus();
+                        }
+                        else if (txt_Kd_Dynamic.Text == "")
+                        {
+                            MessageBox.Show("Kd_Dynamic为空");
+                            txt_Kd_Dynamic.Focus();
+                        }
+                        else if (txt_Kp_Follow.Text == "")
+                        {
+                            MessageBox.Show("Kp_Follow为空");
+                            txt_Kp_Follow.Focus();
+                        }
+                        else if (txt_Ki_Follow.Text == "")
+                        {
+                            MessageBox.Show("Ki_Follow为空");
+                            txt_Ki_Follow.Focus();
+                        }
+                        else if (txt_Kd_Follow.Text == "")
+                        {
+                            MessageBox.Show("Kd_Follow为空");
+                            txt_Kd_Follow.Focus();
+                        }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-
+                        MessageBox.Show(ex.ToString());
                     }    
                 }
             }
@@ -149,7 +359,7 @@ namespace PneumaticServoMonitor
 
         private void FormSetting_FormClosed(object sender, FormClosedEventArgs e)
         {
-            mFormMain.mFormSetting = this;
+            mFormMain.mFormSetting = new FormSetting(mFormMain);
         }
     }
 }
