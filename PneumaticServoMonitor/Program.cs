@@ -14,7 +14,14 @@ namespace PneumaticServoMonitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            if (FormMain.plcIP != "" && FormMain.plcWebSite != "" && FormMain.plcName != "")
+            {
+                Application.Run(new FormMain());
+            }
+            else
+            {
+                Application.Run(new FormCommSetting());
+            }
         }
     }
 }

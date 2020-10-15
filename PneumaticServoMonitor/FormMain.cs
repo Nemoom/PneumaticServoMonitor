@@ -112,6 +112,39 @@ namespace PneumaticServoMonitor
                 }
             }
         }
+        public static string plcName
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("plcName", "network"))
+                    {
+                        return "";
+                    }
+                    string mIP = ini.Read("plcName", "network");
+                    try
+                    {
+                        return mIP;
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+
+                }
+                return "";
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("plcName", value, "network");
+                }
+            }
+        }
 
         #region 保存数据相关参数
         public static string saveFile_path
@@ -248,8 +281,43 @@ namespace PneumaticServoMonitor
                     ini.Write("DataMemory", value.ToString(), "saveFile");
                 }
             }
-        } 
+        }
         #endregion
+        public static string sysPrefixNodeID
+        {
+            get
+            {
+                if (plcName == "CPX-CEC-S1-V3")
+                {
+                    return "ns=2;s=|var|CPX-CEC-S1-V3.";
+                }
+                else
+                {
+                    return "ns=4;s=|var|CPX-E-CEC-M1-PN.";
+                }
+                //if (File.Exists(iniPath))
+                //{
+                //    IniFile ini = new IniFile(iniPath);
+                //    if (!ini.KeyExists("PrefixNodeID", "system"))
+                //    {
+                //        return "";
+                //    }
+                //    string mStr = ini.Read("PrefixNodeID", "system");
+                //    try
+                //    {
+                //        return mStr;
+                //    }
+                //    catch (Exception)
+                //    {
+                //        return "";
+                //    }
+
+                //}
+                //return "";
+            }
+          
+        }
+
         #region 系统参数
         public static float sysPositionOffset
         {
@@ -563,7 +631,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("PositionOffset", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -596,7 +664,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("CalForce1", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -629,7 +697,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("CalForce2", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -662,7 +730,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("CalVoltage1", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -695,7 +763,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("CalVoltage2", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -728,7 +796,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DefCalForce1", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -761,7 +829,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DefCalForce2", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -794,7 +862,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DefCalVoltage1", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -827,7 +895,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DefCalVoltage2", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -866,7 +934,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("RunningFlag", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -902,7 +970,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("StopFlag", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -938,7 +1006,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("SystemError", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -974,7 +1042,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ErrorID", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1013,7 +1081,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ForceClear", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1049,7 +1117,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("PositionClear", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1085,7 +1153,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("TestStart", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1121,7 +1189,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("TestStop", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1157,7 +1225,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("TestEnable", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1193,7 +1261,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("EMG", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1229,7 +1297,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("FaultAck", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1265,7 +1333,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("HeartBit", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1304,7 +1372,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ResetDefault", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1340,7 +1408,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ReCalibrate", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1376,7 +1444,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ExcuteDone", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1415,7 +1483,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ActualVoltage", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1451,7 +1519,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ActualForce", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1487,7 +1555,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ActualPosition", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1523,7 +1591,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("CycleCount", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1561,7 +1629,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DataPoolReady", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1597,7 +1665,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ArrayPeak", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1633,7 +1701,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ArrayLow", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1669,7 +1737,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("DataReceived", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1707,7 +1775,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Peak", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1743,7 +1811,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Low", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1779,7 +1847,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Frequence", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1815,7 +1883,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Times", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1851,7 +1919,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ForceMax", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1887,7 +1955,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("ForceMin", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1923,7 +1991,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("PositionMax", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1959,7 +2027,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("PositionMin", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -1995,7 +2063,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("BrokenTest_Force", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2031,7 +2099,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Threshold_Force", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2067,7 +2135,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("BrokenTest_Position", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2103,7 +2171,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Threshold_Position", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2139,7 +2207,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("StartIndex", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2176,7 +2244,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kp_Static", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2212,7 +2280,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Ki_Static", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2248,7 +2316,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kd_Static", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2284,7 +2352,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kp_Dynamic", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2320,7 +2388,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Ki_Dynamic", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2356,7 +2424,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kd_Dynamic", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2392,7 +2460,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kp_Follow", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2428,7 +2496,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Ki_Follow", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2464,7 +2532,7 @@ namespace PneumaticServoMonitor
                     string mStr = ini.Read("Kd_Follow", "NodeID");
                     try
                     {
-                        return mStr;
+                        return sysPrefixNodeID + mStr;
                     }
                     catch (Exception)
                     {
@@ -2582,7 +2650,7 @@ namespace PneumaticServoMonitor
         }
         private void FormMain_Load(object sender, EventArgs e)
         {
-            if (plcIP!=""&&plcWebSite!="")
+            if (plcIP!=""&&plcWebSite!=""&& plcName != "")
             {
                 m_OpcUaClient = new OpcUaClient();
                 //设置匿名连接

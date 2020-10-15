@@ -179,7 +179,13 @@
             // 
             // txt_Kp_Static
             // 
+            this.txt_Kp_Static.DecimalPlaces = 3;
             this.txt_Kp_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Static.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kp_Static.Location = new System.Drawing.Point(37, 23);
             this.txt_Kp_Static.Name = "txt_Kp_Static";
             this.txt_Kp_Static.Size = new System.Drawing.Size(128, 28);
@@ -188,7 +194,13 @@
             // 
             // txt_Kp_Dynamic
             // 
+            this.txt_Kp_Dynamic.DecimalPlaces = 3;
             this.txt_Kp_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Dynamic.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kp_Dynamic.Location = new System.Drawing.Point(171, 23);
             this.txt_Kp_Dynamic.Name = "txt_Kp_Dynamic";
             this.txt_Kp_Dynamic.Size = new System.Drawing.Size(128, 28);
@@ -197,7 +209,13 @@
             // 
             // txt_Kp_Follow
             // 
+            this.txt_Kp_Follow.DecimalPlaces = 3;
             this.txt_Kp_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kp_Follow.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kp_Follow.Location = new System.Drawing.Point(305, 23);
             this.txt_Kp_Follow.Name = "txt_Kp_Follow";
             this.txt_Kp_Follow.Size = new System.Drawing.Size(129, 28);
@@ -206,7 +224,13 @@
             // 
             // txt_Ki_Static
             // 
+            this.txt_Ki_Static.DecimalPlaces = 3;
             this.txt_Ki_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Static.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Ki_Static.Location = new System.Drawing.Point(37, 79);
             this.txt_Ki_Static.Name = "txt_Ki_Static";
             this.txt_Ki_Static.Size = new System.Drawing.Size(128, 28);
@@ -215,7 +239,13 @@
             // 
             // txt_Ki_Dynamic
             // 
+            this.txt_Ki_Dynamic.DecimalPlaces = 3;
             this.txt_Ki_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Dynamic.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Ki_Dynamic.Location = new System.Drawing.Point(171, 79);
             this.txt_Ki_Dynamic.Name = "txt_Ki_Dynamic";
             this.txt_Ki_Dynamic.Size = new System.Drawing.Size(128, 28);
@@ -224,7 +254,13 @@
             // 
             // txt_Ki_Follow
             // 
+            this.txt_Ki_Follow.DecimalPlaces = 3;
             this.txt_Ki_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Ki_Follow.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Ki_Follow.Location = new System.Drawing.Point(305, 79);
             this.txt_Ki_Follow.Name = "txt_Ki_Follow";
             this.txt_Ki_Follow.Size = new System.Drawing.Size(129, 28);
@@ -233,7 +269,13 @@
             // 
             // txt_Kd_Static
             // 
+            this.txt_Kd_Static.DecimalPlaces = 3;
             this.txt_Kd_Static.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Static.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kd_Static.Location = new System.Drawing.Point(37, 136);
             this.txt_Kd_Static.Name = "txt_Kd_Static";
             this.txt_Kd_Static.Size = new System.Drawing.Size(128, 28);
@@ -242,7 +284,13 @@
             // 
             // txt_Kd_Dynamic
             // 
+            this.txt_Kd_Dynamic.DecimalPlaces = 3;
             this.txt_Kd_Dynamic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Dynamic.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kd_Dynamic.Location = new System.Drawing.Point(171, 136);
             this.txt_Kd_Dynamic.Name = "txt_Kd_Dynamic";
             this.txt_Kd_Dynamic.Size = new System.Drawing.Size(128, 28);
@@ -251,7 +299,13 @@
             // 
             // txt_Kd_Follow
             // 
+            this.txt_Kd_Follow.DecimalPlaces = 3;
             this.txt_Kd_Follow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txt_Kd_Follow.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_Kd_Follow.Location = new System.Drawing.Point(305, 136);
             this.txt_Kd_Follow.Name = "txt_Kd_Follow";
             this.txt_Kd_Follow.Size = new System.Drawing.Size(129, 28);
