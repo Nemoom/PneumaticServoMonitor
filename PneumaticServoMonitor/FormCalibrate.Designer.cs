@@ -41,15 +41,15 @@
             this.txt_ActualVoltage = new System.Windows.Forms.TextBox();
             this.txt_ActualForce = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.txt_CalForce1 = new System.Windows.Forms.NumericUpDown();
             this.txt_CalVoltage1 = new System.Windows.Forms.NumericUpDown();
             this.txt_CalVoltage2 = new System.Windows.Forms.NumericUpDown();
+            this.txt_CalForce1 = new System.Windows.Forms.NumericUpDown();
             this.txt_CalForce2 = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalVoltage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalVoltage2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -196,19 +196,14 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // txt_CalForce1
-            // 
-            this.txt_CalForce1.Location = new System.Drawing.Point(412, 71);
-            this.txt_CalForce1.Name = "txt_CalForce1";
-            this.txt_CalForce1.Size = new System.Drawing.Size(120, 28);
-            this.txt_CalForce1.TabIndex = 16;
-            // 
             // txt_CalVoltage1
             // 
+            this.txt_CalVoltage1.DecimalPlaces = 2;
+            this.txt_CalVoltage1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_CalVoltage1.Location = new System.Drawing.Point(118, 71);
             this.txt_CalVoltage1.Name = "txt_CalVoltage1";
             this.txt_CalVoltage1.Size = new System.Drawing.Size(120, 28);
@@ -216,17 +211,46 @@
             // 
             // txt_CalVoltage2
             // 
+            this.txt_CalVoltage2.DecimalPlaces = 2;
+            this.txt_CalVoltage2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_CalVoltage2.Location = new System.Drawing.Point(118, 113);
             this.txt_CalVoltage2.Name = "txt_CalVoltage2";
             this.txt_CalVoltage2.Size = new System.Drawing.Size(120, 28);
             this.txt_CalVoltage2.TabIndex = 18;
             // 
+            // txt_CalForce1
+            // 
+            this.txt_CalForce1.DecimalPlaces = 2;
+            this.txt_CalForce1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.txt_CalForce1.Location = new System.Drawing.Point(412, 71);
+            this.txt_CalForce1.Name = "txt_CalForce1";
+            this.txt_CalForce1.Size = new System.Drawing.Size(120, 28);
+            this.txt_CalForce1.TabIndex = 16;
+            // 
             // txt_CalForce2
             // 
+            this.txt_CalForce2.DecimalPlaces = 2;
+            this.txt_CalForce2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.txt_CalForce2.Location = new System.Drawing.Point(412, 113);
             this.txt_CalForce2.Name = "txt_CalForce2";
             this.txt_CalForce2.Size = new System.Drawing.Size(120, 28);
             this.txt_CalForce2.TabIndex = 19;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // FormCalibrate
             // 
@@ -244,9 +268,9 @@
             this.Load += new System.EventHandler(this.FormCalibrate_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalVoltage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalVoltage2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_CalForce2)).EndInit();
             this.ResumeLayout(false);
 

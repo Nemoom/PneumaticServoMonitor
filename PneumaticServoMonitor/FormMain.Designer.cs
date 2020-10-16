@@ -41,6 +41,7 @@
             this.btn_PIDadjust = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_RecipeManagement = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_CommSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_Connect = new System.Windows.Forms.ToolStripButton();
             this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_clock = new System.Windows.Forms.Label();
@@ -60,7 +61,7 @@
             this.txt_Path = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btn_Setting = new System.Windows.Forms.Button();
-            this.btn_Lock = new System.Windows.Forms.Button();
+            this.btn_ChangePath = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.txt_CurParams = new System.Windows.Forms.TextBox();
@@ -78,18 +79,21 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.lbl_ActualPosition = new System.Windows.Forms.Label();
-            this.btn_PositionClear = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
+            this.btn_PositionClear = new System.Windows.Forms.CheckBox();
             this.lbl_placeholder = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.lbl_ActualForce = new System.Windows.Forms.Label();
-            this.btn_ForceClear = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.btn_ForceClear = new System.Windows.Forms.CheckBox();
             this.panel_Right = new System.Windows.Forms.Panel();
             this.panel15 = new System.Windows.Forms.Panel();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.cmb_SaveFrequency = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
@@ -100,6 +104,7 @@
             this.btn_EMG = new System.Windows.Forms.Button();
             this.imageList_Status = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -118,6 +123,7 @@
             this.panel13.SuspendLayout();
             this.panel_Right.SuspendLayout();
             this.panel15.SuspendLayout();
+            this.panel23.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Error)).BeginInit();
@@ -134,6 +140,7 @@
             this.DDBtn_Adjust,
             this.DDBtn_Calibration,
             this.DDBtn_Setting,
+            this.btn_Connect,
             this.DDBtn_Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -234,6 +241,18 @@
             this.btn_CommSetting.Text = "通信配置";
             this.btn_CommSetting.Click += new System.EventHandler(this.btn_CommSetting_Click);
             // 
+            // btn_Connect
+            // 
+            this.btn_Connect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btn_Connect.BackColor = System.Drawing.Color.Red;
+            this.btn_Connect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btn_Connect.Image = ((System.Drawing.Image)(resources.GetObject("btn_Connect.Image")));
+            this.btn_Connect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_Connect.Name = "btn_Connect";
+            this.btn_Connect.Size = new System.Drawing.Size(61, 24);
+            this.btn_Connect.Text = "Offline";
+            this.btn_Connect.Click += new System.EventHandler(this.btn_Connect_Click);
+            // 
             // DDBtn_Help
             // 
             this.DDBtn_Help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -311,7 +330,7 @@
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.btn_Setting, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btn_Lock, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btn_ChangePath, 2, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(332, 19);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 0, 0, 0);
@@ -448,7 +467,6 @@
             // txt_Path
             // 
             this.txt_Path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_Path.Enabled = false;
             this.txt_Path.Location = new System.Drawing.Point(0, 23);
             this.txt_Path.Name = "txt_Path";
             this.txt_Path.Size = new System.Drawing.Size(198, 28);
@@ -479,17 +497,17 @@
             this.btn_Setting.UseVisualStyleBackColor = true;
             this.btn_Setting.Click += new System.EventHandler(this.btn_Setting_Click);
             // 
-            // btn_Lock
+            // btn_ChangePath
             // 
-            this.btn_Lock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Lock.Location = new System.Drawing.Point(422, 57);
-            this.btn_Lock.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
-            this.btn_Lock.Name = "btn_Lock";
-            this.btn_Lock.Size = new System.Drawing.Size(108, 32);
-            this.btn_Lock.TabIndex = 5;
-            this.btn_Lock.Text = "锁定操作面板";
-            this.btn_Lock.UseVisualStyleBackColor = true;
-            this.btn_Lock.Click += new System.EventHandler(this.Btn_Lock_Click);
+            this.btn_ChangePath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_ChangePath.Location = new System.Drawing.Point(422, 57);
+            this.btn_ChangePath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
+            this.btn_ChangePath.Name = "btn_ChangePath";
+            this.btn_ChangePath.Size = new System.Drawing.Size(108, 32);
+            this.btn_ChangePath.TabIndex = 5;
+            this.btn_ChangePath.Text = "修改路径";
+            this.btn_ChangePath.UseVisualStyleBackColor = true;
+            this.btn_ChangePath.Click += new System.EventHandler(this.btn_ChangePath_Click);
             // 
             // panel7
             // 
@@ -638,6 +656,7 @@
             this.btn_2Zero.TabIndex = 1;
             this.btn_2Zero.Text = "清零";
             this.btn_2Zero.UseVisualStyleBackColor = true;
+            this.btn_2Zero.Visible = false;
             this.btn_2Zero.Click += new System.EventHandler(this.Btn_2Zero_Click);
             // 
             // label12
@@ -678,8 +697,8 @@
             // panel11
             // 
             this.panel11.Controls.Add(this.lbl_ActualPosition);
-            this.panel11.Controls.Add(this.btn_PositionClear);
             this.panel11.Controls.Add(this.label9);
+            this.panel11.Controls.Add(this.btn_PositionClear);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel11.Location = new System.Drawing.Point(3, 0);
             this.panel11.Name = "panel11";
@@ -695,21 +714,10 @@
             this.lbl_ActualPosition.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
             this.lbl_ActualPosition.Name = "lbl_ActualPosition";
             this.lbl_ActualPosition.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lbl_ActualPosition.Size = new System.Drawing.Size(202, 44);
+            this.lbl_ActualPosition.Size = new System.Drawing.Size(219, 44);
             this.lbl_ActualPosition.TabIndex = 5;
             this.lbl_ActualPosition.Text = "0.000";
             this.lbl_ActualPosition.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_PositionClear
-            // 
-            this.btn_PositionClear.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_PositionClear.Location = new System.Drawing.Point(202, 20);
-            this.btn_PositionClear.Name = "btn_PositionClear";
-            this.btn_PositionClear.Size = new System.Drawing.Size(94, 44);
-            this.btn_PositionClear.TabIndex = 4;
-            this.btn_PositionClear.Text = "清零";
-            this.btn_PositionClear.UseVisualStyleBackColor = true;
-            this.btn_PositionClear.Click += new System.EventHandler(this.Btn_PositionClear_Click);
             // 
             // label9
             // 
@@ -723,6 +731,19 @@
             this.label9.Size = new System.Drawing.Size(68, 20);
             this.label9.TabIndex = 3;
             this.label9.Text = "实时位移";
+            // 
+            // btn_PositionClear
+            // 
+            this.btn_PositionClear.AutoSize = true;
+            this.btn_PositionClear.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_PositionClear.Location = new System.Drawing.Point(219, 0);
+            this.btn_PositionClear.Name = "btn_PositionClear";
+            this.btn_PositionClear.Padding = new System.Windows.Forms.Padding(9, 15, 0, 0);
+            this.btn_PositionClear.Size = new System.Drawing.Size(77, 64);
+            this.btn_PositionClear.TabIndex = 0;
+            this.btn_PositionClear.Text = "清零";
+            this.btn_PositionClear.UseVisualStyleBackColor = true;
+            this.btn_PositionClear.CheckedChanged += new System.EventHandler(this.btn_PositionClear_CheckedChanged);
             // 
             // lbl_placeholder
             // 
@@ -749,8 +770,8 @@
             // panel13
             // 
             this.panel13.Controls.Add(this.lbl_ActualForce);
-            this.panel13.Controls.Add(this.btn_ForceClear);
             this.panel13.Controls.Add(this.label6);
+            this.panel13.Controls.Add(this.btn_ForceClear);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel13.Location = new System.Drawing.Point(3, 0);
             this.panel13.Name = "panel13";
@@ -766,21 +787,10 @@
             this.lbl_ActualForce.Margin = new System.Windows.Forms.Padding(3, 0, 13, 0);
             this.lbl_ActualForce.Name = "lbl_ActualForce";
             this.lbl_ActualForce.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.lbl_ActualForce.Size = new System.Drawing.Size(202, 44);
+            this.lbl_ActualForce.Size = new System.Drawing.Size(219, 44);
             this.lbl_ActualForce.TabIndex = 5;
             this.lbl_ActualForce.Text = "0.000";
             this.lbl_ActualForce.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btn_ForceClear
-            // 
-            this.btn_ForceClear.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_ForceClear.Location = new System.Drawing.Point(202, 20);
-            this.btn_ForceClear.Name = "btn_ForceClear";
-            this.btn_ForceClear.Size = new System.Drawing.Size(94, 44);
-            this.btn_ForceClear.TabIndex = 4;
-            this.btn_ForceClear.Text = "清零";
-            this.btn_ForceClear.UseVisualStyleBackColor = true;
-            this.btn_ForceClear.Click += new System.EventHandler(this.Btn_ForceClear_Click);
             // 
             // label6
             // 
@@ -795,9 +805,25 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "实时载荷";
             // 
+            // btn_ForceClear
+            // 
+            this.btn_ForceClear.AutoSize = true;
+            this.btn_ForceClear.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btn_ForceClear.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btn_ForceClear.FlatAppearance.BorderSize = 2;
+            this.btn_ForceClear.Location = new System.Drawing.Point(219, 0);
+            this.btn_ForceClear.Name = "btn_ForceClear";
+            this.btn_ForceClear.Padding = new System.Windows.Forms.Padding(9, 15, 0, 0);
+            this.btn_ForceClear.Size = new System.Drawing.Size(77, 64);
+            this.btn_ForceClear.TabIndex = 6;
+            this.btn_ForceClear.Text = "清零";
+            this.btn_ForceClear.UseVisualStyleBackColor = true;
+            this.btn_ForceClear.CheckedChanged += new System.EventHandler(this.btn_ForceClear_CheckedChanged);
+            // 
             // panel_Right
             // 
             this.panel_Right.Controls.Add(this.panel15);
+            this.panel_Right.Controls.Add(this.panel23);
             this.panel_Right.Controls.Add(this.panel14);
             this.panel_Right.Controls.Add(this.btn_EMG);
             this.panel_Right.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -811,21 +837,20 @@
             this.panel15.Controls.Add(this.textBox6);
             this.panel15.Controls.Add(this.label11);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(0, 0);
-            this.panel15.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.panel15.Location = new System.Drawing.Point(0, 67);
+            this.panel15.Margin = new System.Windows.Forms.Padding(0);
             this.panel15.Name = "panel15";
-            this.panel15.Padding = new System.Windows.Forms.Padding(0, 30, 0, 3);
-            this.panel15.Size = new System.Drawing.Size(172, 350);
+            this.panel15.Size = new System.Drawing.Size(172, 283);
             this.panel15.TabIndex = 13;
             // 
             // textBox6
             // 
             this.textBox6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(0, 50);
+            this.textBox6.Location = new System.Drawing.Point(0, 20);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(172, 297);
+            this.textBox6.Size = new System.Drawing.Size(172, 263);
             this.textBox6.TabIndex = 1;
             // 
             // label11
@@ -833,13 +858,54 @@
             this.label11.AutoSize = true;
             this.label11.Dock = System.Windows.Forms.DockStyle.Top;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label11.Location = new System.Drawing.Point(0, 30);
+            this.label11.Location = new System.Drawing.Point(0, 0);
             this.label11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
             this.label11.Name = "label11";
             this.label11.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.label11.Size = new System.Drawing.Size(64, 20);
             this.label11.TabIndex = 0;
             this.label11.Text = "报警信息";
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.cmb_SaveFrequency);
+            this.panel23.Controls.Add(this.label19);
+            this.panel23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel23.Location = new System.Drawing.Point(0, 0);
+            this.panel23.Margin = new System.Windows.Forms.Padding(0);
+            this.panel23.Name = "panel23";
+            this.panel23.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            this.panel23.Size = new System.Drawing.Size(172, 67);
+            this.panel23.TabIndex = 4;
+            // 
+            // cmb_SaveFrequency
+            // 
+            this.cmb_SaveFrequency.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmb_SaveFrequency.FormattingEnabled = true;
+            this.cmb_SaveFrequency.Items.AddRange(new object[] {
+            "1000",
+            "10000",
+            "100000",
+            "1000000"});
+            this.cmb_SaveFrequency.Location = new System.Drawing.Point(0, 22);
+            this.cmb_SaveFrequency.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cmb_SaveFrequency.Name = "cmb_SaveFrequency";
+            this.cmb_SaveFrequency.Size = new System.Drawing.Size(172, 29);
+            this.cmb_SaveFrequency.TabIndex = 2;
+            this.cmb_SaveFrequency.SelectedIndexChanged += new System.EventHandler(this.cmb_SaveFrequency_SelectedIndexChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label19.Location = new System.Drawing.Point(0, 4);
+            this.label19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 0);
+            this.label19.Name = "label19";
+            this.label19.Padding = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.label19.Size = new System.Drawing.Size(134, 18);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "单个日志保存记录数";
             // 
             // panel14
             // 
@@ -877,7 +943,7 @@
             // pic_Error
             // 
             this.pic_Error.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status;
+            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status_busy;
             this.pic_Error.Location = new System.Drawing.Point(0, 0);
             this.pic_Error.Name = "pic_Error";
             this.pic_Error.Size = new System.Drawing.Size(22, 24);
@@ -984,6 +1050,8 @@
             this.panel_Right.ResumeLayout(false);
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel17.ResumeLayout(false);
@@ -1021,7 +1089,7 @@
         private System.Windows.Forms.TextBox txt_Path;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btn_Setting;
-        private System.Windows.Forms.Button btn_Lock;
+        private System.Windows.Forms.Button btn_ChangePath;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel12;
@@ -1037,11 +1105,9 @@
         private System.Windows.Forms.Panel panel_ProgressBar;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Label lbl_ActualPosition;
-        private System.Windows.Forms.Button btn_PositionClear;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label lbl_ActualForce;
-        private System.Windows.Forms.Button btn_ForceClear;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel_Right;
         private System.Windows.Forms.Panel panel14;
@@ -1067,6 +1133,13 @@
         private System.Windows.Forms.ToolStripMenuItem btn_RecipeManagement;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.ToolStripMenuItem btn_CommSetting;
+        private System.Windows.Forms.CheckBox btn_ForceClear;
+        private System.Windows.Forms.CheckBox btn_PositionClear;
+        private System.Windows.Forms.ToolStripButton btn_Connect;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Panel panel23;
+        public System.Windows.Forms.ComboBox cmb_SaveFrequency;
+        private System.Windows.Forms.Label label19;
     }
 }
 
