@@ -3116,6 +3116,19 @@ namespace PneumaticServoMonitor
         {
             saveFile_Frequency = Convert.ToInt32(cmb_SaveFrequency.Text);
         }
+
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("您确认退出吗？", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                Dispose();
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
     }
 
     public class MyProgressBar : ProgressBar
