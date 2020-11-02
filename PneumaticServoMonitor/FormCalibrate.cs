@@ -29,6 +29,14 @@ namespace PneumaticServoMonitor
                 {
                     txt_ActualForce.Text = FormMain.m_OpcUaClient.ReadNode(FormMain.NodeID_ActualForce).ToString();
                     txt_ActualVoltage.Text= FormMain.m_OpcUaClient.ReadNode(FormMain.NodeID_ActualVoltage).ToString();
+                    if (FormMain.m_OpcUaClient.ReadNode<bool>(FormMain.NodeID_ExcuteDone))
+                    {
+                        button1.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        button1.BackColor = SystemColors.Control;
+                    }
                 }
             }
             catch (Exception)
@@ -53,6 +61,11 @@ namespace PneumaticServoMonitor
 
         private void Button1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void button1_MouseDown(object sender, MouseEventArgs e)
+        {
             //更新至ini文件
             FormMain.sysCalVoltage1 = Convert.ToSingle(txt_CalVoltage1.Text);
             FormMain.sysCalVoltage2 = Convert.ToSingle(txt_CalVoltage2.Text);
@@ -65,6 +78,15 @@ namespace PneumaticServoMonitor
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysCalVoltage2, FormMain.sysCalVoltage2);
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysCalForce1, FormMain.sysCalForce1);
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_sysCalForce2, FormMain.sysCalForce2);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_ReCalibrate, true);
+            }
+        }
+
+        private void button1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (FormMain.m_OpcUaClient.Connected)
+            {                
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_ReCalibrate, false);
             }
         }
     }

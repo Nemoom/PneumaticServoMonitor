@@ -3007,9 +3007,12 @@ namespace PneumaticServoMonitor
             }
             if (Times_W!=0)
             {
-                progressBar.Value = m_OpcUaClient.ReadNode<short>(NodeID_CycleCount) / Times_W;
-
+                lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<short>(NodeID_CycleCount).ToString();
+                lbl_TImes_Set.Text = Times_W.ToString();
+                progressBar.Value = Convert.ToInt32(lbl_Times_Cur.Text) / Times_W;
             }
+            lbl_ActualForce.Text= m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
+            lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
             //progressBar.Value % 100 + 1;
         }
 
@@ -3128,6 +3131,75 @@ namespace PneumaticServoMonitor
             {
                 e.Cancel = true;
             }
+        }
+
+        object logLock = new object();
+        void writeLog(string content, logFormat format)
+        {
+            string line = string.Empty;
+
+            lock (logLock)
+            {
+                // show in screen
+                if (format != logFormat.File)
+                {
+                    line = string.IsNullOrWhiteSpace(content) ? "\r\n" : DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ": " + content.TrimEnd() + "\r\n";
+                    this.Invoke(
+                    (EventHandler)delegate
+                    { txt_Log.AppendText(line); txt_Log_Cur.AppendText(line); }
+                    );
+                }
+                // store in log file
+                if (format != logFormat.Screen)
+                {
+                    const string LOG_DIR = "logs";
+                    string logFilePath = Path.Combine(LOG_DIR, DateTime.Now.ToString("yyyy-MM-dd") + ".log");
+                    if (!Directory.Exists(LOG_DIR)) Directory.CreateDirectory(LOG_DIR);
+                    line = string.IsNullOrWhiteSpace(content) ? "\r\n" : DateTime.Now.ToString("HH:mm:ss") + ": " + content.TrimEnd() + "\r\n";
+                    StreamWriter logFile = new StreamWriter(logFilePath, true, Encoding.UTF8);
+                    logFile.Write(line);
+                    logFile.Close();
+                    logFile.Dispose();
+                }
+            }
+        }
+
+        void moveLogs()
+        {
+            const string LOG_DIR = "Logs";
+            const string OLD_DIR = "Logs\\Old";
+            if (!Directory.Exists(LOG_DIR)) return;
+            if (!Directory.Exists(OLD_DIR)) Directory.CreateDirectory(OLD_DIR);
+
+            string[] logs = Directory.GetFiles(LOG_DIR, "*.log", SearchOption.TopDirectoryOnly);
+            if (logs.Length < 3) return;
+            else
+            {
+                Array.Sort<string>(logs);
+                for (int i = 0; i < logs.Length - 2; i++)
+                {
+                    try
+                    {
+                        File.Move(logs[i], Path.Combine(OLD_DIR, Path.GetFileName(logs[i])));
+                    }
+                    catch (Exception)
+                    {
+                        ;
+                    }
+                }
+            }
+        }
+
+        enum logFormat
+        {
+            Screen = 3,
+            File,
+            Both
+        }
+
+        private void btn_Clear_Click(object sender, EventArgs e)
+        {
+            txt_Log_Cur.Clear();
         }
     }
 

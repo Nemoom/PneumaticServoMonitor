@@ -361,5 +361,24 @@ namespace PneumaticServoMonitor
         {
             mFormMain.mFormSetting = new FormSetting(mFormMain);
         }
+
+        private void btn_Rename_Click(object sender, EventArgs e)
+        {          
+            if (true)
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("");
+            }
+        }
+
+        private void btn_Delete_Click(object sender, EventArgs e)
+        {
+            RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
+            if (File.Exists(RecipeFilePath))
+            { File.Delete(RecipeFilePath); }
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             this.txt_DefCalForce1 = new System.Windows.Forms.TextBox();
             this.txt_DefCalForce2 = new System.Windows.Forms.TextBox();
             this.tbn_Reset = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,7 +153,12 @@
             this.tbn_Reset.TabIndex = 14;
             this.tbn_Reset.Text = "Reset";
             this.tbn_Reset.UseVisualStyleBackColor = true;
-            this.tbn_Reset.Click += new System.EventHandler(this.Tbn_Reset_Click);
+            this.tbn_Reset.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbn_Reset_MouseDown);
+            this.tbn_Reset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbn_Reset_MouseUp);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormSensorReset
             // 
@@ -185,5 +192,6 @@
         private System.Windows.Forms.TextBox txt_DefCalForce1;
         private System.Windows.Forms.TextBox txt_DefCalForce2;
         private System.Windows.Forms.Button tbn_Reset;
+        private System.Windows.Forms.Timer timer1;
     }
 }
