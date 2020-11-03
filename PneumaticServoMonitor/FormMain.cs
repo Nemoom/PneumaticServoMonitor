@@ -2974,7 +2974,7 @@ namespace PneumaticServoMonitor
             Thread.Sleep(100);
             m_OpcUaClient.WriteNode(NodeID_TestStop, false);
         }
-
+        int i_ErrorID_Last = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
             m_OpcUaClient.WriteNode(NodeID_HeartBit, !m_OpcUaClient.ReadNode<bool>(NodeID_HeartBit));
@@ -3016,18 +3016,28 @@ namespace PneumaticServoMonitor
                 pic_Error.Image = imageList_Status.Images[0];
             }
             int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
+            
             if (i_ErrorID != 0)
             {
-                string msg = "";
-                try
-                {
-                    msg = ini_errorlist.Read(i_ErrorID.ToString(), "ErrorList");
-                }
-                catch (Exception)
+                if (i_ErrorID_Last != i_ErrorID)
                 {
 
+                    string msg = "";
+                    try
+                    {
+                        msg = ini_errorlist.Read(i_ErrorID.ToString(), "ErrorList");
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    writeLog(msg == "" ? i_ErrorID.ToString() : msg, logFormat.Both);
                 }
-                writeLog(msg == "" ? i_ErrorID.ToString() : msg, logFormat.Both);
+                i_ErrorID_Last = i_ErrorID;
+            }
+            else
+            {
+                txt_Log_Cur.Clear();
             }
             if (Times_W != 0)
             {
@@ -3250,6 +3260,7 @@ namespace PneumaticServoMonitor
         private void btn_Clear_Click(object sender, EventArgs e)
         {
             txt_Log_Cur.Clear();
+            i_ErrorID_Last = 0;
         }
     }
 

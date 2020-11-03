@@ -206,6 +206,16 @@
             0,
             131072});
             this.txt_CalVoltage1.Location = new System.Drawing.Point(118, 71);
+            this.txt_CalVoltage1.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.txt_CalVoltage1.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            -2147483648});
             this.txt_CalVoltage1.Name = "txt_CalVoltage1";
             this.txt_CalVoltage1.Size = new System.Drawing.Size(120, 28);
             this.txt_CalVoltage1.TabIndex = 17;
@@ -219,6 +229,16 @@
             0,
             131072});
             this.txt_CalVoltage2.Location = new System.Drawing.Point(118, 113);
+            this.txt_CalVoltage2.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.txt_CalVoltage2.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            -2147483648});
             this.txt_CalVoltage2.Name = "txt_CalVoltage2";
             this.txt_CalVoltage2.Size = new System.Drawing.Size(120, 28);
             this.txt_CalVoltage2.TabIndex = 18;
@@ -232,6 +252,16 @@
             0,
             131072});
             this.txt_CalForce1.Location = new System.Drawing.Point(412, 71);
+            this.txt_CalForce1.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.txt_CalForce1.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.txt_CalForce1.Name = "txt_CalForce1";
             this.txt_CalForce1.Size = new System.Drawing.Size(120, 28);
             this.txt_CalForce1.TabIndex = 16;
@@ -245,6 +275,16 @@
             0,
             131072});
             this.txt_CalForce2.Location = new System.Drawing.Point(412, 113);
+            this.txt_CalForce2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.txt_CalForce2.Minimum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            -2147483648});
             this.txt_CalForce2.Name = "txt_CalForce2";
             this.txt_CalForce2.Size = new System.Drawing.Size(120, 28);
             this.txt_CalForce2.TabIndex = 19;

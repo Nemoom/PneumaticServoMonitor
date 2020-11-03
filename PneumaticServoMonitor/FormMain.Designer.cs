@@ -671,7 +671,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel3);
             this.splitContainer1.Size = new System.Drawing.Size(223, 44);
-            this.splitContainer1.SplitterDistance = 161;
+            this.splitContainer1.SplitterDistance = 164;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -680,7 +680,7 @@
             this.panel_ProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_ProgressBar.Location = new System.Drawing.Point(0, 0);
             this.panel_ProgressBar.Name = "panel_ProgressBar";
-            this.panel_ProgressBar.Size = new System.Drawing.Size(161, 44);
+            this.panel_ProgressBar.Size = new System.Drawing.Size(164, 44);
             this.panel_ProgressBar.TabIndex = 2;
             // 
             // tableLayoutPanel3
@@ -696,7 +696,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(61, 44);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(58, 44);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // lbl_Times_Cur
@@ -705,7 +705,7 @@
             this.lbl_Times_Cur.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_Times_Cur.Location = new System.Drawing.Point(3, 22);
             this.lbl_Times_Cur.Name = "lbl_Times_Cur";
-            this.lbl_Times_Cur.Size = new System.Drawing.Size(55, 22);
+            this.lbl_Times_Cur.Size = new System.Drawing.Size(52, 22);
             this.lbl_Times_Cur.TabIndex = 1;
             this.lbl_Times_Cur.Text = "0";
             this.lbl_Times_Cur.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -716,7 +716,7 @@
             this.lbl_TImes_Set.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_TImes_Set.Location = new System.Drawing.Point(3, 0);
             this.lbl_TImes_Set.Name = "lbl_TImes_Set";
-            this.lbl_TImes_Set.Size = new System.Drawing.Size(55, 22);
+            this.lbl_TImes_Set.Size = new System.Drawing.Size(52, 22);
             this.lbl_TImes_Set.TabIndex = 0;
             this.lbl_TImes_Set.Text = "0";
             this.lbl_TImes_Set.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
