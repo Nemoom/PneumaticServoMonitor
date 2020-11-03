@@ -33,7 +33,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.cmb_ProjectName = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btn_Rename = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txt_ProjectNumber = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -104,6 +104,7 @@
             this.txt_Threshold_Position = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.chk_BrokenTest_Position = new System.Windows.Forms.CheckBox();
+            this.btn_Delete = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel21 = new System.Windows.Forms.Panel();
@@ -116,8 +117,8 @@
             this.panel23 = new System.Windows.Forms.Panel();
             this.cmb_SaveFrequency = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.btn_Rename = new System.Windows.Forms.Button();
-            this.btn_Delete = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -156,6 +157,10 @@
             this.panel21.SuspendLayout();
             this.panel18.SuspendLayout();
             this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -199,8 +204,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.53425F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.46575F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 1);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel2.Controls.Add(this.panel5, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel6, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.rdo_ForceControl, 1, 5);
@@ -211,6 +215,7 @@
             this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.panel11, 1, 10);
             this.tableLayoutPanel2.Controls.Add(this.button1, 2, 10);
+            this.tableLayoutPanel2.Controls.Add(this.splitContainer1, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -233,16 +238,14 @@
             // 
             // panel4
             // 
-            this.tableLayoutPanel2.SetColumnSpan(this.panel4, 2);
             this.panel4.Controls.Add(this.cmb_ProjectName);
-            this.panel4.Controls.Add(this.btn_Rename);
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(22, 26);
+            this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel4.Size = new System.Drawing.Size(342, 59);
+            this.panel4.Size = new System.Drawing.Size(262, 59);
             this.panel4.TabIndex = 1;
             // 
             // cmb_ProjectName
@@ -252,22 +255,21 @@
             this.cmb_ProjectName.Location = new System.Drawing.Point(0, 25);
             this.cmb_ProjectName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmb_ProjectName.Name = "cmb_ProjectName";
-            this.cmb_ProjectName.Size = new System.Drawing.Size(267, 29);
+            this.cmb_ProjectName.Size = new System.Drawing.Size(262, 29);
             this.cmb_ProjectName.TabIndex = 1;
             this.cmb_ProjectName.SelectedIndexChanged += new System.EventHandler(this.cmb_ProjectName_SelectedIndexChanged);
             // 
-            // label1
+            // btn_Rename
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.label1.Location = new System.Drawing.Point(0, 4);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
-            this.label1.Size = new System.Drawing.Size(64, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "测试方案";
+            this.btn_Rename.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btn_Rename.Location = new System.Drawing.Point(0, 20);
+            this.btn_Rename.Margin = new System.Windows.Forms.Padding(15, 30, 3, 30);
+            this.btn_Rename.Name = "btn_Rename";
+            this.btn_Rename.Size = new System.Drawing.Size(75, 39);
+            this.btn_Rename.TabIndex = 1;
+            this.btn_Rename.Text = "重命名";
+            this.btn_Rename.UseVisualStyleBackColor = true;
+            this.btn_Rename.Click += new System.EventHandler(this.btn_Rename_Click);
             // 
             // panel5
             // 
@@ -279,7 +281,7 @@
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel5.Size = new System.Drawing.Size(342, 59);
+            this.panel5.Size = new System.Drawing.Size(341, 59);
             this.panel5.TabIndex = 2;
             // 
             // txt_ProjectNumber
@@ -288,7 +290,7 @@
             this.txt_ProjectNumber.Location = new System.Drawing.Point(0, 25);
             this.txt_ProjectNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_ProjectNumber.Name = "txt_ProjectNumber";
-            this.txt_ProjectNumber.Size = new System.Drawing.Size(342, 28);
+            this.txt_ProjectNumber.Size = new System.Drawing.Size(341, 28);
             this.txt_ProjectNumber.TabIndex = 1;
             // 
             // label2
@@ -314,7 +316,7 @@
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel6.Size = new System.Drawing.Size(342, 59);
+            this.panel6.Size = new System.Drawing.Size(341, 59);
             this.panel6.TabIndex = 3;
             // 
             // txt_SampleNumber
@@ -323,7 +325,7 @@
             this.txt_SampleNumber.Location = new System.Drawing.Point(0, 25);
             this.txt_SampleNumber.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_SampleNumber.Name = "txt_SampleNumber";
-            this.txt_SampleNumber.Size = new System.Drawing.Size(342, 28);
+            this.txt_SampleNumber.Size = new System.Drawing.Size(341, 28);
             this.txt_SampleNumber.TabIndex = 1;
             // 
             // label3
@@ -355,7 +357,7 @@
             // rdo_PositionControl
             // 
             this.rdo_PositionControl.AutoSize = true;
-            this.rdo_PositionControl.Location = new System.Drawing.Point(222, 248);
+            this.rdo_PositionControl.Location = new System.Drawing.Point(221, 248);
             this.rdo_PositionControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rdo_PositionControl.Name = "rdo_PositionControl";
             this.rdo_PositionControl.Size = new System.Drawing.Size(103, 25);
@@ -373,7 +375,7 @@
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel7.Size = new System.Drawing.Size(342, 65);
+            this.panel7.Size = new System.Drawing.Size(341, 65);
             this.panel7.TabIndex = 6;
             // 
             // txt_Peak
@@ -382,7 +384,7 @@
             this.txt_Peak.Location = new System.Drawing.Point(0, 25);
             this.txt_Peak.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Peak.Name = "txt_Peak";
-            this.txt_Peak.Size = new System.Drawing.Size(342, 28);
+            this.txt_Peak.Size = new System.Drawing.Size(341, 28);
             this.txt_Peak.TabIndex = 1;
             // 
             // label4
@@ -408,7 +410,7 @@
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
             this.panel9.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel9.Size = new System.Drawing.Size(342, 67);
+            this.panel9.Size = new System.Drawing.Size(341, 67);
             this.panel9.TabIndex = 7;
             // 
             // txt_Frequence
@@ -417,7 +419,7 @@
             this.txt_Frequence.Location = new System.Drawing.Point(0, 25);
             this.txt_Frequence.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Frequence.Name = "txt_Frequence";
-            this.txt_Frequence.Size = new System.Drawing.Size(342, 28);
+            this.txt_Frequence.Size = new System.Drawing.Size(341, 28);
             this.txt_Frequence.TabIndex = 1;
             this.txt_Frequence.Text = "10";
             // 
@@ -444,7 +446,7 @@
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
             this.panel10.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel10.Size = new System.Drawing.Size(342, 64);
+            this.panel10.Size = new System.Drawing.Size(341, 64);
             this.panel10.TabIndex = 8;
             // 
             // txt_Times
@@ -453,7 +455,7 @@
             this.txt_Times.Location = new System.Drawing.Point(0, 25);
             this.txt_Times.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Times.Name = "txt_Times";
-            this.txt_Times.Size = new System.Drawing.Size(342, 28);
+            this.txt_Times.Size = new System.Drawing.Size(341, 28);
             this.txt_Times.TabIndex = 1;
             // 
             // label7
@@ -479,7 +481,7 @@
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel8.Size = new System.Drawing.Size(342, 67);
+            this.panel8.Size = new System.Drawing.Size(341, 67);
             this.panel8.TabIndex = 9;
             // 
             // txt_Low
@@ -488,7 +490,7 @@
             this.txt_Low.Location = new System.Drawing.Point(0, 25);
             this.txt_Low.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Low.Name = "txt_Low";
-            this.txt_Low.Size = new System.Drawing.Size(342, 28);
+            this.txt_Low.Size = new System.Drawing.Size(341, 28);
             this.txt_Low.TabIndex = 1;
             // 
             // label5
@@ -513,7 +515,7 @@
             this.panel11.Margin = new System.Windows.Forms.Padding(0);
             this.panel11.Name = "panel11";
             this.panel11.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel11.Size = new System.Drawing.Size(197, 63);
+            this.panel11.Size = new System.Drawing.Size(196, 63);
             this.panel11.TabIndex = 10;
             // 
             // txt_EstimatedTime
@@ -523,7 +525,7 @@
             this.txt_EstimatedTime.Location = new System.Drawing.Point(0, 25);
             this.txt_EstimatedTime.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_EstimatedTime.Name = "txt_EstimatedTime";
-            this.txt_EstimatedTime.Size = new System.Drawing.Size(197, 28);
+            this.txt_EstimatedTime.Size = new System.Drawing.Size(196, 28);
             this.txt_EstimatedTime.TabIndex = 1;
             // 
             // label8
@@ -542,7 +544,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(277, 575);
+            this.button1.Location = new System.Drawing.Point(276, 575);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(84, 37);
@@ -568,7 +570,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.58923F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.41077F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel3.Controls.Add(this.panel12, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel13, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.panel14, 1, 3);
@@ -608,7 +610,7 @@
             this.panel12.Margin = new System.Windows.Forms.Padding(0);
             this.panel12.Name = "panel12";
             this.panel12.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel12.Size = new System.Drawing.Size(353, 55);
+            this.panel12.Size = new System.Drawing.Size(352, 55);
             this.panel12.TabIndex = 1;
             // 
             // txt_ForceMax
@@ -617,7 +619,7 @@
             this.txt_ForceMax.Location = new System.Drawing.Point(0, 25);
             this.txt_ForceMax.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_ForceMax.Name = "txt_ForceMax";
-            this.txt_ForceMax.Size = new System.Drawing.Size(353, 28);
+            this.txt_ForceMax.Size = new System.Drawing.Size(352, 28);
             this.txt_ForceMax.TabIndex = 1;
             // 
             // label9
@@ -643,7 +645,7 @@
             this.panel13.Margin = new System.Windows.Forms.Padding(0);
             this.panel13.Name = "panel13";
             this.panel13.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel13.Size = new System.Drawing.Size(353, 55);
+            this.panel13.Size = new System.Drawing.Size(352, 55);
             this.panel13.TabIndex = 2;
             // 
             // txt_ForceMin
@@ -652,7 +654,7 @@
             this.txt_ForceMin.Location = new System.Drawing.Point(0, 25);
             this.txt_ForceMin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_ForceMin.Name = "txt_ForceMin";
-            this.txt_ForceMin.Size = new System.Drawing.Size(353, 28);
+            this.txt_ForceMin.Size = new System.Drawing.Size(352, 28);
             this.txt_ForceMin.TabIndex = 1;
             // 
             // label10
@@ -678,7 +680,7 @@
             this.panel14.Margin = new System.Windows.Forms.Padding(0);
             this.panel14.Name = "panel14";
             this.panel14.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel14.Size = new System.Drawing.Size(353, 55);
+            this.panel14.Size = new System.Drawing.Size(352, 55);
             this.panel14.TabIndex = 3;
             // 
             // txt_PositionMax
@@ -687,7 +689,7 @@
             this.txt_PositionMax.Location = new System.Drawing.Point(0, 25);
             this.txt_PositionMax.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_PositionMax.Name = "txt_PositionMax";
-            this.txt_PositionMax.Size = new System.Drawing.Size(353, 28);
+            this.txt_PositionMax.Size = new System.Drawing.Size(352, 28);
             this.txt_PositionMax.TabIndex = 1;
             // 
             // label11
@@ -713,7 +715,7 @@
             this.panel_WithLight.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WithLight.Name = "panel_WithLight";
             this.panel_WithLight.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.panel_WithLight.Size = new System.Drawing.Size(353, 55);
+            this.panel_WithLight.Size = new System.Drawing.Size(352, 55);
             this.panel_WithLight.TabIndex = 6;
             // 
             // panel24
@@ -724,7 +726,7 @@
             this.panel24.Location = new System.Drawing.Point(24, 3);
             this.panel24.Margin = new System.Windows.Forms.Padding(0);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(329, 52);
+            this.panel24.Size = new System.Drawing.Size(328, 52);
             this.panel24.TabIndex = 17;
             // 
             // txt_Threshold_Force
@@ -733,7 +735,7 @@
             this.txt_Threshold_Force.Location = new System.Drawing.Point(0, 21);
             this.txt_Threshold_Force.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Threshold_Force.Name = "txt_Threshold_Force";
-            this.txt_Threshold_Force.Size = new System.Drawing.Size(329, 28);
+            this.txt_Threshold_Force.Size = new System.Drawing.Size(328, 28);
             this.txt_Threshold_Force.TabIndex = 1;
             // 
             // label20
@@ -770,7 +772,7 @@
             this.panel16.Margin = new System.Windows.Forms.Padding(0);
             this.panel16.Name = "panel16";
             this.panel16.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel16.Size = new System.Drawing.Size(353, 55);
+            this.panel16.Size = new System.Drawing.Size(352, 55);
             this.panel16.TabIndex = 7;
             // 
             // txt_StartIndex
@@ -779,7 +781,7 @@
             this.txt_StartIndex.Location = new System.Drawing.Point(0, 25);
             this.txt_StartIndex.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_StartIndex.Name = "txt_StartIndex";
-            this.txt_StartIndex.Size = new System.Drawing.Size(353, 28);
+            this.txt_StartIndex.Size = new System.Drawing.Size(352, 28);
             this.txt_StartIndex.TabIndex = 1;
             // 
             // label13
@@ -805,7 +807,7 @@
             this.panel17.Margin = new System.Windows.Forms.Padding(0);
             this.panel17.Name = "panel17";
             this.panel17.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel17.Size = new System.Drawing.Size(353, 161);
+            this.panel17.Size = new System.Drawing.Size(352, 161);
             this.panel17.TabIndex = 8;
             // 
             // tableLayoutPanel5
@@ -839,7 +841,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(353, 132);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(352, 132);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
             // label12
@@ -894,7 +896,7 @@
             this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label26.Location = new System.Drawing.Point(249, 0);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(101, 20);
+            this.label26.Size = new System.Drawing.Size(100, 20);
             this.label26.TabIndex = 14;
             this.label26.Text = "Follow";
             this.label26.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -938,7 +940,7 @@
             131072});
             this.txt_Kp_Follow.Location = new System.Drawing.Point(249, 23);
             this.txt_Kp_Follow.Name = "txt_Kp_Follow";
-            this.txt_Kp_Follow.Size = new System.Drawing.Size(101, 28);
+            this.txt_Kp_Follow.Size = new System.Drawing.Size(100, 28);
             this.txt_Kp_Follow.TabIndex = 17;
             // 
             // txt_Ki_Static
@@ -980,7 +982,7 @@
             131072});
             this.txt_Ki_Follow.Location = new System.Drawing.Point(249, 60);
             this.txt_Ki_Follow.Name = "txt_Ki_Follow";
-            this.txt_Ki_Follow.Size = new System.Drawing.Size(101, 28);
+            this.txt_Ki_Follow.Size = new System.Drawing.Size(100, 28);
             this.txt_Ki_Follow.TabIndex = 20;
             // 
             // txt_Kd_Static
@@ -1022,7 +1024,7 @@
             131072});
             this.txt_Kd_Follow.Location = new System.Drawing.Point(249, 97);
             this.txt_Kd_Follow.Name = "txt_Kd_Follow";
-            this.txt_Kd_Follow.Size = new System.Drawing.Size(101, 28);
+            this.txt_Kd_Follow.Size = new System.Drawing.Size(100, 28);
             this.txt_Kd_Follow.TabIndex = 23;
             // 
             // label14
@@ -1041,7 +1043,7 @@
             // btn_RecipeSave
             // 
             this.btn_RecipeSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_RecipeSave.Location = new System.Drawing.Point(288, 576);
+            this.btn_RecipeSave.Location = new System.Drawing.Point(287, 576);
             this.btn_RecipeSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_RecipeSave.Name = "btn_RecipeSave";
             this.btn_RecipeSave.Size = new System.Drawing.Size(84, 37);
@@ -1060,7 +1062,7 @@
             this.panel19.Margin = new System.Windows.Forms.Padding(0);
             this.panel19.Name = "panel19";
             this.panel19.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
-            this.panel19.Size = new System.Drawing.Size(353, 55);
+            this.panel19.Size = new System.Drawing.Size(352, 55);
             this.panel19.TabIndex = 12;
             // 
             // txt_PositionMin
@@ -1069,7 +1071,7 @@
             this.txt_PositionMin.Location = new System.Drawing.Point(0, 25);
             this.txt_PositionMin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_PositionMin.Name = "txt_PositionMin";
-            this.txt_PositionMin.Size = new System.Drawing.Size(353, 28);
+            this.txt_PositionMin.Size = new System.Drawing.Size(352, 28);
             this.txt_PositionMin.TabIndex = 1;
             // 
             // label16
@@ -1095,7 +1097,7 @@
             this.panel15.Margin = new System.Windows.Forms.Padding(0);
             this.panel15.Name = "panel15";
             this.panel15.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.panel15.Size = new System.Drawing.Size(353, 55);
+            this.panel15.Size = new System.Drawing.Size(352, 55);
             this.panel15.TabIndex = 13;
             // 
             // panel25
@@ -1106,7 +1108,7 @@
             this.panel25.Location = new System.Drawing.Point(24, 3);
             this.panel25.Margin = new System.Windows.Forms.Padding(0);
             this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(329, 52);
+            this.panel25.Size = new System.Drawing.Size(328, 52);
             this.panel25.TabIndex = 17;
             // 
             // txt_Threshold_Position
@@ -1115,7 +1117,7 @@
             this.txt_Threshold_Position.Location = new System.Drawing.Point(0, 21);
             this.txt_Threshold_Position.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_Threshold_Position.Name = "txt_Threshold_Position";
-            this.txt_Threshold_Position.Size = new System.Drawing.Size(329, 28);
+            this.txt_Threshold_Position.Size = new System.Drawing.Size(328, 28);
             this.txt_Threshold_Position.TabIndex = 1;
             // 
             // label21
@@ -1141,6 +1143,18 @@
             this.chk_BrokenTest_Position.Size = new System.Drawing.Size(24, 52);
             this.chk_BrokenTest_Position.TabIndex = 1;
             this.chk_BrokenTest_Position.UseVisualStyleBackColor = true;
+            // 
+            // btn_Delete
+            // 
+            this.btn_Delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Delete.Location = new System.Drawing.Point(162, 576);
+            this.btn_Delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Delete.Name = "btn_Delete";
+            this.btn_Delete.Size = new System.Drawing.Size(84, 37);
+            this.btn_Delete.TabIndex = 14;
+            this.btn_Delete.Text = "删除";
+            this.btn_Delete.UseVisualStyleBackColor = true;
+            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
             // 
             // panel3
             // 
@@ -1301,28 +1315,38 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "单个保存记录数";
             // 
-            // btn_Rename
+            // label1
             // 
-            this.btn_Rename.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_Rename.Location = new System.Drawing.Point(267, 25);
-            this.btn_Rename.Name = "btn_Rename";
-            this.btn_Rename.Size = new System.Drawing.Size(75, 30);
-            this.btn_Rename.TabIndex = 1;
-            this.btn_Rename.Text = "重命名";
-            this.btn_Rename.UseVisualStyleBackColor = true;
-            this.btn_Rename.Click += new System.EventHandler(this.btn_Rename_Click);
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label1.Location = new System.Drawing.Point(0, 4);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 4);
+            this.label1.Size = new System.Drawing.Size(64, 21);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "测试方案";
             // 
-            // btn_Delete
+            // splitContainer1
             // 
-            this.btn_Delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Delete.Location = new System.Drawing.Point(163, 576);
-            this.btn_Delete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(84, 37);
-            this.btn_Delete.TabIndex = 14;
-            this.btn_Delete.Text = "删除";
-            this.btn_Delete.UseVisualStyleBackColor = true;
-            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
+            this.tableLayoutPanel2.SetColumnSpan(this.splitContainer1, 2);
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.Location = new System.Drawing.Point(22, 26);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.panel4);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.btn_Rename);
+            this.splitContainer1.Size = new System.Drawing.Size(341, 59);
+            this.splitContainer1.SplitterDistance = 262;
+            this.splitContainer1.TabIndex = 12;
             // 
             // FormSetting
             // 
@@ -1398,6 +1422,10 @@
             this.panel18.PerformLayout();
             this.panel23.ResumeLayout(false);
             this.panel23.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1410,7 +1438,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel6;
@@ -1494,5 +1521,7 @@
         private System.Windows.Forms.NumericUpDown txt_Kd_Follow;
         private System.Windows.Forms.Button btn_Rename;
         private System.Windows.Forms.Button btn_Delete;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

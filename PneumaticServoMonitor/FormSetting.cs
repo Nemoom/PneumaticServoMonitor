@@ -193,6 +193,7 @@ namespace PneumaticServoMonitor
             }
             DirectoryInfo d = new DirectoryInfo(System.Environment.CurrentDirectory+"\\Recipe");
             FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.recipe");
+            cmb_ProjectName.Items.Clear();
             for (int i = 0; i < fsinfos.Length; i++)
             {
                 cmb_ProjectName.Items.Add(fsinfos[i].Name.Split('.')[0]);
@@ -363,14 +364,102 @@ namespace PneumaticServoMonitor
         }
 
         private void btn_Rename_Click(object sender, EventArgs e)
-        {          
-            if (true)
+        {
+            if (btn_Rename.Text=="重命名")
             {
-
+                RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
+                if (File.Exists(RecipeFilePath))
+                {
+                    cmb_ProjectName.Focus();
+                    panel5.Enabled = false;
+                    panel6.Enabled = false;
+                    panel7.Enabled = false;
+                    panel8.Enabled = false;
+                    panel9.Enabled = false;
+                    panel10.Enabled = false;
+                    panel11.Enabled = false;
+                    panel12.Enabled = false;
+                    panel13.Enabled = false;
+                    panel14.Enabled = false;
+                    panel19.Enabled = false;
+                    panel24.Enabled = false;
+                    panel25.Enabled = false;
+                    panel16.Enabled = false;
+                    label14.Enabled = false;
+                    tableLayoutPanel5.Enabled = false;
+                    btn_Delete.Enabled = false;
+                    btn_RecipeSave.Enabled = false;
+                    rdo_ForceControl.Enabled = false;
+                    rdo_PositionControl.Enabled = false;
+                    chk_BrokenTest_Force.Enabled = false;
+                    chk_BrokenTest_Position.Enabled = false;
+                    btn_Rename.Text = "确定";
+                }
+                else
+                {
+                    MessageBox.Show("无此配方信息");
+                }
             }
             else
             {
-                MessageBox.Show("");
+                string targetFilePath= Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
+                if (RecipeFilePath!= targetFilePath)
+                {
+                    if (File.Exists(targetFilePath))
+                    {
+                        if (MessageBox.Show("您确定覆盖吗？", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            // 改名方法
+                            //FileInfo fi = new FileInfo("旧路径"); //xx/xx/aa.rar
+                            //fi.MoveTo(targetFilePath);
+                            File.Copy(RecipeFilePath, targetFilePath, true);
+                            File.Delete(RecipeFilePath);
+                        }
+                    }
+                    else
+                    {
+                        // 改名方法
+                        //FileInfo fi = new FileInfo("旧路径"); //xx/xx/aa.rar
+                        //fi.MoveTo(targetFilePath);
+                        File.Copy(RecipeFilePath, targetFilePath);
+                        File.Delete(RecipeFilePath);
+                    }
+                }
+          
+                if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
+                {
+                    Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Recipe");
+                }
+                DirectoryInfo d = new DirectoryInfo(System.Environment.CurrentDirectory + "\\Recipe");
+                FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.recipe");
+                cmb_ProjectName.Items.Clear();
+                for (int i = 0; i < fsinfos.Length; i++)
+                {
+                    cmb_ProjectName.Items.Add(fsinfos[i].Name.Split('.')[0]);
+                }
+                panel5.Enabled = true;
+                panel6.Enabled = true;
+                panel7.Enabled = true;
+                panel8.Enabled = true;
+                panel9.Enabled = true;
+                panel10.Enabled = true;
+                panel11.Enabled = true;
+                panel12.Enabled = true;
+                panel13.Enabled = true;
+                panel14.Enabled = true;
+                panel19.Enabled = true;
+                panel24.Enabled = true;
+                panel25.Enabled = true;
+                panel16.Enabled = true;
+                label14.Enabled = true;
+                tableLayoutPanel5.Enabled = true;
+                btn_Delete.Enabled = true;
+                btn_RecipeSave.Enabled = true;
+                rdo_ForceControl.Enabled = true;
+                rdo_PositionControl.Enabled = true;
+                chk_BrokenTest_Force.Enabled = true;
+                chk_BrokenTest_Position.Enabled = true;
+                btn_Rename.Text = "重命名";
             }
         }
 
@@ -379,6 +468,18 @@ namespace PneumaticServoMonitor
             RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + cmb_ProjectName.Text + ".recipe");
             if (File.Exists(RecipeFilePath))
             { File.Delete(RecipeFilePath); }
+            if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
+            {
+                Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Recipe");
+            }
+            DirectoryInfo d = new DirectoryInfo(System.Environment.CurrentDirectory + "\\Recipe");
+            FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.recipe");
+            cmb_ProjectName.Items.Clear();
+            for (int i = 0; i < fsinfos.Length; i++)
+            {
+                cmb_ProjectName.Items.Add(fsinfos[i].Name.Split('.')[0]);
+            }
+
         }
     }
 }

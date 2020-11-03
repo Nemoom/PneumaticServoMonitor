@@ -18,7 +18,7 @@ namespace PneumaticServoMonitor
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            new FormSensorReset().Show();
+            new FormSensorReset().ShowDialog();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)

@@ -35,6 +35,7 @@ namespace PneumaticServoMonitor
             //timer.Tick += (s, e) => progressBar.Value = progressBar.Value % 100 + 1;
             //timer.Start();
         }
+
         MyProgressBar progressBar;
         public FormSetting mFormSetting;
         public static OpcUaClient m_OpcUaClient;
@@ -43,6 +44,7 @@ namespace PneumaticServoMonitor
         public static string SampleNumber;
         public static string strRecipe;
         private static string iniPath = "config.ini";
+        IniFile ini_errorlist = new IniFile(iniPath);
         public int periodIndex = 0;
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
         #region ini文件中的参数&对应变量
@@ -2684,7 +2686,7 @@ namespace PneumaticServoMonitor
             }
             else
             {
-                new FormCommSetting().Show();
+                new FormCommSetting().ShowDialog();
             }
         }
         public async void TrytoConnect()
@@ -2915,13 +2917,13 @@ namespace PneumaticServoMonitor
 
         private void btn_Setting_Click(object sender, EventArgs e)
         {
-            //mFormSetting.Show();
-            new FormChooseRecipe(this).Show();
+            //mFormSetting.ShowDialog();
+            new FormChooseRecipe(this).ShowDialog();
         }
 
         private void DDBtn_Calibration_Click(object sender, EventArgs e)
         {
-            new FormCalibrate().Show();
+            new FormCalibrate().ShowDialog();
         }
 
         private void DDBtn_File_Click(object sender, EventArgs e)
@@ -2956,12 +2958,12 @@ namespace PneumaticServoMonitor
             if (btn_Enable.BackColor == Color.Green)
             {
                 m_OpcUaClient.WriteNode(NodeID_TestEnable, false);
-                btn_Enable.BackColor = Color.Transparent;
+                //btn_Enable.BackColor = Color.Transparent;
             }
             else
             {
                 m_OpcUaClient.WriteNode(NodeID_TestEnable, true);
-                btn_Enable.BackColor = Color.Green;
+                //btn_Enable.BackColor = Color.Green;
             }
         }
 
@@ -2976,6 +2978,14 @@ namespace PneumaticServoMonitor
         private void timer1_Tick(object sender, EventArgs e)
         {
             m_OpcUaClient.WriteNode(NodeID_HeartBit, !m_OpcUaClient.ReadNode<bool>(NodeID_HeartBit));
+            if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
+            {
+                btn_Enable.BackColor = Color.Green;
+            }
+            else
+            {
+                btn_Enable.BackColor = Color.Transparent;
+            }
             if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
             {
                 btn_Start.BackColor = Color.Green;
@@ -3005,11 +3015,25 @@ namespace PneumaticServoMonitor
             {
                 pic_Error.Image = imageList_Status.Images[0];
             }
-            if (Times_W!=0)
+            int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
+            if (i_ErrorID != 0)
+            {
+                string msg = "";
+                try
+                {
+                    msg = ini_errorlist.Read(i_ErrorID.ToString(), "ErrorList");
+                }
+                catch (Exception)
+                {
+
+                }
+                writeLog(msg == "" ? i_ErrorID.ToString() : msg, logFormat.Both);
+            }
+            if (Times_W != 0)
             {
                 lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<short>(NodeID_CycleCount).ToString();
                 lbl_TImes_Set.Text = Times_W.ToString();
-                progressBar.Value = Convert.ToInt32(lbl_Times_Cur.Text) / Times_W;
+                progressBar.Value = Convert.ToInt32(Convert.ToDouble(lbl_Times_Cur.Text) / Convert.ToDouble(Times_W) * 100);
             }
             lbl_ActualForce.Text= m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
             lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
@@ -3032,7 +3056,20 @@ namespace PneumaticServoMonitor
 
         private void DDBtn_Adjust_Click(object sender, EventArgs e)
         {
-            new FormPID(ProjectName).Show();
+            FormPID mformPID = null;
+            foreach (Form item in Application.OpenForms)
+            {
+                if (item.GetType()==typeof (FormPID))
+                {
+                    (mformPID = (FormPID)item).Show();
+                    mformPID.Activate();
+                    break;
+                }
+            }
+            if (mformPID==null)
+            {
+                new FormPID(ProjectName).Show();
+            }            
         }
 
         private void ToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -3042,22 +3079,35 @@ namespace PneumaticServoMonitor
 
         private void Btn_Calibrate_Click(object sender, EventArgs e)
         {
-            new FormCalibrate().Show();
+            new FormCalibrate().ShowDialog();
         }
 
         private void Btn_PIDadjust_Click(object sender, EventArgs e)
         {
-            new FormPID(ProjectName).Show();
+            FormPID mformPID = null;
+            foreach (Form item in Application.OpenForms)
+            {
+                if (item.GetType() == typeof(FormPID))
+                {
+                    (mformPID = (FormPID)item).Show();
+                    mformPID.Activate();
+                    break;
+                }
+            }
+            if (mformPID == null)
+            {
+                new FormPID(ProjectName).Show();
+            }
         }
 
         private void Btn_RecipeManagement_Click(object sender, EventArgs e)
         {
-            mFormSetting.Show();
+            mFormSetting.ShowDialog();
         }
 
         private void btn_CommSetting_Click(object sender, EventArgs e)
         {
-            new FormCommSetting().Show();
+            new FormCommSetting().ShowDialog();
         }
 
         private void btn_ForceClear_CheckedChanged(object sender, EventArgs e)
