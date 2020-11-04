@@ -45,7 +45,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.25914F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.74086F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txt_IP, 2, 1);
@@ -90,7 +90,7 @@
             this.txt_IP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_IP.Location = new System.Drawing.Point(156, 23);
             this.txt_IP.Name = "txt_IP";
-            this.txt_IP.Size = new System.Drawing.Size(460, 28);
+            this.txt_IP.Size = new System.Drawing.Size(459, 28);
             this.txt_IP.TabIndex = 2;
             // 
             // txt_Website
@@ -98,13 +98,13 @@
             this.txt_Website.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txt_Website.Location = new System.Drawing.Point(156, 58);
             this.txt_Website.Name = "txt_Website";
-            this.txt_Website.Size = new System.Drawing.Size(460, 28);
+            this.txt_Website.Size = new System.Drawing.Size(459, 28);
             this.txt_Website.TabIndex = 3;
             // 
             // btn_Save
             // 
             this.btn_Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Save.Location = new System.Drawing.Point(505, 137);
+            this.btn_Save.Location = new System.Drawing.Point(504, 137);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(111, 29);
             this.btn_Save.TabIndex = 4;
@@ -117,9 +117,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(23, 90);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(98, 21);
+            this.label3.Size = new System.Drawing.Size(89, 21);
             this.label3.TabIndex = 5;
-            this.label3.Text = "PLC Name：";
+            this.label3.Text = "PLC Type：";
             // 
             // cmb_Name
             // 
@@ -127,11 +127,11 @@
             this.cmb_Name.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_Name.FormattingEnabled = true;
             this.cmb_Name.Items.AddRange(new object[] {
-            "CPX-E-CEC-M1-PN",
-            "CPX-CEC-S1-V3"});
+            "MPYE",
+            "VTEM"});
             this.cmb_Name.Location = new System.Drawing.Point(156, 93);
             this.cmb_Name.Name = "cmb_Name";
-            this.cmb_Name.Size = new System.Drawing.Size(460, 29);
+            this.cmb_Name.Size = new System.Drawing.Size(459, 29);
             this.cmb_Name.TabIndex = 6;
             // 
             // FormCommSetting

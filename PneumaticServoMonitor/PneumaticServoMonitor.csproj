@@ -346,6 +346,7 @@
     <None Include="Resources\未就绪.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Logo.JPG" />
     <Content Include="Rubik%27s Cube.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

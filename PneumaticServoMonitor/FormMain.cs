@@ -289,13 +289,13 @@ namespace PneumaticServoMonitor
         {
             get
             {
-                if (plcName == "CPX-CEC-S1-V3")
+                if (plcName == "VTEM")
                 {
-                    return "ns=2;s=|var|CPX-CEC-S1-V3.";
+                    return sysPrefixNodeID_VTEM;
                 }
                 else
                 {
-                    return "ns=4;s=|var|CPX-E-CEC-M1-PN.";
+                    return sysPrefixNodeID_MPYE;
                 }
                 //if (File.Exists(iniPath))
                 //{
@@ -353,6 +353,58 @@ namespace PneumaticServoMonitor
                     ini.Write("PositionOffset", value.ToString(), "system");
                 }
             }
+        }
+        public static string sysPrefixNodeID_VTEM
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("PrefixNodeID_VTEM", "system"))
+                    {
+                        return "";
+                    }
+                    string mStr = ini.Read("PrefixNodeID_VTEM", "system");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+
+                }
+                return "";
+            }
+           
+        }
+        public static string sysPrefixNodeID_MPYE
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("PrefixNodeID_MPYE", "system"))
+                    {
+                        return "";
+                    }
+                    string mStr = ini.Read("PrefixNodeID_MPYE", "system");
+                    try
+                    {
+                        return mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+
+                }
+                return "";
+            }
+           
         }
         public static float sysCalForce1
         {
@@ -2620,8 +2672,8 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_ForceMin, (float)ForceMin_W);
                     m_OpcUaClient.WriteNode(NodeID_PositionMax, (float)PositionMax_W);
                     m_OpcUaClient.WriteNode(NodeID_PositionMin, (float)PositionMin_W);
-                    m_OpcUaClient.WriteNode(NodeID_Times, (short)Times_W);
-                    m_OpcUaClient.WriteNode(NodeID_StartIndex, (short)StartIndex_W);
+                    m_OpcUaClient.WriteNode(NodeID_Times, (int)Times_W);
+                    m_OpcUaClient.WriteNode(NodeID_StartIndex, (int)StartIndex_W);
                     m_OpcUaClient.WriteNode(NodeID_Kp_Static ,Kp_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Ki_Static ,Ki_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Kd_Static ,Kd_Static_W );
@@ -2631,7 +2683,7 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_Kp_Follow ,Kp_Follow_W );
                     m_OpcUaClient.WriteNode(NodeID_Ki_Follow ,Ki_Follow_W );
                     m_OpcUaClient.WriteNode(NodeID_Kd_Follow, Kd_Follow_W );
-
+                    m_OpcUaClient.WriteNode(NodeID_CycleCount, 0);
                 }
                 updateForm();
                 
@@ -2644,6 +2696,8 @@ namespace PneumaticServoMonitor
         }
         public void updateForm()
         {
+            lbl_StartIndex.Text  = StartIndex_W.ToString();
+            lbl_TImes_Set.Text  = Times_W.ToString();
             txt_CurParams.Text = strRecipe;
             txt_ProjectName.Text = ProjectName;
             txt_ProjectNumber.Text = ProjectNumber;
@@ -2654,6 +2708,7 @@ namespace PneumaticServoMonitor
         Gecko.GeckoWebBrowser geckoWebBrowser1;
         private void FormMain_Load(object sender, EventArgs e)
         {
+            this.Text = "PST-" + System.Environment.CurrentDirectory.Split('\\')[System.Environment.CurrentDirectory.Split('\\').Length - 1];
             if (plcIP!=""&&plcWebSite!=""&& plcName != "")
             {
                 m_OpcUaClient = new OpcUaClient();
@@ -2933,10 +2988,24 @@ namespace PneumaticServoMonitor
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
-            m_OpcUaClient.WriteNode(NodeID_TestStop, false);
-            m_OpcUaClient.WriteNode(NodeID_TestStart, true);
-            Thread.Sleep(100);
-            m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+            if (txt_ProjectNumber.Text == "")
+            {
+                MessageBox.Show("请先选择配方！");
+                btn_Setting.Focus();
+            }
+            else
+            {
+                m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+                m_OpcUaClient.WriteNode(NodeID_TestStart, true);
+                Thread.Sleep(100);
+                m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                btn_Setting.Enabled = false;
+                btn_Calibrate.Enabled = false;
+                btn_ChangePath.Enabled = false;
+                btn_CommSetting.Enabled = false;
+                btn_RecipeManagement.Enabled = false;
+                cmb_SaveFrequency.Enabled = false;
+            }
         }
 
         private void btn_EMG_Click(object sender, EventArgs e)
@@ -2973,6 +3042,12 @@ namespace PneumaticServoMonitor
             m_OpcUaClient.WriteNode(NodeID_TestStop, true);
             Thread.Sleep(100);
             m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+            btn_Setting.Enabled = true;
+            btn_Calibrate.Enabled = true;
+            btn_ChangePath.Enabled = true;
+            btn_CommSetting.Enabled = true;
+            btn_RecipeManagement.Enabled = true;
+            cmb_SaveFrequency.Enabled = true;
         }
         int i_ErrorID_Last = 0;
         private void timer1_Tick(object sender, EventArgs e)
@@ -2985,6 +3060,12 @@ namespace PneumaticServoMonitor
             else
             {
                 btn_Enable.BackColor = Color.Transparent;
+                btn_Setting.Enabled = true;
+                btn_Calibrate.Enabled = true;
+                btn_ChangePath.Enabled = true;
+                btn_CommSetting.Enabled = true;
+                btn_RecipeManagement.Enabled = true;
+                cmb_SaveFrequency.Enabled = true;
             }
             if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
             {
@@ -3041,9 +3122,10 @@ namespace PneumaticServoMonitor
             }
             if (Times_W != 0)
             {
-                lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<short>(NodeID_CycleCount).ToString();
-                lbl_TImes_Set.Text = Times_W.ToString();
-                progressBar.Value = Convert.ToInt32(Convert.ToDouble(lbl_Times_Cur.Text) / Convert.ToDouble(Times_W) * 100);
+                lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount).ToString();
+                //lbl_TImes_Set.Text = Times_W.ToString();
+                double d_numerator = Convert.ToDouble(lbl_Times_Cur.Text) + Convert.ToDouble(StartIndex_W);
+                progressBar.Value = Convert.ToInt32((d_numerator < Convert.ToDouble(Times_W) ? d_numerator : Convert.ToDouble(Times_W)) / Convert.ToDouble(Times_W) * 100);
             }
             lbl_ActualForce.Text= m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
             lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
@@ -3182,14 +3264,25 @@ namespace PneumaticServoMonitor
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("您确认退出吗？", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            if (btn_Start.BackColor==Color.Green)
             {
-                Dispose();
-                Application.Exit();
+                if (MessageBox.Show("您确认退出吗？", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                    m_OpcUaClient.WriteNode(NodeID_TestStop, true);
+                    Thread.Sleep(100);
+                    m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+                    Dispose();
+                    Application.Exit();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
             else
             {
-                e.Cancel = true;
+
             }
         }
 
