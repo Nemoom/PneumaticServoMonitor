@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_CylinderUp = new System.Windows.Forms.Button();
             this.btn_CylinderDown = new System.Windows.Forms.Button();
-            this.btn_MotorMoveUp = new System.Windows.Forms.Button();
-            this.btn_MotorMoveDown = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.trackBar_CylinderSpeed = new System.Windows.Forms.TrackBar();
             this.lbl_CylinderSpeed = new System.Windows.Forms.Label();
+            this.trackBar_CylinderSpeed = new System.Windows.Forms.TrackBar();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_MotorMoveDown = new System.Windows.Forms.Button();
+            this.btn_MotorMoveUp = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CylinderSpeed)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -70,6 +70,34 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(438, 265);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(23, 23);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(392, 139);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "气缸";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.btn_CylinderUp, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btn_CylinderDown, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 24);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(386, 112);
+            this.tableLayoutPanel2.TabIndex = 0;
             // 
             // btn_CylinderUp
             // 
@@ -99,44 +127,38 @@
             this.btn_CylinderDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_CylinderDown_MouseDown);
             this.btn_CylinderDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_CylinderDown_MouseUp);
             // 
-            // btn_MotorMoveUp
+            // panel1
             // 
-            this.btn_MotorMoveUp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_MotorMoveUp.Font = new System.Drawing.Font("Calibri", 13F);
-            this.btn_MotorMoveUp.Location = new System.Drawing.Point(30, 3);
-            this.btn_MotorMoveUp.Margin = new System.Windows.Forms.Padding(30, 3, 30, 3);
-            this.btn_MotorMoveUp.Name = "btn_MotorMoveUp";
-            this.btn_MotorMoveUp.Size = new System.Drawing.Size(133, 40);
-            this.btn_MotorMoveUp.TabIndex = 5;
-            this.btn_MotorMoveUp.Text = "▲";
-            this.btn_MotorMoveUp.UseVisualStyleBackColor = true;
-            this.btn_MotorMoveUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveUp_MouseDown);
-            this.btn_MotorMoveUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveUp_MouseUp);
+            this.tableLayoutPanel2.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.lbl_CylinderSpeed);
+            this.panel1.Controls.Add(this.trackBar_CylinderSpeed);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 50);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(380, 59);
+            this.panel1.TabIndex = 5;
             // 
-            // btn_MotorMoveDown
+            // lbl_CylinderSpeed
             // 
-            this.btn_MotorMoveDown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_MotorMoveDown.Font = new System.Drawing.Font("Calibri", 13F);
-            this.btn_MotorMoveDown.Location = new System.Drawing.Point(223, 3);
-            this.btn_MotorMoveDown.Margin = new System.Windows.Forms.Padding(30, 3, 30, 3);
-            this.btn_MotorMoveDown.Name = "btn_MotorMoveDown";
-            this.btn_MotorMoveDown.Size = new System.Drawing.Size(133, 40);
-            this.btn_MotorMoveDown.TabIndex = 6;
-            this.btn_MotorMoveDown.Text = "▼";
-            this.btn_MotorMoveDown.UseVisualStyleBackColor = true;
-            this.btn_MotorMoveDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveDown_MouseDown);
-            this.btn_MotorMoveDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveDown_MouseUp);
+            this.lbl_CylinderSpeed.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbl_CylinderSpeed.Location = new System.Drawing.Point(0, 36);
+            this.lbl_CylinderSpeed.Name = "lbl_CylinderSpeed";
+            this.lbl_CylinderSpeed.Size = new System.Drawing.Size(380, 23);
+            this.lbl_CylinderSpeed.TabIndex = 2;
+            this.lbl_CylinderSpeed.Text = "50%";
+            this.lbl_CylinderSpeed.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // groupBox1
+            // trackBar_CylinderSpeed
             // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(23, 23);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(392, 139);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "气缸";
+            this.trackBar_CylinderSpeed.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar_CylinderSpeed.Location = new System.Drawing.Point(0, 0);
+            this.trackBar_CylinderSpeed.Maximum = 100;
+            this.trackBar_CylinderSpeed.Name = "trackBar_CylinderSpeed";
+            this.trackBar_CylinderSpeed.Size = new System.Drawing.Size(380, 59);
+            this.trackBar_CylinderSpeed.TabIndex = 1;
+            this.trackBar_CylinderSpeed.Value = 50;
+            this.trackBar_CylinderSpeed.Scroll += new System.EventHandler(this.trackBar_CylinderSpeed_Scroll);
+            this.trackBar_CylinderSpeed.ValueChanged += new System.EventHandler(this.trackBar_CylinderSpeed_ValueChanged);
             // 
             // groupBox2
             // 
@@ -148,34 +170,6 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "横梁";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.btn_CylinderUp, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btn_CylinderDown, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 24);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(386, 112);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.tableLayoutPanel2.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.lbl_CylinderSpeed);
-            this.panel1.Controls.Add(this.trackBar_CylinderSpeed);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 50);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(380, 59);
-            this.panel1.TabIndex = 5;
             // 
             // tableLayoutPanel3
             // 
@@ -192,27 +186,33 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(386, 46);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // trackBar_CylinderSpeed
+            // btn_MotorMoveDown
             // 
-            this.trackBar_CylinderSpeed.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar_CylinderSpeed.Location = new System.Drawing.Point(0, 0);
-            this.trackBar_CylinderSpeed.Maximum = 100;
-            this.trackBar_CylinderSpeed.Name = "trackBar_CylinderSpeed";
-            this.trackBar_CylinderSpeed.Size = new System.Drawing.Size(380, 59);
-            this.trackBar_CylinderSpeed.TabIndex = 1;
-            this.trackBar_CylinderSpeed.Value = 50;
-            this.trackBar_CylinderSpeed.Scroll += new System.EventHandler(this.trackBar_CylinderSpeed_Scroll);
-            this.trackBar_CylinderSpeed.ValueChanged += new System.EventHandler(this.trackBar_CylinderSpeed_ValueChanged);
+            this.btn_MotorMoveDown.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_MotorMoveDown.Font = new System.Drawing.Font("Calibri", 13F);
+            this.btn_MotorMoveDown.Location = new System.Drawing.Point(223, 3);
+            this.btn_MotorMoveDown.Margin = new System.Windows.Forms.Padding(30, 3, 30, 3);
+            this.btn_MotorMoveDown.Name = "btn_MotorMoveDown";
+            this.btn_MotorMoveDown.Size = new System.Drawing.Size(133, 40);
+            this.btn_MotorMoveDown.TabIndex = 6;
+            this.btn_MotorMoveDown.Text = "▼";
+            this.btn_MotorMoveDown.UseVisualStyleBackColor = true;
+            this.btn_MotorMoveDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveDown_MouseDown);
+            this.btn_MotorMoveDown.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveDown_MouseUp);
             // 
-            // lbl_CylinderSpeed
+            // btn_MotorMoveUp
             // 
-            this.lbl_CylinderSpeed.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbl_CylinderSpeed.Location = new System.Drawing.Point(0, 36);
-            this.lbl_CylinderSpeed.Name = "lbl_CylinderSpeed";
-            this.lbl_CylinderSpeed.Size = new System.Drawing.Size(380, 23);
-            this.lbl_CylinderSpeed.TabIndex = 2;
-            this.lbl_CylinderSpeed.Text = "50%";
-            this.lbl_CylinderSpeed.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_MotorMoveUp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_MotorMoveUp.Font = new System.Drawing.Font("Calibri", 13F);
+            this.btn_MotorMoveUp.Location = new System.Drawing.Point(30, 3);
+            this.btn_MotorMoveUp.Margin = new System.Windows.Forms.Padding(30, 3, 30, 3);
+            this.btn_MotorMoveUp.Name = "btn_MotorMoveUp";
+            this.btn_MotorMoveUp.Size = new System.Drawing.Size(133, 40);
+            this.btn_MotorMoveUp.TabIndex = 5;
+            this.btn_MotorMoveUp.Text = "▲";
+            this.btn_MotorMoveUp.UseVisualStyleBackColor = true;
+            this.btn_MotorMoveUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveUp_MouseDown);
+            this.btn_MotorMoveUp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btn_MotorMoveUp_MouseUp);
             // 
             // FormAdjust
             // 
@@ -225,15 +225,15 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAdjust";
-            this.Text = "FormAdjust";
+            this.Text = "横梁调整";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CylinderSpeed)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

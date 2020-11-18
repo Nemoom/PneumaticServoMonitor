@@ -37,7 +37,7 @@ namespace PneumaticServoMonitor
         {
             if (FormMain.m_OpcUaClient.Connected)
             {
-                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, trackBar_CylinderSpeed.Value);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, (short)trackBar_CylinderSpeed.Value);
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderDown, true);
             }
         }
@@ -54,7 +54,7 @@ namespace PneumaticServoMonitor
         {
             if (FormMain.m_OpcUaClient.Connected)
             {
-                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, trackBar_CylinderSpeed.Value);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, (short)trackBar_CylinderSpeed.Value);
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_MotorMoveUp, true);
             }
         }
@@ -93,7 +93,7 @@ namespace PneumaticServoMonitor
             lbl_CylinderSpeed.Text = trackBar_CylinderSpeed.Value.ToString() + "%";
             if (FormMain.m_OpcUaClient.Connected)
             {
-                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, trackBar_CylinderSpeed.Value);
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, (short)trackBar_CylinderSpeed.Value);
             }
         }
     }

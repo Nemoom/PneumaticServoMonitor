@@ -143,51 +143,45 @@ namespace PneumaticServoMonitor
                     MessageBox.Show("DelayTime不可以为空");
                     txt_DelayTime.Focus();
                 }
-                else if (chk_BrokenTest_Force.Checked)
+                else if (chk_BrokenTest_Force.Checked && txt_UpPeak_Force.Text == "")
                 {
-                    if (txt_UpPeak_Force.Text == "")
-                    {
-                        MessageBox.Show("UpPeak_Force不可以为空");
-                        txt_UpPeak_Force.Focus();
-                    }
-                    else if (txt_DownPeak_Force.Text == "")
-                    {
-                        MessageBox.Show("DownPeak_Force不可以为空");
-                        txt_DownPeak_Force.Focus();
-                    }
-                    else if (txt_UpValley_Force.Text == "")
-                    {
-                        MessageBox.Show("UpValley_Force不可以为空");
-                        txt_UpValley_Force.Focus();
-                    }
-                    else if (txt_DownValley_Force.Text == "")
-                    {
-                        MessageBox.Show("DownValley_Force不可以为空");
-                        txt_DownValley_Force.Focus();
-                    }
+                    MessageBox.Show("UpPeak_Force不可以为空");
+                    txt_UpPeak_Force.Focus();
                 }
-                else if (chk_BrokenTest_Position.Checked)
+                else if (chk_BrokenTest_Force.Checked && txt_DownPeak_Force.Text == "")
                 {
-                    if (txt_UpPeak_Position.Text == "")
-                    {
-                        MessageBox.Show("UpPeak_Position不可以为空");
-                        txt_UpPeak_Position.Focus();
-                    }
-                    else if (txt_DownPeak_Position.Text == "")
-                    {
-                        MessageBox.Show("DownPeak_Position不可以为空");
-                        txt_DownPeak_Position.Focus();
-                    }
-                    else if (txt_UpValley_Position.Text == "")
-                    {
-                        MessageBox.Show("UpValley_Position不可以为空");
-                        txt_UpValley_Position.Focus();
-                    }
-                    else if (txt_DownValley_Position.Text == "")
-                    {
-                        MessageBox.Show("DownValley_Position不可以为空");
-                        txt_DownValley_Position.Focus();
-                    }
+                    MessageBox.Show("DownPeak_Force不可以为空");
+                    txt_DownPeak_Force.Focus();
+                }
+                else if (chk_BrokenTest_Force.Checked && txt_UpValley_Force.Text == "")
+                {
+                    MessageBox.Show("UpValley_Force不可以为空");
+                    txt_UpValley_Force.Focus();
+                }
+                else if (chk_BrokenTest_Force.Checked && txt_DownValley_Force.Text == "")
+                {
+                    MessageBox.Show("DownValley_Force不可以为空");
+                    txt_DownValley_Force.Focus();
+                }
+                else if (chk_BrokenTest_Position.Checked && txt_UpPeak_Position.Text == "")
+                {
+                    MessageBox.Show("UpPeak_Position不可以为空");
+                    txt_UpPeak_Position.Focus();
+                }
+                else if (chk_BrokenTest_Position.Checked && txt_DownPeak_Position.Text == "")
+                {
+                    MessageBox.Show("DownPeak_Position不可以为空");
+                    txt_DownPeak_Position.Focus();
+                }
+                else if (chk_BrokenTest_Position.Checked && txt_UpValley_Position.Text == "")
+                {
+                    MessageBox.Show("UpValley_Position不可以为空");
+                    txt_UpValley_Position.Focus();
+                }
+                else if (chk_BrokenTest_Position.Checked && txt_DownValley_Position.Text == "")
+                {
+                    MessageBox.Show("DownValley_Position不可以为空");
+                    txt_DownValley_Position.Focus();
                 }
                 else
                 {

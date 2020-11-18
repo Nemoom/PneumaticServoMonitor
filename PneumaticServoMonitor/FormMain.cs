@@ -3586,6 +3586,7 @@ namespace PneumaticServoMonitor
                 btn_ChangePath.Enabled = false;
                 btn_CommSetting.Enabled = false;
                 btn_RecipeManagement.Enabled = false;
+                btn_Adjust.Enabled = false;
                 cmb_SaveFrequency.Enabled = false;
                 btn_ForceClear.Enabled = false;
                 btn_PositionClear.Enabled = false;
@@ -3631,6 +3632,7 @@ namespace PneumaticServoMonitor
             btn_ChangePath.Enabled = true;
             btn_CommSetting.Enabled = true;
             btn_RecipeManagement.Enabled = true;
+            btn_Adjust.Enabled = true;
             cmb_SaveFrequency.Enabled = true;
             btn_ForceClear.Enabled = true;
             btn_PositionClear.Enabled = true;
@@ -3651,6 +3653,7 @@ namespace PneumaticServoMonitor
                 btn_ChangePath.Enabled = true;
                 btn_CommSetting.Enabled = true;
                 btn_RecipeManagement.Enabled = true;
+                btn_Adjust.Enabled = true;
                 cmb_SaveFrequency.Enabled = true;
                 btn_ForceClear.Enabled = true;
                 btn_PositionClear.Enabled = true;
