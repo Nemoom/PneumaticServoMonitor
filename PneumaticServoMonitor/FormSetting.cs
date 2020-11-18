@@ -133,6 +133,62 @@ namespace PneumaticServoMonitor
                     MessageBox.Show("Kd_Follow不可以为空");
                     txt_Kd_Follow.Focus();
                 }
+                else if (txt_ActivationTime.Text == "")
+                {
+                    MessageBox.Show("ActivationTime不可以为空");
+                    txt_ActivationTime.Focus();
+                }
+                else if (txt_DelayTime.Text == "")
+                {
+                    MessageBox.Show("DelayTime不可以为空");
+                    txt_DelayTime.Focus();
+                }
+                else if (chk_BrokenTest_Force.Checked)
+                {
+                    if (txt_UpPeak_Force.Text == "")
+                    {
+                        MessageBox.Show("UpPeak_Force不可以为空");
+                        txt_UpPeak_Force.Focus();
+                    }
+                    else if (txt_DownPeak_Force.Text == "")
+                    {
+                        MessageBox.Show("DownPeak_Force不可以为空");
+                        txt_DownPeak_Force.Focus();
+                    }
+                    else if (txt_UpValley_Force.Text == "")
+                    {
+                        MessageBox.Show("UpValley_Force不可以为空");
+                        txt_UpValley_Force.Focus();
+                    }
+                    else if (txt_DownValley_Force.Text == "")
+                    {
+                        MessageBox.Show("DownValley_Force不可以为空");
+                        txt_DownValley_Force.Focus();
+                    }
+                }
+                else if (chk_BrokenTest_Position.Checked)
+                {
+                    if (txt_UpPeak_Position.Text == "")
+                    {
+                        MessageBox.Show("UpPeak_Position不可以为空");
+                        txt_UpPeak_Position.Focus();
+                    }
+                    else if (txt_DownPeak_Position.Text == "")
+                    {
+                        MessageBox.Show("DownPeak_Position不可以为空");
+                        txt_DownPeak_Position.Focus();
+                    }
+                    else if (txt_UpValley_Position.Text == "")
+                    {
+                        MessageBox.Show("UpValley_Position不可以为空");
+                        txt_UpValley_Position.Focus();
+                    }
+                    else if (txt_DownValley_Position.Text == "")
+                    {
+                        MessageBox.Show("DownValley_Position不可以为空");
+                        txt_DownValley_Position.Focus();
+                    }
+                }
                 else
                 {
                     if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Recipe"))
@@ -160,15 +216,23 @@ namespace PneumaticServoMonitor
                         RecipeFile.WriteLine("Low:" + txt_Low.Text);
                         RecipeFile.WriteLine("Frequence:" + txt_Frequence.Text);
                         RecipeFile.WriteLine("Times:" + txt_Times.Text);
+                        RecipeFile.WriteLine("StartIndex:" + txt_StartIndex.Text);
                         RecipeFile.WriteLine("ForceMax:" + txt_ForceMax.Text);
                         RecipeFile.WriteLine("ForceMin:" + txt_ForceMin.Text);
                         RecipeFile.WriteLine("PositionMax:" + txt_PositionMax.Text);
                         RecipeFile.WriteLine("PositionMin:" + txt_PositionMin.Text);
                         RecipeFile.WriteLine("BrokenTest_Force:" + chk_BrokenTest_Force.Checked.ToString());
-                        RecipeFile.WriteLine("Threshold_Force:" + txt_Threshold_Force.Text);
+                        RecipeFile.WriteLine("UpPeak_Force:" + txt_UpPeak_Force.Text);
+                        RecipeFile.WriteLine("DownPeak_Force:" + txt_DownPeak_Force.Text);
+                        RecipeFile.WriteLine("UpValley_Force:" + txt_UpValley_Force.Text);
+                        RecipeFile.WriteLine("DownValley_Force:" + txt_DownValley_Force.Text);
                         RecipeFile.WriteLine("BrokenTest_Position:" + chk_BrokenTest_Position.Checked.ToString());
-                        RecipeFile.WriteLine("Threshold_Position:" + txt_Threshold_Position.Text);
-                        RecipeFile.WriteLine("StartIndex:" + txt_StartIndex.Text);
+                        RecipeFile.WriteLine("UpPeak_Position:" + txt_UpPeak_Position.Text);
+                        RecipeFile.WriteLine("DownPeak_Position:" + txt_DownPeak_Position.Text);
+                        RecipeFile.WriteLine("UpValley_Position:" + txt_UpValley_Position.Text);
+                        RecipeFile.WriteLine("DownValley_Position:" + txt_DownValley_Position.Text);
+                        RecipeFile.WriteLine("ActivationTime:" + txt_ActivationTime.Text);
+                        RecipeFile.WriteLine("DelayTime:" + txt_DelayTime.Text);
                         RecipeFile.WriteLine("Kp_Static:" + txt_Kp_Static.Text);
                         RecipeFile.WriteLine("Ki_Static:" + txt_Ki_Static.Text);
                         RecipeFile.WriteLine("Kd_Static:" + txt_Kd_Static.Text);
@@ -226,15 +290,23 @@ namespace PneumaticServoMonitor
                         txt_Low.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Frequence.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Times.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_StartIndex.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_ForceMax.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_ForceMin.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_PositionMax.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_PositionMin.Text = RecipeFile.ReadLine().Split(':')[1];
                         chk_BrokenTest_Force.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                        txt_Threshold_Force.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_UpPeak_Force.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_DownPeak_Force.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_UpValley_Force.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_DownValley_Force.Text = RecipeFile.ReadLine().Split(':')[1];
                         chk_BrokenTest_Position.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                        txt_Threshold_Position.Text = RecipeFile.ReadLine().Split(':')[1];
-                        txt_StartIndex.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_UpPeak_Position.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_DownPeak_Position.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_UpValley_Position.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_DownValley_Position.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_ActivationTime.Text = RecipeFile.ReadLine().Split(':')[1];
+                        txt_DelayTime.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kp_Static.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Ki_Static.Text = RecipeFile.ReadLine().Split(':')[1];
                         txt_Kd_Static.Text = RecipeFile.ReadLine().Split(':')[1];
@@ -344,6 +416,62 @@ namespace PneumaticServoMonitor
                             MessageBox.Show("Kd_Follow为空");
                             txt_Kd_Follow.Focus();
                         }
+                        else if (txt_ActivationTime.Text == "")
+                        {
+                            MessageBox.Show("ActivationTime不可以为空");
+                            txt_ActivationTime.Focus();
+                        }
+                        else if (txt_DelayTime.Text == "")
+                        {
+                            MessageBox.Show("DelayTime不可以为空");
+                            txt_DelayTime.Focus();
+                        }
+                        else if (chk_BrokenTest_Force.Checked)
+                        {
+                            if (txt_UpPeak_Force.Text == "")
+                            {
+                                MessageBox.Show("UpPeak_Force不可以为空");
+                                txt_UpPeak_Force.Focus();
+                            }
+                            else if (txt_DownPeak_Force.Text == "")
+                            {
+                                MessageBox.Show("DownPeak_Force不可以为空");
+                                txt_DownPeak_Force.Focus();
+                            }
+                            else if (txt_UpValley_Force.Text == "")
+                            {
+                                MessageBox.Show("UpValley_Force不可以为空");
+                                txt_UpValley_Force.Focus();
+                            }
+                            else if (txt_DownValley_Force.Text == "")
+                            {
+                                MessageBox.Show("DownValley_Force不可以为空");
+                                txt_DownValley_Force.Focus();
+                            }
+                        }
+                        else if (chk_BrokenTest_Position.Checked)
+                        {
+                            if (txt_UpPeak_Position.Text == "")
+                            {
+                                MessageBox.Show("UpPeak_Position不可以为空");
+                                txt_UpPeak_Position.Focus();
+                            }
+                            else if (txt_DownPeak_Position.Text == "")
+                            {
+                                MessageBox.Show("DownPeak_Position不可以为空");
+                                txt_DownPeak_Position.Focus();
+                            }
+                            else if (txt_UpValley_Position.Text == "")
+                            {
+                                MessageBox.Show("UpValley_Position不可以为空");
+                                txt_UpValley_Position.Focus();
+                            }
+                            else if (txt_DownValley_Position.Text == "")
+                            {
+                                MessageBox.Show("DownValley_Position不可以为空");
+                                txt_DownValley_Position.Focus();
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -382,10 +510,12 @@ namespace PneumaticServoMonitor
                     panel13.Enabled = false;
                     panel14.Enabled = false;
                     panel19.Enabled = false;
-                    panel24.Enabled = false;
-                    panel25.Enabled = false;
+                    panel20.Enabled = false;
+                    panel22.Enabled = false;
                     panel16.Enabled = false;
                     label14.Enabled = false;
+                    label36.Enabled = false;
+                    tableLayoutPanel9.Enabled = false;
                     tableLayoutPanel5.Enabled = false;
                     btn_Delete.Enabled = false;
                     btn_RecipeSave.Enabled = false;
@@ -448,10 +578,12 @@ namespace PneumaticServoMonitor
                 panel13.Enabled = true;
                 panel14.Enabled = true;
                 panel19.Enabled = true;
-                panel24.Enabled = true;
-                panel25.Enabled = true;
+                panel20.Enabled = false;
+                panel22.Enabled = false;
                 panel16.Enabled = true;
                 label14.Enabled = true;
+                label36.Enabled = true;
+                tableLayoutPanel9.Enabled = true;
                 tableLayoutPanel5.Enabled = true;
                 btn_Delete.Enabled = true;
                 btn_RecipeSave.Enabled = true;

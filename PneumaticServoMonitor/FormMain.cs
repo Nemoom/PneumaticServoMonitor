@@ -1407,6 +1407,186 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
+        #region CylinderUp_W
+        public static bool CylinderUp_W;
+        public static string NodeID_CylinderUp
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CylinderUp", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CylinderUp", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CylinderUp", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region CylinderDown_W
+        public static bool CylinderDown_W;
+        public static string NodeID_CylinderDown
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CylinderDown", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CylinderDown", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CylinderDown", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region CylinderSpeed_W
+        public static int CylinderSpeed_W;
+        public static string NodeID_CylinderSpeed
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("CylinderSpeed", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("CylinderSpeed", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("CylinderSpeed", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region MotorMoveUp_W
+        public static bool MotorMoveUp_W;
+        public static string NodeID_MotorMoveUp
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("MotorMoveUp", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("MotorMoveUp", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("MotorMoveUp", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region MotorMoveDown_W
+        public static bool MotorMoveDown_W;
+        public static string NodeID_MotorMoveDown
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("MotorMoveDown", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("MotorMoveDown", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("MotorMoveDown", value, "NodeID");
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region 配置按钮
@@ -2138,7 +2318,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Threshold_Force_W
-        public static double Threshold_Force_W;
+        public static float Threshold_Force_W;
         public static string NodeID_Threshold_Force
         {
             get
@@ -2169,6 +2349,150 @@ namespace PneumaticServoMonitor
                 {
                     IniFile ini = new IniFile(iniPath);
                     ini.Write("Threshold_Force", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region UpPeak_Force_W
+        public static float UpPeak_Force_W;
+        public static string NodeID_UpPeak_Force
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("UpPeak_Force", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("UpPeak_Force", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("UpPeak_Force", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region DownPeak_Force_W
+        public static float DownPeak_Force_W;
+        public static string NodeID_DownPeak_Force
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DownPeak_Force", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DownPeak_Force", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DownPeak_Force", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region UpValley_Force_W
+        public static float UpValley_Force_W;
+        public static string NodeID_UpValley_Force
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("UpValley_Force", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("UpValley_Force", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("UpValley_Force", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region DownValley_Force_W
+        public static float DownValley_Force_W;
+        public static string NodeID_DownValley_Force
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DownValley_Force", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DownValley_Force", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DownValley_Force", value, "NodeID");
                 }
             }
         }
@@ -2210,7 +2534,7 @@ namespace PneumaticServoMonitor
         }
         #endregion
         #region Threshold_Position_W
-        public static double Threshold_Position_W;
+        public static float Threshold_Position_W;
         public static string NodeID_Threshold_Position
         {
             get
@@ -2241,6 +2565,222 @@ namespace PneumaticServoMonitor
                 {
                     IniFile ini = new IniFile(iniPath);
                     ini.Write("Threshold_Position", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region UpPeak_Position_W
+        public static float UpPeak_Position_W;
+        public static string NodeID_UpPeak_Position
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("UpPeak_Position", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("UpPeak_Position", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("UpPeak_Position", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region DownPeak_Position_W
+        public static float DownPeak_Position_W;
+        public static string NodeID_DownPeak_Position
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DownPeak_Position", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DownPeak_Position", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DownPeak_Position", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region UpValley_Position_W
+        public static float UpValley_Position_W;
+        public static string NodeID_UpValley_Position
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("UpValley_Position", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("UpValley_Position", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("UpValley_Position", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region DownValley_Position_W
+        public static float DownValley_Position_W;
+        public static string NodeID_DownValley_Position
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DownValley_Position", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DownValley_Position", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DownValley_Position", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ActivationTime_W
+        public static float ActivationTime_W;
+        public static string NodeID_ActivationTime
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ActivationTime", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ActivationTime", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ActivationTime", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region DelayTime_W
+        public static float DelayTime_W;
+        public static string NodeID_DelayTime
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("DelayTime", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("DelayTime", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("DelayTime", value, "NodeID");
                 }
             }
         }
@@ -2632,19 +3172,43 @@ namespace PneumaticServoMonitor
                     Low_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
                     Frequence_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
                     Times_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
                     ForceMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     ForceMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     PositionMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     PositionMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    RecipeFile.ReadLine();
-                    //BrokenTest_Force.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    RecipeFile.ReadLine();
-                    //Threshold_Force_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
-                    RecipeFile.ReadLine();
-                    //BrokenTest_Position.Checked = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    RecipeFile.ReadLine();
-                    //Threshold_Position_W = Convert.ToDouble(RecipeFile.ReadLine().Split(':')[1]);
-                    StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                    BrokenTest_Force_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                    if (BrokenTest_Force_W)
+                    {
+                        UpPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        DownPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        UpValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        DownValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    }
+                    else
+                    {
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                    }
+                    BrokenTest_Position_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                    if (BrokenTest_Position_W)
+                    {
+                        UpPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        DownPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        UpValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        DownValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    }
+                    else
+                    {
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                        RecipeFile.ReadLine();
+                    }                    
+                    ActivationTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    DelayTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     Kp_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     Ki_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     Kd_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
@@ -2674,6 +3238,24 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_PositionMin, (float)PositionMin_W);
                     m_OpcUaClient.WriteNode(NodeID_Times, (int)Times_W);
                     m_OpcUaClient.WriteNode(NodeID_StartIndex, (int)StartIndex_W);
+                    m_OpcUaClient.WriteNode(NodeID_BrokenTest_Force, BrokenTest_Force_W);
+                    if (BrokenTest_Force_W)
+                    {
+                        m_OpcUaClient.WriteNode(NodeID_UpPeak_Force, UpPeak_Force_W);
+                        m_OpcUaClient.WriteNode(NodeID_DownPeak_Force, DownPeak_Force_W);
+                        m_OpcUaClient.WriteNode(NodeID_UpValley_Force, UpValley_Force_W);
+                        m_OpcUaClient.WriteNode(NodeID_DownValley_Force, DownValley_Force_W);
+                    }
+                    m_OpcUaClient.WriteNode(NodeID_BrokenTest_Position, BrokenTest_Position_W);
+                    if (BrokenTest_Position_W)
+                    {
+                        m_OpcUaClient.WriteNode(NodeID_UpPeak_Position, UpPeak_Position_W);
+                        m_OpcUaClient.WriteNode(NodeID_DownPeak_Position, DownPeak_Position_W);
+                        m_OpcUaClient.WriteNode(NodeID_UpValley_Position, UpValley_Position_W);
+                        m_OpcUaClient.WriteNode(NodeID_DownValley_Position, DownValley_Position_W);
+                    }
+                    m_OpcUaClient.WriteNode(NodeID_ActivationTime, ActivationTime_W);
+                    m_OpcUaClient.WriteNode(NodeID_DelayTime, DelayTime_W);
                     m_OpcUaClient.WriteNode(NodeID_Kp_Static ,Kp_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Ki_Static ,Ki_Static_W );
                     m_OpcUaClient.WriteNode(NodeID_Kd_Static ,Kd_Static_W );
@@ -3005,6 +3587,8 @@ namespace PneumaticServoMonitor
                 btn_CommSetting.Enabled = false;
                 btn_RecipeManagement.Enabled = false;
                 cmb_SaveFrequency.Enabled = false;
+                btn_ForceClear.Enabled = false;
+                btn_PositionClear.Enabled = false;
             }
         }
 
@@ -3048,6 +3632,8 @@ namespace PneumaticServoMonitor
             btn_CommSetting.Enabled = true;
             btn_RecipeManagement.Enabled = true;
             cmb_SaveFrequency.Enabled = true;
+            btn_ForceClear.Enabled = true;
+            btn_PositionClear.Enabled = true;
         }
         int i_ErrorID_Last = 0;
         private void timer1_Tick(object sender, EventArgs e)
@@ -3066,6 +3652,8 @@ namespace PneumaticServoMonitor
                 btn_CommSetting.Enabled = true;
                 btn_RecipeManagement.Enabled = true;
                 cmb_SaveFrequency.Enabled = true;
+                btn_ForceClear.Enabled = true;
+                btn_PositionClear.Enabled = true;
             }
             if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
             {
@@ -3089,11 +3677,12 @@ namespace PneumaticServoMonitor
             }
             if (m_OpcUaClient.ReadNode<bool>(NodeID_SystemError))
             {
-               
+                btn_Reset.BackColor = Color.Yellow;
                 pic_Error.Image = imageList_Status.Images[2];
             }
             else
             {
+                btn_Reset.BackColor = Color.Transparent;
                 pic_Error.Image = imageList_Status.Images[0];
             }
             int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
@@ -3354,6 +3943,11 @@ namespace PneumaticServoMonitor
         {
             txt_Log_Cur.Clear();
             i_ErrorID_Last = 0;
+        }
+
+        private void btn_Adjust_Click(object sender, EventArgs e)
+        {
+            new FormAdjust().ShowDialog();
         }
     }
 

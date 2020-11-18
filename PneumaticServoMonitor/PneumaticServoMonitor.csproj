@@ -236,6 +236,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAdjust.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAdjust.Designer.cs">
+      <DependentUpon>FormAdjust.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCalibrate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +287,9 @@
     <Compile Include="IniFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAdjust.resx">
+      <DependentUpon>FormAdjust.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCalibrate.resx">
       <DependentUpon>FormCalibrate.cs</DependentUpon>
     </EmbeddedResource>

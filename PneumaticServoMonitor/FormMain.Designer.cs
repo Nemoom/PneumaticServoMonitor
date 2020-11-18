@@ -31,8 +31,21 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.DDBtn_Beam = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Adjust = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Calibration = new System.Windows.Forms.ToolStripDropDownButton();
+            this.DDBtn_Setting = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btn_Calibrate = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_PIDadjust = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_RecipeManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_CommSetting = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_Connect = new System.Windows.Forms.ToolStripButton();
+            this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_clock = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -59,11 +72,14 @@
             this.btn_Start = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.panel_ProgressBar = new System.Windows.Forms.Panel();
-            this.lbl_Times_Cur = new System.Windows.Forms.Label();
-            this.lbl_TImes_Set = new System.Windows.Forms.Label();
+            this.panel18 = new System.Windows.Forms.Panel();
             this.btn_2Zero = new System.Windows.Forms.Button();
+            this.panel_ProgressBar = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lbl_StartIndex = new System.Windows.Forms.Label();
+            this.lbl_Times_Cur = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.lbl_TImes_Set = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel11 = new System.Windows.Forms.Panel();
@@ -90,32 +106,18 @@
             this.panel14 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
+            this.pic_Error = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel16 = new System.Windows.Forms.Panel();
+            this.pic_Running = new System.Windows.Forms.PictureBox();
             this.btn_EMG = new System.Windows.Forms.Button();
             this.imageList_Status = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel18 = new System.Windows.Forms.Panel();
-            this.lbl_StartIndex = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pic_Error = new System.Windows.Forms.PictureBox();
-            this.pic_Running = new System.Windows.Forms.PictureBox();
-            this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.DDBtn_Beam = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DDBtn_Adjust = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DDBtn_Calibration = new System.Windows.Forms.ToolStripDropDownButton();
-            this.DDBtn_Setting = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btn_Calibrate = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_PIDadjust = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_RecipeManagement = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_CommSetting = new System.Windows.Forms.ToolStripMenuItem();
-            this.btn_Connect = new System.Windows.Forms.ToolStripButton();
-            this.DDBtn_Help = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btn_Adjust = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -125,6 +127,8 @@
             this.panel10.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.panel12.SuspendLayout();
+            this.panel18.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel11.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -137,11 +141,8 @@
             this.panel23.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel17.SuspendLayout();
-            this.panel16.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Error)).BeginInit();
+            this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Running)).BeginInit();
             this.SuspendLayout();
             // 
@@ -161,6 +162,121 @@
             this.toolStrip1.Size = new System.Drawing.Size(1065, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // DDBtn_File
+            // 
+            this.DDBtn_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.DDBtn_File.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_File.Image")));
+            this.DDBtn_File.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_File.Name = "DDBtn_File";
+            this.DDBtn_File.Size = new System.Drawing.Size(53, 28);
+            this.DDBtn_File.Text = "文件";
+            this.DDBtn_File.Click += new System.EventHandler(this.DDBtn_File_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 26);
+            this.toolStripMenuItem1.Text = "退出";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
+            // 
+            // DDBtn_Beam
+            // 
+            this.DDBtn_Beam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Beam.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Beam.Image")));
+            this.DDBtn_Beam.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Beam.Name = "DDBtn_Beam";
+            this.DDBtn_Beam.Size = new System.Drawing.Size(53, 24);
+            this.DDBtn_Beam.Text = "横梁";
+            this.DDBtn_Beam.Visible = false;
+            // 
+            // DDBtn_Adjust
+            // 
+            this.DDBtn_Adjust.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Adjust.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Adjust.Image")));
+            this.DDBtn_Adjust.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Adjust.Name = "DDBtn_Adjust";
+            this.DDBtn_Adjust.Size = new System.Drawing.Size(53, 24);
+            this.DDBtn_Adjust.Text = "修正";
+            this.DDBtn_Adjust.Visible = false;
+            this.DDBtn_Adjust.Click += new System.EventHandler(this.DDBtn_Adjust_Click);
+            // 
+            // DDBtn_Calibration
+            // 
+            this.DDBtn_Calibration.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Calibration.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Calibration.Image")));
+            this.DDBtn_Calibration.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Calibration.Name = "DDBtn_Calibration";
+            this.DDBtn_Calibration.Size = new System.Drawing.Size(53, 24);
+            this.DDBtn_Calibration.Text = "校准";
+            this.DDBtn_Calibration.Visible = false;
+            this.DDBtn_Calibration.Click += new System.EventHandler(this.DDBtn_Calibration_Click);
+            // 
+            // DDBtn_Setting
+            // 
+            this.DDBtn_Setting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Setting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btn_Calibrate,
+            this.btn_Adjust,
+            this.btn_PIDadjust,
+            this.btn_RecipeManagement,
+            this.btn_CommSetting});
+            this.DDBtn_Setting.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Setting.Image")));
+            this.DDBtn_Setting.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Setting.Name = "DDBtn_Setting";
+            this.DDBtn_Setting.Size = new System.Drawing.Size(53, 24);
+            this.DDBtn_Setting.Text = "设置";
+            // 
+            // btn_Calibrate
+            // 
+            this.btn_Calibrate.Name = "btn_Calibrate";
+            this.btn_Calibrate.Size = new System.Drawing.Size(224, 26);
+            this.btn_Calibrate.Text = "传感器校准";
+            this.btn_Calibrate.Click += new System.EventHandler(this.Btn_Calibrate_Click);
+            // 
+            // btn_PIDadjust
+            // 
+            this.btn_PIDadjust.Name = "btn_PIDadjust";
+            this.btn_PIDadjust.Size = new System.Drawing.Size(224, 26);
+            this.btn_PIDadjust.Text = "PID修正";
+            this.btn_PIDadjust.Click += new System.EventHandler(this.Btn_PIDadjust_Click);
+            // 
+            // btn_RecipeManagement
+            // 
+            this.btn_RecipeManagement.Name = "btn_RecipeManagement";
+            this.btn_RecipeManagement.Size = new System.Drawing.Size(224, 26);
+            this.btn_RecipeManagement.Text = "配方管理";
+            this.btn_RecipeManagement.Click += new System.EventHandler(this.Btn_RecipeManagement_Click);
+            // 
+            // btn_CommSetting
+            // 
+            this.btn_CommSetting.Name = "btn_CommSetting";
+            this.btn_CommSetting.Size = new System.Drawing.Size(224, 26);
+            this.btn_CommSetting.Text = "通信配置";
+            this.btn_CommSetting.Click += new System.EventHandler(this.btn_CommSetting_Click);
+            // 
+            // btn_Connect
+            // 
+            this.btn_Connect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btn_Connect.BackColor = System.Drawing.Color.Red;
+            this.btn_Connect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btn_Connect.Image = ((System.Drawing.Image)(resources.GetObject("btn_Connect.Image")));
+            this.btn_Connect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_Connect.Name = "btn_Connect";
+            this.btn_Connect.Size = new System.Drawing.Size(61, 24);
+            this.btn_Connect.Text = "Offline";
+            this.btn_Connect.Click += new System.EventHandler(this.btn_Connect_Click);
+            // 
+            // DDBtn_Help
+            // 
+            this.DDBtn_Help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.DDBtn_Help.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Help.Image")));
+            this.DDBtn_Help.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DDBtn_Help.Name = "DDBtn_Help";
+            this.DDBtn_Help.Size = new System.Drawing.Size(53, 24);
+            this.DDBtn_Help.Text = "帮助";
             // 
             // tableLayoutPanel1
             // 
@@ -200,6 +316,17 @@
             this.label_clock.Size = new System.Drawing.Size(178, 94);
             this.label_clock.TabIndex = 8;
             this.label_clock.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Image = global::PneumaticServoMonitor.Properties.Resources.Logo;
+            this.pictureBox1.Location = new System.Drawing.Point(23, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(228, 55);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -528,35 +655,15 @@
             this.panel12.Size = new System.Drawing.Size(304, 64);
             this.panel12.TabIndex = 14;
             // 
-            // panel_ProgressBar
+            // panel18
             // 
-            this.panel_ProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_ProgressBar.Location = new System.Drawing.Point(0, 0);
-            this.panel_ProgressBar.Name = "panel_ProgressBar";
-            this.panel_ProgressBar.Size = new System.Drawing.Size(298, 46);
-            this.panel_ProgressBar.TabIndex = 2;
-            // 
-            // lbl_Times_Cur
-            // 
-            this.lbl_Times_Cur.BackColor = System.Drawing.SystemColors.Menu;
-            this.lbl_Times_Cur.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_Times_Cur.Location = new System.Drawing.Point(160, 0);
-            this.lbl_Times_Cur.Name = "lbl_Times_Cur";
-            this.lbl_Times_Cur.Size = new System.Drawing.Size(69, 18);
-            this.lbl_Times_Cur.TabIndex = 1;
-            this.lbl_Times_Cur.Text = "0";
-            this.lbl_Times_Cur.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbl_TImes_Set
-            // 
-            this.lbl_TImes_Set.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl_TImes_Set.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_TImes_Set.Location = new System.Drawing.Point(229, 0);
-            this.lbl_TImes_Set.Name = "lbl_TImes_Set";
-            this.lbl_TImes_Set.Size = new System.Drawing.Size(69, 18);
-            this.lbl_TImes_Set.TabIndex = 0;
-            this.lbl_TImes_Set.Text = "0";
-            this.lbl_TImes_Set.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.panel18.Controls.Add(this.btn_2Zero);
+            this.panel18.Controls.Add(this.panel_ProgressBar);
+            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel18.Location = new System.Drawing.Point(3, 18);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(298, 46);
+            this.panel18.TabIndex = 3;
             // 
             // btn_2Zero
             // 
@@ -570,6 +677,48 @@
             this.btn_2Zero.Visible = false;
             this.btn_2Zero.Click += new System.EventHandler(this.Btn_2Zero_Click);
             // 
+            // panel_ProgressBar
+            // 
+            this.panel_ProgressBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_ProgressBar.Location = new System.Drawing.Point(0, 0);
+            this.panel_ProgressBar.Name = "panel_ProgressBar";
+            this.panel_ProgressBar.Size = new System.Drawing.Size(298, 46);
+            this.panel_ProgressBar.TabIndex = 2;
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.lbl_StartIndex);
+            this.panel9.Controls.Add(this.lbl_Times_Cur);
+            this.panel9.Controls.Add(this.label12);
+            this.panel9.Controls.Add(this.lbl_TImes_Set);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel9.Location = new System.Drawing.Point(3, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(298, 18);
+            this.panel9.TabIndex = 0;
+            // 
+            // lbl_StartIndex
+            // 
+            this.lbl_StartIndex.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl_StartIndex.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbl_StartIndex.Location = new System.Drawing.Point(91, 0);
+            this.lbl_StartIndex.Name = "lbl_StartIndex";
+            this.lbl_StartIndex.Size = new System.Drawing.Size(69, 18);
+            this.lbl_StartIndex.TabIndex = 2;
+            this.lbl_StartIndex.Text = "0";
+            this.lbl_StartIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_Times_Cur
+            // 
+            this.lbl_Times_Cur.BackColor = System.Drawing.SystemColors.Menu;
+            this.lbl_Times_Cur.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbl_Times_Cur.Location = new System.Drawing.Point(160, 0);
+            this.lbl_Times_Cur.Name = "lbl_Times_Cur";
+            this.lbl_Times_Cur.Size = new System.Drawing.Size(69, 18);
+            this.lbl_Times_Cur.TabIndex = 1;
+            this.lbl_Times_Cur.Text = "0";
+            this.lbl_Times_Cur.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -582,6 +731,17 @@
             this.label12.Size = new System.Drawing.Size(64, 20);
             this.label12.TabIndex = 0;
             this.label12.Text = "循环次数";
+            // 
+            // lbl_TImes_Set
+            // 
+            this.lbl_TImes_Set.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lbl_TImes_Set.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbl_TImes_Set.Location = new System.Drawing.Point(229, 0);
+            this.lbl_TImes_Set.Name = "lbl_TImes_Set";
+            this.lbl_TImes_Set.Size = new System.Drawing.Size(69, 18);
+            this.lbl_TImes_Set.TabIndex = 0;
+            this.lbl_TImes_Set.Text = "0";
+            this.lbl_TImes_Set.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
@@ -807,7 +967,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(164, 245);
+            this.tabPage2.Size = new System.Drawing.Size(164, 249);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "历史报警";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -820,7 +980,7 @@
             this.txt_Log.Margin = new System.Windows.Forms.Padding(0);
             this.txt_Log.Multiline = true;
             this.txt_Log.Name = "txt_Log";
-            this.txt_Log.Size = new System.Drawing.Size(164, 245);
+            this.txt_Log.Size = new System.Drawing.Size(164, 249);
             this.txt_Log.TabIndex = 1;
             // 
             // panel23
@@ -897,6 +1057,17 @@
             this.panel17.Size = new System.Drawing.Size(22, 35);
             this.panel17.TabIndex = 17;
             // 
+            // pic_Error
+            // 
+            this.pic_Error.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status_busy;
+            this.pic_Error.Location = new System.Drawing.Point(0, 0);
+            this.pic_Error.Name = "pic_Error";
+            this.pic_Error.Size = new System.Drawing.Size(22, 24);
+            this.pic_Error.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pic_Error.TabIndex = 14;
+            this.pic_Error.TabStop = false;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -916,6 +1087,17 @@
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(22, 35);
             this.panel16.TabIndex = 15;
+            // 
+            // pic_Running
+            // 
+            this.pic_Running.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pic_Running.Image = global::PneumaticServoMonitor.Properties.Resources.status;
+            this.pic_Running.Location = new System.Drawing.Point(0, 0);
+            this.pic_Running.Name = "pic_Running";
+            this.pic_Running.Size = new System.Drawing.Size(22, 24);
+            this.pic_Running.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pic_Running.TabIndex = 14;
+            this.pic_Running.TabStop = false;
             // 
             // btn_EMG
             // 
@@ -941,185 +1123,12 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // panel9
+            // btn_Adjust
             // 
-            this.panel9.Controls.Add(this.lbl_StartIndex);
-            this.panel9.Controls.Add(this.lbl_Times_Cur);
-            this.panel9.Controls.Add(this.label12);
-            this.panel9.Controls.Add(this.lbl_TImes_Set);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel9.Location = new System.Drawing.Point(3, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(298, 18);
-            this.panel9.TabIndex = 0;
-            // 
-            // panel18
-            // 
-            this.panel18.Controls.Add(this.btn_2Zero);
-            this.panel18.Controls.Add(this.panel_ProgressBar);
-            this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel18.Location = new System.Drawing.Point(3, 18);
-            this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(298, 46);
-            this.panel18.TabIndex = 3;
-            // 
-            // lbl_StartIndex
-            // 
-            this.lbl_StartIndex.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lbl_StartIndex.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_StartIndex.Location = new System.Drawing.Point(91, 0);
-            this.lbl_StartIndex.Name = "lbl_StartIndex";
-            this.lbl_StartIndex.Size = new System.Drawing.Size(69, 18);
-            this.lbl_StartIndex.TabIndex = 2;
-            this.lbl_StartIndex.Text = "0";
-            this.lbl_StartIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = global::PneumaticServoMonitor.Properties.Resources.Logo;
-            this.pictureBox1.Location = new System.Drawing.Point(23, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(228, 55);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pic_Error
-            // 
-            this.pic_Error.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pic_Error.Image = global::PneumaticServoMonitor.Properties.Resources.status_busy;
-            this.pic_Error.Location = new System.Drawing.Point(0, 0);
-            this.pic_Error.Name = "pic_Error";
-            this.pic_Error.Size = new System.Drawing.Size(22, 24);
-            this.pic_Error.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pic_Error.TabIndex = 14;
-            this.pic_Error.TabStop = false;
-            // 
-            // pic_Running
-            // 
-            this.pic_Running.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pic_Running.Image = global::PneumaticServoMonitor.Properties.Resources.status;
-            this.pic_Running.Location = new System.Drawing.Point(0, 0);
-            this.pic_Running.Name = "pic_Running";
-            this.pic_Running.Size = new System.Drawing.Size(22, 24);
-            this.pic_Running.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pic_Running.TabIndex = 14;
-            this.pic_Running.TabStop = false;
-            // 
-            // DDBtn_File
-            // 
-            this.DDBtn_File.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.DDBtn_File.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_File.Image")));
-            this.DDBtn_File.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_File.Name = "DDBtn_File";
-            this.DDBtn_File.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_File.Text = "文件";
-            this.DDBtn_File.Click += new System.EventHandler(this.DDBtn_File_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(122, 26);
-            this.toolStripMenuItem1.Text = "退出";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
-            // 
-            // DDBtn_Beam
-            // 
-            this.DDBtn_Beam.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Beam.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Beam.Image")));
-            this.DDBtn_Beam.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Beam.Name = "DDBtn_Beam";
-            this.DDBtn_Beam.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Beam.Text = "横梁";
-            this.DDBtn_Beam.Visible = false;
-            // 
-            // DDBtn_Adjust
-            // 
-            this.DDBtn_Adjust.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Adjust.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Adjust.Image")));
-            this.DDBtn_Adjust.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Adjust.Name = "DDBtn_Adjust";
-            this.DDBtn_Adjust.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Adjust.Text = "修正";
-            this.DDBtn_Adjust.Visible = false;
-            this.DDBtn_Adjust.Click += new System.EventHandler(this.DDBtn_Adjust_Click);
-            // 
-            // DDBtn_Calibration
-            // 
-            this.DDBtn_Calibration.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Calibration.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Calibration.Image")));
-            this.DDBtn_Calibration.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Calibration.Name = "DDBtn_Calibration";
-            this.DDBtn_Calibration.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Calibration.Text = "校准";
-            this.DDBtn_Calibration.Visible = false;
-            this.DDBtn_Calibration.Click += new System.EventHandler(this.DDBtn_Calibration_Click);
-            // 
-            // DDBtn_Setting
-            // 
-            this.DDBtn_Setting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Setting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btn_Calibrate,
-            this.btn_PIDadjust,
-            this.btn_RecipeManagement,
-            this.btn_CommSetting});
-            this.DDBtn_Setting.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Setting.Image")));
-            this.DDBtn_Setting.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Setting.Name = "DDBtn_Setting";
-            this.DDBtn_Setting.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Setting.Text = "设置";
-            // 
-            // btn_Calibrate
-            // 
-            this.btn_Calibrate.Name = "btn_Calibrate";
-            this.btn_Calibrate.Size = new System.Drawing.Size(167, 26);
-            this.btn_Calibrate.Text = "传感器校准";
-            this.btn_Calibrate.Click += new System.EventHandler(this.Btn_Calibrate_Click);
-            // 
-            // btn_PIDadjust
-            // 
-            this.btn_PIDadjust.Name = "btn_PIDadjust";
-            this.btn_PIDadjust.Size = new System.Drawing.Size(167, 26);
-            this.btn_PIDadjust.Text = "PID修正";
-            this.btn_PIDadjust.Click += new System.EventHandler(this.Btn_PIDadjust_Click);
-            // 
-            // btn_RecipeManagement
-            // 
-            this.btn_RecipeManagement.Name = "btn_RecipeManagement";
-            this.btn_RecipeManagement.Size = new System.Drawing.Size(167, 26);
-            this.btn_RecipeManagement.Text = "配方管理";
-            this.btn_RecipeManagement.Click += new System.EventHandler(this.Btn_RecipeManagement_Click);
-            // 
-            // btn_CommSetting
-            // 
-            this.btn_CommSetting.Name = "btn_CommSetting";
-            this.btn_CommSetting.Size = new System.Drawing.Size(167, 26);
-            this.btn_CommSetting.Text = "通信配置";
-            this.btn_CommSetting.Click += new System.EventHandler(this.btn_CommSetting_Click);
-            // 
-            // btn_Connect
-            // 
-            this.btn_Connect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btn_Connect.BackColor = System.Drawing.Color.Red;
-            this.btn_Connect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btn_Connect.Image = ((System.Drawing.Image)(resources.GetObject("btn_Connect.Image")));
-            this.btn_Connect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btn_Connect.Name = "btn_Connect";
-            this.btn_Connect.Size = new System.Drawing.Size(61, 28);
-            this.btn_Connect.Text = "Offline";
-            this.btn_Connect.Click += new System.EventHandler(this.btn_Connect_Click);
-            // 
-            // DDBtn_Help
-            // 
-            this.DDBtn_Help.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.DDBtn_Help.Image = ((System.Drawing.Image)(resources.GetObject("DDBtn_Help.Image")));
-            this.DDBtn_Help.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DDBtn_Help.Name = "DDBtn_Help";
-            this.DDBtn_Help.Size = new System.Drawing.Size(53, 28);
-            this.DDBtn_Help.Text = "帮助";
+            this.btn_Adjust.Name = "btn_Adjust";
+            this.btn_Adjust.Size = new System.Drawing.Size(224, 26);
+            this.btn_Adjust.Text = "横梁调整";
+            this.btn_Adjust.Click += new System.EventHandler(this.btn_Adjust_Click);
             // 
             // FormMain
             // 
@@ -1140,6 +1149,7 @@
             this.toolStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -1155,6 +1165,9 @@
             this.panel10.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
+            this.panel18.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
@@ -1173,12 +1186,8 @@
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
             this.panel17.ResumeLayout(false);
-            this.panel16.ResumeLayout(false);
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            this.panel18.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Error)).EndInit();
+            this.panel16.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic_Running)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1271,6 +1280,7 @@
         private System.Windows.Forms.Panel panel18;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label lbl_StartIndex;
+        private System.Windows.Forms.ToolStripMenuItem btn_Adjust;
     }
 }
 
