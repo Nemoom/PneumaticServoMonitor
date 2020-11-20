@@ -226,6 +226,7 @@
             this.MinimizeBox = false;
             this.Name = "FormAdjust";
             this.Text = "横梁调整";
+            this.Load += new System.EventHandler(this.FormAdjust_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

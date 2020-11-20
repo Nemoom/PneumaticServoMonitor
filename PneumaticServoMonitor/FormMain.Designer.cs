@@ -232,35 +232,35 @@
             // btn_Calibrate
             // 
             this.btn_Calibrate.Name = "btn_Calibrate";
-            this.btn_Calibrate.Size = new System.Drawing.Size(224, 26);
+            this.btn_Calibrate.Size = new System.Drawing.Size(167, 26);
             this.btn_Calibrate.Text = "传感器校准";
             this.btn_Calibrate.Click += new System.EventHandler(this.Btn_Calibrate_Click);
             // 
             // btn_Adjust
             // 
             this.btn_Adjust.Name = "btn_Adjust";
-            this.btn_Adjust.Size = new System.Drawing.Size(224, 26);
+            this.btn_Adjust.Size = new System.Drawing.Size(167, 26);
             this.btn_Adjust.Text = "横梁调整";
             this.btn_Adjust.Click += new System.EventHandler(this.btn_Adjust_Click);
             // 
             // btn_PIDadjust
             // 
             this.btn_PIDadjust.Name = "btn_PIDadjust";
-            this.btn_PIDadjust.Size = new System.Drawing.Size(224, 26);
+            this.btn_PIDadjust.Size = new System.Drawing.Size(167, 26);
             this.btn_PIDadjust.Text = "PID修正";
             this.btn_PIDadjust.Click += new System.EventHandler(this.Btn_PIDadjust_Click);
             // 
             // btn_RecipeManagement
             // 
             this.btn_RecipeManagement.Name = "btn_RecipeManagement";
-            this.btn_RecipeManagement.Size = new System.Drawing.Size(224, 26);
+            this.btn_RecipeManagement.Size = new System.Drawing.Size(167, 26);
             this.btn_RecipeManagement.Text = "配方管理";
             this.btn_RecipeManagement.Click += new System.EventHandler(this.Btn_RecipeManagement_Click);
             // 
             // btn_CommSetting
             // 
             this.btn_CommSetting.Name = "btn_CommSetting";
-            this.btn_CommSetting.Size = new System.Drawing.Size(224, 26);
+            this.btn_CommSetting.Size = new System.Drawing.Size(167, 26);
             this.btn_CommSetting.Text = "通信配置";
             this.btn_CommSetting.Click += new System.EventHandler(this.btn_CommSetting_Click);
             // 

@@ -3640,88 +3640,95 @@ namespace PneumaticServoMonitor
         int i_ErrorID_Last = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            m_OpcUaClient.WriteNode(NodeID_HeartBit, !m_OpcUaClient.ReadNode<bool>(NodeID_HeartBit));
-            if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
+            try
             {
-                btn_Enable.BackColor = Color.Green;
-            }
-            else
-            {
-                btn_Enable.BackColor = Color.Transparent;
-                btn_Setting.Enabled = true;
-                btn_Calibrate.Enabled = true;
-                btn_ChangePath.Enabled = true;
-                btn_CommSetting.Enabled = true;
-                btn_RecipeManagement.Enabled = true;
-                btn_Adjust.Enabled = true;
-                cmb_SaveFrequency.Enabled = true;
-                btn_ForceClear.Enabled = true;
-                btn_PositionClear.Enabled = true;
-            }
-            if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
-            {
-                btn_Start.BackColor = Color.Green;
-                pic_Running.Image = imageList_Status.Images[1];
-            }
-            else
-            {
-                btn_Start.BackColor = Color.Transparent;
-                pic_Running.Image = imageList_Status.Images[0];
-            }
-            if (m_OpcUaClient.ReadNode<bool>(NodeID_StopFlag))
-            {
-                btn_Stop.BackColor = Color.Green;
-                //pic_Running.Image = imageList_Status.Images[1];
-            }
-            else
-            {
-                btn_Stop.BackColor = Color.Transparent;
-                //pic_Running.Image = imageList_Status.Images[0];
-            }
-            if (m_OpcUaClient.ReadNode<bool>(NodeID_SystemError))
-            {
-                btn_Reset.BackColor = Color.Yellow;
-                pic_Error.Image = imageList_Status.Images[2];
-            }
-            else
-            {
-                btn_Reset.BackColor = Color.Transparent;
-                pic_Error.Image = imageList_Status.Images[0];
-            }
-            int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
-            
-            if (i_ErrorID != 0)
-            {
-                if (i_ErrorID_Last != i_ErrorID)
+                m_OpcUaClient.WriteNode(NodeID_HeartBit, !m_OpcUaClient.ReadNode<bool>(NodeID_HeartBit));
+                if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
                 {
-
-                    string msg = "";
-                    try
-                    {
-                        msg = ini_errorlist.Read(i_ErrorID.ToString(), "ErrorList");
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-                    writeLog(msg == "" ? i_ErrorID.ToString() : msg, logFormat.Both);
+                    btn_Enable.BackColor = Color.Green;
                 }
-                i_ErrorID_Last = i_ErrorID;
+                else
+                {
+                    btn_Enable.BackColor = Color.Transparent;
+                    btn_Setting.Enabled = true;
+                    btn_Calibrate.Enabled = true;
+                    btn_ChangePath.Enabled = true;
+                    btn_CommSetting.Enabled = true;
+                    btn_RecipeManagement.Enabled = true;
+                    btn_Adjust.Enabled = true;
+                    cmb_SaveFrequency.Enabled = true;
+                    btn_ForceClear.Enabled = true;
+                    btn_PositionClear.Enabled = true;
+                }
+                if (m_OpcUaClient.ReadNode<bool>(NodeID_RunningFlag))
+                {
+                    btn_Start.BackColor = Color.Green;
+                    pic_Running.Image = imageList_Status.Images[1];
+                }
+                else
+                {
+                    btn_Start.BackColor = Color.Transparent;
+                    pic_Running.Image = imageList_Status.Images[0];
+                }
+                if (m_OpcUaClient.ReadNode<bool>(NodeID_StopFlag))
+                {
+                    btn_Stop.BackColor = Color.Green;
+                    //pic_Running.Image = imageList_Status.Images[1];
+                }
+                else
+                {
+                    btn_Stop.BackColor = Color.Transparent;
+                    //pic_Running.Image = imageList_Status.Images[0];
+                }
+                if (m_OpcUaClient.ReadNode<bool>(NodeID_SystemError))
+                {
+                    btn_Reset.BackColor = Color.Yellow;
+                    pic_Error.Image = imageList_Status.Images[2];
+                }
+                else
+                {
+                    btn_Reset.BackColor = Color.Transparent;
+                    pic_Error.Image = imageList_Status.Images[0];
+                }
+                int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
+
+                if (i_ErrorID != 0)
+                {
+                    if (i_ErrorID_Last != i_ErrorID)
+                    {
+
+                        string msg = "";
+                        try
+                        {
+                            msg = ini_errorlist.Read(i_ErrorID.ToString(), "ErrorList");
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        writeLog(msg == "" ? i_ErrorID.ToString() : msg, logFormat.Both);
+                    }
+                    i_ErrorID_Last = i_ErrorID;
+                }
+                else
+                {
+                    txt_Log_Cur.Clear();
+                }
+                if (Times_W != 0)
+                {
+                    lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount).ToString();
+                    //lbl_TImes_Set.Text = Times_W.ToString();
+                    double d_numerator = Convert.ToDouble(lbl_Times_Cur.Text) + Convert.ToDouble(StartIndex_W);
+                    progressBar.Value = Convert.ToInt32((d_numerator < Convert.ToDouble(Times_W) ? d_numerator : Convert.ToDouble(Times_W)) / Convert.ToDouble(Times_W) * 100);
+                }
+                lbl_ActualForce.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
+                lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
+                //progressBar.Value % 100 + 1;
             }
-            else
+            catch (Exception)
             {
-                txt_Log_Cur.Clear();
+
             }
-            if (Times_W != 0)
-            {
-                lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount).ToString();
-                //lbl_TImes_Set.Text = Times_W.ToString();
-                double d_numerator = Convert.ToDouble(lbl_Times_Cur.Text) + Convert.ToDouble(StartIndex_W);
-                progressBar.Value = Convert.ToInt32((d_numerator < Convert.ToDouble(Times_W) ? d_numerator : Convert.ToDouble(Times_W)) / Convert.ToDouble(Times_W) * 100);
-            }
-            lbl_ActualForce.Text= m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
-            lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
-            //progressBar.Value % 100 + 1;
         }
 
         private void btn_Reset_Click(object sender, EventArgs e)

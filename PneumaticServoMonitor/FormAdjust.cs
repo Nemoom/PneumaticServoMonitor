@@ -96,5 +96,17 @@ namespace PneumaticServoMonitor
                 FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, (short)trackBar_CylinderSpeed.Value);
             }
         }
+
+        private void FormAdjust_Load(object sender, EventArgs e)
+        {
+            if (FormMain.m_OpcUaClient.Connected)
+            {
+                FormMain.m_OpcUaClient.WriteNode(FormMain.NodeID_CylinderSpeed, (short)trackBar_CylinderSpeed.Value);
+            }
+            else
+            {
+                MessageBox.Show("请先切至online状态");
+            }
+        }
     }
 }
