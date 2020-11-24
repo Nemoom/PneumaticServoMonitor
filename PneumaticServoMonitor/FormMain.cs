@@ -39,6 +39,7 @@ namespace PneumaticServoMonitor
         MyProgressBar progressBar;
         public FormSetting mFormSetting;
         public static OpcUaClient m_OpcUaClient;
+        public static OpcUaClient m_OpcUaClient2;
         public static string ProjectName;
         public static string ProjectNumber;
         public static string SampleNumber;
@@ -3305,7 +3306,14 @@ namespace PneumaticServoMonitor
 
                 m_OpcUaClient.ConnectComplete += M_OpcUaClient_ConnectComplete;
                 m_OpcUaClient.OpcStatusChange += M_OpcUaClient_OpcStatusChange;
-               
+
+                m_OpcUaClient2 = new OpcUaClient();
+                //设置匿名连接
+                m_OpcUaClient2.UserIdentity = new UserIdentity(new AnonymousIdentityToken());
+                
+                m_OpcUaClient2.ConnectComplete += M_OpcUaClient_ConnectComplete2;
+                m_OpcUaClient2.OpcStatusChange += M_OpcUaClient_OpcStatusChange2;
+
                 clock.Interval = 1000;
                 clock.Tick += new EventHandler(clock_Tick);
                 clock.Start();
@@ -3331,7 +3339,7 @@ namespace PneumaticServoMonitor
             try
             {
                 await m_OpcUaClient.ConnectServer("opc.tcp://" + plcIP + ":4840");
-
+                await m_OpcUaClient2.ConnectServer("opc.tcp://" + plcIP + ":4840");
             }
             catch (Exception ex)
             {
@@ -3354,6 +3362,22 @@ namespace PneumaticServoMonitor
             }
             //throw new NotImplementedException();
         }
+        private void M_OpcUaClient_OpcStatusChange2(object sender, OpcUaStatusEventArgs e)
+        {
+            if (m_OpcUaClient2.Connected)
+            {
+
+                //tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
+                //timer1.Enabled = true;
+            }
+            else
+            {
+                //tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
+                //timer1.Enabled = false;
+
+            }
+            //throw new NotImplementedException();
+        }
         protected delegate void ChangeStatusHandler(Control Ctrl, bool b_Status);
         void ChangeStatus(Control Ctrl, bool b_Status)
         {
@@ -3362,7 +3386,34 @@ namespace PneumaticServoMonitor
         Thread tStart;
         private void M_OpcUaClient_ConnectComplete(object sender, EventArgs e)
         {
-            if (FormMain.m_OpcUaClient.Connected)
+            if (FormMain.m_OpcUaClient.Connected && FormMain.m_OpcUaClient2.Connected)
+            {
+                firstUpdateForm();
+                //通信建立完成，可以开始read&Write
+                ThreadStart start = delegate
+                {
+                    _GetData();
+                };
+                tStart = new Thread(start);
+                tStart.IsBackground = true;
+                tStart.Start();
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
+                timer1.Enabled = true;
+                btn_Connect.Text = "Online";
+                btn_Connect.BackColor = Color.Green;
+            }
+            else
+            {
+                tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
+                timer1.Enabled = false;
+                btn_Connect.Text = "Offline";
+                btn_Connect.BackColor = Color.Red;
+            }
+            //throw new NotImplementedException();
+        }
+        private void M_OpcUaClient_ConnectComplete2(object sender, EventArgs e)
+        {
+            if (FormMain.m_OpcUaClient2.Connected && FormMain.m_OpcUaClient.Connected)
             {
                 firstUpdateForm();
                 //通信建立完成，可以开始read&Write
@@ -3415,34 +3466,36 @@ namespace PneumaticServoMonitor
             {
                 try
                 {
-                    while (!m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
+                    while (!m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady))
                     {
                         Thread.Sleep(50);
                     }
                    
-                    DataValue DataValuePeak = m_OpcUaClient.ReadNode(NodeID_ArrayPeak);
-                    DataValue DataValueLow = m_OpcUaClient.ReadNode(NodeID_ArrayLow);
+                    DataValue DataValuePeak = m_OpcUaClient2.ReadNode(NodeID_ArrayPeak);
+                    DataValue DataValueLow = m_OpcUaClient2.ReadNode(NodeID_ArrayLow);
                     ArrayPeak_R = (float[])DataValuePeak.Value;
                     ArrayLow_R= (float[])DataValueLow.Value;
                     //write csv
-                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
+                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" 
+                        + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
                     if (saveFile_path != "")
                     {
-                        if (!Directory.Exists(saveFile_path))
+                        if (!Directory.Exists(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd")))
                         {
-                            Directory.CreateDirectory(saveFile_path);
+                            Directory.CreateDirectory(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd"));
                         }
-                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
+                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" 
+                            + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
                     }
                     else
                     {
-                        saveFile_path = System.Environment.CurrentDirectory + "\\Log";
-                        if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log"))
+                        saveFile_path = System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd");
+                        if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd")))
                         {
-                            Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log");
+                            Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd"));
                         }
                     }
-                    DirectoryInfo d = new DirectoryInfo(saveFile_path);
+                    DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd"));
                     FileSystemInfo[] fsinfos = d.GetFileSystemInfos(DateTime.Now.ToString("yyyyMMdd") + "-*.csv");//指定文件夹下相关文件个数
                     if (!File.Exists(csvFilePath))
                     {
@@ -3456,10 +3509,11 @@ namespace PneumaticServoMonitor
                     }
                     else
                     {
+                        //更新periodIndex
                         if (!logOpened)
                         {
                             periodIndex = (fsinfos.Length - 1) * saveFile_Frequency;//起始次数
-                            csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + fsinfos.Length.ToString() + ".csv");
+                            csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + fsinfos.Length.ToString() + ".csv");
 
                             //重新计算periodIndex
                             using (StreamReader sr = new StreamReader(csvFilePath))
@@ -3481,7 +3535,7 @@ namespace PneumaticServoMonitor
                             logOpened = true;
                         }
                     }
-                    csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + (Math.Floor((double)periodIndex / (double)saveFile_Frequency) + 1).ToString() + ".csv");
+                    csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + (Math.Floor((double)periodIndex / (double)saveFile_Frequency) + 1).ToString() + ".csv");
                     string line = string.Empty;
                     using (StreamWriter csvFile = new StreamWriter(csvFilePath, true, Encoding.UTF8))
                     {
@@ -3498,17 +3552,17 @@ namespace PneumaticServoMonitor
                             csvFile.WriteLine(line);
                         }
                     }
-                    m_OpcUaClient.WriteNode(NodeID_DataReceived, true);
-                    while (m_OpcUaClient.ReadNode<bool>(NodeID_DataPoolReady))
+                    m_OpcUaClient2.WriteNode(NodeID_DataReceived, true);
+                    while (m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady))
                     {
                         Thread.Sleep(50);
                     }
-                    m_OpcUaClient.WriteNode(NodeID_DataReceived, false);
+                    m_OpcUaClient2.WriteNode(NodeID_DataReceived, false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    
+                    writeLog(ex.Message, logFormat.File);
                 }
             }
         }
@@ -3725,9 +3779,9 @@ namespace PneumaticServoMonitor
                 lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
                 //progressBar.Value % 100 + 1;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                writeLog(ex.Message, logFormat.File);
             }
         }
 
@@ -3841,6 +3895,7 @@ namespace PneumaticServoMonitor
             {
                 tStart.Abort();
                 m_OpcUaClient.Disconnect();
+                m_OpcUaClient2.Disconnect();
                 geckoWebBrowser1.Navigate("");
                 btn_Connect.Text = "Offline";
                 btn_Connect.BackColor = Color.Red;
