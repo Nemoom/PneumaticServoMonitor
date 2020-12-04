@@ -13,6 +13,7 @@ using System.Threading;
 using System.Net.NetworkInformation;
 using System.IO;
 using Gecko;
+using System.Linq;
 
 namespace PneumaticServoMonitor
 {
@@ -48,6 +49,30 @@ namespace PneumaticServoMonitor
         IniFile ini_errorlist = new IniFile(iniPath);
         public int periodIndex = 0;
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
+
+        class chartPoints
+        {
+            public chartPoints(DateTime mx, double my)
+            {
+
+                x = (mx.DayOfYear - 1 == 0 ? "" : (mx.DayOfYear - 1).ToString() + "d")
+                    + (mx.Hour == 0 ? "" : mx.Hour.ToString() + "h")
+                    + (mx.Minute == 0 ? "" : mx.Minute.ToString() + "m")
+                    + (mx.Second == 0 ? "" : mx.Second.ToString() + "s")
+                    + mx.Millisecond.ToString() + "ms";
+                y = my;
+            }
+            public string x { get; set; }
+            public double y { get; set; }
+        }
+        Queue<chartPoints> Queue_Chart = new Queue<chartPoints>();
+        Queue<chartPoints> Queue_Chart_Show = new Queue<chartPoints>();
+        int SamplingCount_Cycle = 10;        
+        int n_Index = 0;
+        DateTime timestamp = new DateTime();
+        double Peak_AVE, Peak_MAX, Peak_MIN;
+        double Valley_AVE, Valley_MAX, Valley_MIN;
+        double A_Max, A_Min;
         #region ini文件中的参数&对应变量
         public static string plcIP
         {
@@ -3288,7 +3313,7 @@ namespace PneumaticServoMonitor
             txt_Path.Text = saveFile_path;
             cmb_SaveFrequency.Text = saveFile_Frequency.ToString();
         }
-        Gecko.GeckoWebBrowser geckoWebBrowser1;
+        //Gecko.GeckoWebBrowser geckoWebBrowser1;
         private void FormMain_Load(object sender, EventArgs e)
         {
             this.Text = "PST-" + System.Environment.CurrentDirectory.Split('\\')[System.Environment.CurrentDirectory.Split('\\').Length - 1];
@@ -3317,9 +3342,9 @@ namespace PneumaticServoMonitor
                 clock.Interval = 1000;
                 clock.Tick += new EventHandler(clock_Tick);
                 clock.Start();
-                geckoWebBrowser1 = new GeckoWebBrowser();
-                geckoWebBrowser1.Dock = DockStyle.Fill;
-                panel1.Controls.Add(geckoWebBrowser1);
+                ////geckoWebBrowser1 = new GeckoWebBrowser();
+                ////geckoWebBrowser1.Dock = DockStyle.Fill;
+                ////panel1.Controls.Add(geckoWebBrowser1);
                 //geckoWebBrowser1.Navigate(plcWebSite);
 
                 ////////WebKit.WebKitBrowser browser = new WebKit.WebKitBrowser();
@@ -3358,6 +3383,7 @@ namespace PneumaticServoMonitor
             {
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
                 timer1.Enabled = false;
+                timer2.Enabled = false;
 
             }
             //throw new NotImplementedException();
@@ -3399,6 +3425,7 @@ namespace PneumaticServoMonitor
                 tStart.Start();
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
                 timer1.Enabled = true;
+                timer2.Enabled = true;
                 btn_Connect.Text = "Online";
                 btn_Connect.BackColor = Color.Green;
             }
@@ -3406,6 +3433,7 @@ namespace PneumaticServoMonitor
             {
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
                 timer1.Enabled = false;
+                timer2.Enabled = false;
                 btn_Connect.Text = "Offline";
                 btn_Connect.BackColor = Color.Red;
             }
@@ -3426,6 +3454,7 @@ namespace PneumaticServoMonitor
                 tStart.Start();
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
                 timer1.Enabled = true;
+                timer2.Enabled = true;
                 btn_Connect.Text = "Online";
                 btn_Connect.BackColor = Color.Green;
             }
@@ -3433,6 +3462,7 @@ namespace PneumaticServoMonitor
             {
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, false);
                 timer1.Enabled = false;
+                timer2.Enabled = false;
                 btn_Connect.Text = "Offline";
                 btn_Connect.BackColor = Color.Red;
             }
@@ -3475,6 +3505,14 @@ namespace PneumaticServoMonitor
                     DataValue DataValueLow = m_OpcUaClient2.ReadNode(NodeID_ArrayLow);
                     ArrayPeak_R = (float[])DataValuePeak.Value;
                     ArrayLow_R= (float[])DataValueLow.Value;
+                    Array.Resize(ref ArrayPeak_R, 10);
+                    Array.Resize(ref ArrayLow_R, 10);
+                    Peak_MIN = ArrayPeak_R.Min();
+                    Peak_MAX = ArrayPeak_R.Max();
+                    Peak_AVE = ArrayPeak_R.Average();
+                    Valley_MIN = ArrayLow_R.Min();
+                    Valley_MAX = ArrayLow_R.Max();
+                    Valley_AVE = ArrayLow_R.Average();
                     //write csv
                     string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" 
                         + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
@@ -3549,6 +3587,15 @@ namespace PneumaticServoMonitor
                         {
                             periodIndex++;
                             line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
+                            A_Max = ArrayPeak_R[i];
+                            A_Min = ArrayLow_R[i];                            
+                           
+                            for (int mm = 0; mm < SamplingCount_Cycle; mm++)
+                            {
+                                Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
+                                    (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+                            }
+                            
                             csvFile.WriteLine(line);
                         }
                     }
@@ -3562,7 +3609,7 @@ namespace PneumaticServoMonitor
                 catch (Exception ex)
                 {
 
-                    writeLog(ex.Message, logFormat.File);
+                    writeLog(ex.ToString(), logFormat.File);
                 }
             }
         }
@@ -3777,11 +3824,17 @@ namespace PneumaticServoMonitor
                 }
                 lbl_ActualForce.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
                 lbl_ActualPosition.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualPosition).ToString();
+                lbl_Peak_AVE.Text = (int)Peak_AVE == 0 ? "" : Peak_AVE.ToString("0.00");
+                lbl_Peak_MAX.Text = (int)Peak_MAX == 0 ? "" : Peak_MAX.ToString("0.00");
+                lbl_Peak_MIN.Text = (int)Peak_MIN == 0 ? "" : Peak_MIN.ToString("0.00");
+                lbl_Valley_AVE.Text = (int)Valley_AVE == 0 ? "" : Valley_AVE.ToString("0.00");
+                lbl_Valley_MAX.Text = (int)Valley_MAX == 0 ? "" : Valley_MAX.ToString("0.00");
+                lbl_Valley_MIN.Text = (int)Valley_MIN == 0 ? "" : Valley_MIN.ToString("0.00");
                 //progressBar.Value % 100 + 1;
             }
             catch (Exception ex)
             {
-                writeLog(ex.Message, logFormat.File);
+                writeLog(ex.ToString(), logFormat.File);
             }
         }
 
@@ -3887,7 +3940,7 @@ namespace PneumaticServoMonitor
                 if (ping.Send(plcIP, 100).Status == IPStatus.Success)
                 {
                     TrytoConnect();//建立OPC-UA连接
-                    geckoWebBrowser1.Navigate(plcWebSite);
+                    ////geckoWebBrowser1.Navigate(plcWebSite);
                 }
                 
             }
@@ -3896,7 +3949,7 @@ namespace PneumaticServoMonitor
                 tStart.Abort();
                 m_OpcUaClient.Disconnect();
                 m_OpcUaClient2.Disconnect();
-                geckoWebBrowser1.Navigate("");
+                ////geckoWebBrowser1.Navigate("");
                 btn_Connect.Text = "Offline";
                 btn_Connect.BackColor = Color.Red;
             }
@@ -4008,6 +4061,43 @@ namespace PneumaticServoMonitor
         {
             txt_Log_Cur.Clear();
             i_ErrorID_Last = 0;
+        }
+        int n_Empty = 0;
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            if (A_Max!=0&& A_Min!=0)
+            {
+                if (Queue_Chart_Show.Count > 120)
+                {
+                    Queue_Chart_Show.Dequeue();
+                }
+                if (Queue_Chart.Count > 0)
+                {
+                    Queue_Chart_Show.Enqueue(Queue_Chart.Dequeue());
+                }
+                else
+                {
+                    //*********依据最近的波峰波谷值获取波形图，待有数值后继续显示实际波形【需要一个周期显示完整后切换显示】**********
+                    //Queue_Chart_Show.Enqueue(new chartPoints(n_Index++, (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)n_Empty++ / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+                    //if (n_Empty >= SamplingCount_Cycle)
+                    //{
+                    //    n_Empty = 0;
+                    //}
+                    //***************************************************************************************************************
+                    
+                    //避免看出造假，直接显示0
+                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),0));
+                }
+
+                chart1.DataSource = Queue_Chart_Show.ToArray(); //将listp绑定给chart1
+
+                chart1.Series[0].XValueMember = "x";//将listp中所有Name元素作为X轴
+
+                chart1.Series[0].YValueMembers = "y";//将listp中所有Value元素作为Y轴
+
+                chart1.DataBind(); //绑定数据
+            }
+            
         }
 
         private void btn_Adjust_Click(object sender, EventArgs e)

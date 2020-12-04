@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +51,23 @@
             this.label_clock = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.lbl_Peak_MAX = new System.Windows.Forms.Label();
+            this.lbl_Peak_AVE = new System.Windows.Forms.Label();
+            this.lbl_Peak_MIN = new System.Windows.Forms.Label();
+            this.lbl_Valley_MAX = new System.Windows.Forms.Label();
+            this.lbl_Valley_AVE = new System.Windows.Forms.Label();
+            this.lbl_Valley_MIN = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txt_SampleNumber = new System.Windows.Forms.TextBox();
@@ -115,9 +135,14 @@
             this.imageList_Status = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.panel19.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -337,11 +362,226 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chart1);
+            this.panel1.Controls.Add(this.panel19);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(333, 125);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(529, 443);
             this.panel1.TabIndex = 0;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(0, 96);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.IsVisibleInLegend = false;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(529, 347);
+            this.chart1.TabIndex = 2;
+            this.chart1.Text = "chart1";
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.tableLayoutPanel3);
+            this.panel19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel19.Location = new System.Drawing.Point(0, 0);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(529, 96);
+            this.panel19.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 9;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6.323186F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 11.7096F));
+            this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label8, 5, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label11, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label15, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label16, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label17, 6, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label18, 7, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label20, 8, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Peak_MAX, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Peak_AVE, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Peak_MIN, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Valley_MAX, 6, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Valley_AVE, 7, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbl_Valley_MIN, 8, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(15, 11, 15, 11);
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(529, 96);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(18, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 37);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Peak";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(281, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 37);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Valley";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(76, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(52, 37);
+            this.label11.TabIndex = 2;
+            this.label11.Text = "MAX";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label15
+            // 
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(134, 11);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(52, 37);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "AVE";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label16
+            // 
+            this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label16.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(192, 11);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(52, 37);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "MIN";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label17
+            // 
+            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label17.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(339, 11);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(52, 37);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "MAX";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label18.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(397, 11);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(52, 37);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "AVE";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label20.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(455, 11);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(56, 37);
+            this.label20.TabIndex = 7;
+            this.label20.Text = "MIN";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl_Peak_MAX
+            // 
+            this.lbl_Peak_MAX.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Peak_MAX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Peak_MAX.Location = new System.Drawing.Point(73, 48);
+            this.lbl_Peak_MAX.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Peak_MAX.Name = "lbl_Peak_MAX";
+            this.lbl_Peak_MAX.Size = new System.Drawing.Size(58, 37);
+            this.lbl_Peak_MAX.TabIndex = 8;
+            // 
+            // lbl_Peak_AVE
+            // 
+            this.lbl_Peak_AVE.BackColor = System.Drawing.Color.Lime;
+            this.lbl_Peak_AVE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Peak_AVE.Location = new System.Drawing.Point(131, 48);
+            this.lbl_Peak_AVE.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Peak_AVE.Name = "lbl_Peak_AVE";
+            this.lbl_Peak_AVE.Size = new System.Drawing.Size(58, 37);
+            this.lbl_Peak_AVE.TabIndex = 9;
+            // 
+            // lbl_Peak_MIN
+            // 
+            this.lbl_Peak_MIN.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Peak_MIN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Peak_MIN.Location = new System.Drawing.Point(189, 48);
+            this.lbl_Peak_MIN.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Peak_MIN.Name = "lbl_Peak_MIN";
+            this.lbl_Peak_MIN.Size = new System.Drawing.Size(58, 37);
+            this.lbl_Peak_MIN.TabIndex = 10;
+            // 
+            // lbl_Valley_MAX
+            // 
+            this.lbl_Valley_MAX.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Valley_MAX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Valley_MAX.Location = new System.Drawing.Point(336, 48);
+            this.lbl_Valley_MAX.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Valley_MAX.Name = "lbl_Valley_MAX";
+            this.lbl_Valley_MAX.Size = new System.Drawing.Size(58, 37);
+            this.lbl_Valley_MAX.TabIndex = 11;
+            // 
+            // lbl_Valley_AVE
+            // 
+            this.lbl_Valley_AVE.BackColor = System.Drawing.Color.Lime;
+            this.lbl_Valley_AVE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Valley_AVE.Location = new System.Drawing.Point(394, 48);
+            this.lbl_Valley_AVE.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Valley_AVE.Name = "lbl_Valley_AVE";
+            this.lbl_Valley_AVE.Size = new System.Drawing.Size(58, 37);
+            this.lbl_Valley_AVE.TabIndex = 12;
+            // 
+            // lbl_Valley_MIN
+            // 
+            this.lbl_Valley_MIN.BackColor = System.Drawing.Color.Yellow;
+            this.lbl_Valley_MIN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_Valley_MIN.Location = new System.Drawing.Point(452, 48);
+            this.lbl_Valley_MIN.Margin = new System.Windows.Forms.Padding(0);
+            this.lbl_Valley_MIN.Name = "lbl_Valley_MIN";
+            this.lbl_Valley_MIN.Size = new System.Drawing.Size(62, 37);
+            this.lbl_Valley_MIN.TabIndex = 13;
             // 
             // tableLayoutPanel2
             // 
@@ -949,7 +1189,7 @@
             // btn_Clear
             // 
             this.btn_Clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Clear.Location = new System.Drawing.Point(101, 219);
+            this.btn_Clear.Location = new System.Drawing.Point(101, 223);
             this.btn_Clear.Name = "btn_Clear";
             this.btn_Clear.Size = new System.Drawing.Size(65, 25);
             this.btn_Clear.TabIndex = 3;
@@ -974,7 +1214,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(164, 249);
+            this.tabPage2.Size = new System.Drawing.Size(164, 245);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "历史报警";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -987,7 +1227,7 @@
             this.txt_Log.Margin = new System.Windows.Forms.Padding(0);
             this.txt_Log.Multiline = true;
             this.txt_Log.Name = "txt_Log";
-            this.txt_Log.Size = new System.Drawing.Size(164, 249);
+            this.txt_Log.Size = new System.Drawing.Size(164, 245);
             this.txt_Log.TabIndex = 1;
             // 
             // panel23
@@ -1130,6 +1370,11 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timer2
+            // 
+            this.timer2.Interval = 20;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -1150,6 +1395,10 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.panel19.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -1281,6 +1530,24 @@
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label lbl_StartIndex;
         private System.Windows.Forms.ToolStripMenuItem btn_Adjust;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lbl_Peak_MAX;
+        private System.Windows.Forms.Label lbl_Peak_AVE;
+        private System.Windows.Forms.Label lbl_Peak_MIN;
+        private System.Windows.Forms.Label lbl_Valley_MAX;
+        private System.Windows.Forms.Label lbl_Valley_AVE;
+        private System.Windows.Forms.Label lbl_Valley_MIN;
     }
 }
 
