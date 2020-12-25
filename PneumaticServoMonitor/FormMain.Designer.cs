@@ -33,6 +33,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.DDBtn_File = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -372,6 +373,22 @@
             // 
             // chart1
             // 
+            this.chart1.BackSecondaryColor = System.Drawing.Color.White;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisX.TitleForeColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisY2.InterlacedColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            chartArea1.AxisY2.IsStartedFromZero = false;
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.Lime;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.BorderColor = System.Drawing.Color.White;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -381,10 +398,18 @@
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.White;
             series1.IsVisibleInLegend = false;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.Red;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
             this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(529, 347);
             this.chart1.TabIndex = 2;
             this.chart1.Text = "chart1";

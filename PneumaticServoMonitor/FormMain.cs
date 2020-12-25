@@ -3691,6 +3691,7 @@ namespace PneumaticServoMonitor
                 cmb_SaveFrequency.Enabled = false;
                 btn_ForceClear.Enabled = false;
                 btn_PositionClear.Enabled = false;
+                timer2.Enabled = true;
             }
         }
 
@@ -3737,6 +3738,7 @@ namespace PneumaticServoMonitor
             cmb_SaveFrequency.Enabled = true;
             btn_ForceClear.Enabled = true;
             btn_PositionClear.Enabled = true;
+            timer2.Enabled = false;
         }
         int i_ErrorID_Last = 0;
         private void timer1_Tick(object sender, EventArgs e)
@@ -4084,9 +4086,9 @@ namespace PneumaticServoMonitor
                     //    n_Empty = 0;
                     //}
                     //***************************************************************************************************************
-                    
+
                     //避免看出造假，直接显示0
-                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),0));
+                    Queue_Chart_Show.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),0));
                 }
 
                 chart1.DataSource = Queue_Chart_Show.ToArray(); //将listp绑定给chart1
