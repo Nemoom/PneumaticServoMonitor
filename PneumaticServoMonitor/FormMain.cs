@@ -3372,11 +3372,19 @@ namespace PneumaticServoMonitor
                         m_OpcUaClient.WriteNode(NodeID_CycleCount, 0);
                     }
                     updateForm();
+                    m_OpcUaClient.WriteNode(NodeID_DataPoolReady, false);
+                    m_OpcUaClient.WriteNode(NodeID_ArrayLow, new float[51]);
+                    m_OpcUaClient.WriteNode(NodeID_ArrayPeak, new float[51]);
+                    m_OpcUaClient.WriteNode(NodeID_ArrayLowP, new float[51]);
+                    m_OpcUaClient.WriteNode(NodeID_ArrayPeakP, new float[51]);
                     n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    Queue_Chart = new Queue<chartPoints>();
+                    Queue_Chart2 = new Queue<chartPoints>();
                     chart1.Series[0].Points.Clear();
                     chart1.Series[1].Points.Clear();
-
+                    chart1.ChartAreas[0].AxisY.Minimum = 0;
+                    chart1.ChartAreas[0].AxisY2.Minimum = 0;
                 }
                 catch (Exception ex)
                 {
@@ -3583,7 +3591,7 @@ namespace PneumaticServoMonitor
             {
                 try
                 {
-                    while (!m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady))
+                    while (!m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady) || btn_Start.BackColor != Color.Green)
                     {
                         Thread.Sleep(50);
                     }
@@ -4266,14 +4274,14 @@ namespace PneumaticServoMonitor
             {
                 try
                 {
-                    if (chart1.ChartAreas[0].AxisY.Minimum > Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2) || chart1.ChartAreas[0].AxisY.Minimum == 0)
-                    {
-                        chart1.ChartAreas[0].AxisY.Minimum = Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2);
-                    }
-                    if (chart1.ChartAreas[0].AxisY.Maximum < Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2))
-                    {
-                        chart1.ChartAreas[0].AxisY.Maximum = Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2);
-                    }
+                    //if (chart1.ChartAreas[0].AxisY.Minimum > Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2) || chart1.ChartAreas[0].AxisY.Minimum == 0)
+                    //{
+                    //    chart1.ChartAreas[0].AxisY.Minimum = Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2);
+                    //}
+                    //if (chart1.ChartAreas[0].AxisY.Maximum < Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2))
+                    //{
+                    //    chart1.ChartAreas[0].AxisY.Maximum = Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2);
+                    //}
                 }
                 catch (Exception)
                 {
@@ -4288,8 +4296,16 @@ namespace PneumaticServoMonitor
                     }
                     if (Queue_Chart.Count > 0)
                     {
-                        chartPoints mP = Queue_Chart.Dequeue();
-                        chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                        try
+                        {
+                            chartPoints mP = Queue_Chart.Dequeue();
+                            chart1.Series[0].Points.AddXY(mP.x, mP.y);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }               
                     }
                     else
                     {
@@ -4306,6 +4322,16 @@ namespace PneumaticServoMonitor
                         }
                     } 
                 }
+                try
+                {
+                    chart1.ChartAreas[0].AxisY.Minimum = Math.Round(chart1.Series[0].Points.FindMinByValue().YValues[0] - (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+                    chart1.ChartAreas[0].AxisY.Maximum = Math.Round(chart1.Series[0].Points.FindMaxByValue().YValues[0] + (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+
+                }
+                catch (Exception)
+                {
+
+                }
                 //if (chart1.Series[1].Points.Count > 120)
                 //{
                 //    chart1.Series[1].Points.RemoveAt(0);
@@ -4315,30 +4341,38 @@ namespace PneumaticServoMonitor
             {
                 if (B_Max != 0 && B_Min != 0)
                 {
-                    try
-                    {
-                        if (chart1.ChartAreas[0].AxisY2.Minimum > Math.Round(B_Min - (B_Max - B_Min) * 0.01, 2))
-                        {
-                            chart1.ChartAreas[0].AxisY2.Minimum = Math.Round(B_Min - (B_Max - B_Min) * 0.01, 2);
-                        }
-                        if (chart1.ChartAreas[0].AxisY2.Maximum < Math.Round(B_Max + (B_Max - B_Min) * 0.01, 2))
-                        {
-                            chart1.ChartAreas[0].AxisY2.Maximum = Math.Round(B_Max + (B_Max - B_Min) * 0.01, 2);
-                        }
-                    }
-                    catch (Exception)
-                    {
+                    //try
+                    //{
+                    //    if (chart1.ChartAreas[0].AxisY2.Minimum > Math.Round(B_Min - (B_Max - B_Min) * 0.04, 3) || chart1.ChartAreas[0].AxisY2.Minimum == 0)
+                    //    {
+                    //        chart1.ChartAreas[0].AxisY2.Minimum = Math.Round(B_Min - (B_Max - B_Min) * 0.04, 3);
+                    //    }
+                    //    if (chart1.ChartAreas[0].AxisY2.Maximum < Math.Round(B_Max + (B_Max - B_Min) * 0.04, 3))
+                    //    {
+                    //        chart1.ChartAreas[0].AxisY2.Maximum = Math.Round(B_Max + (B_Max - B_Min) * 0.04, 3);
+                    //    }
+                    //}
+                    //catch (Exception)
+                    //{
 
 
-                    }
+                    //}
                     if (chart1.Series[1].Points.Count > 120)
                     {
                         chart1.Series[1].Points.RemoveAt(0);
                     }
                     if (Queue_Chart2.Count > 0)
                     {
-                        chartPoints mP = Queue_Chart2.Dequeue();
-                        chart1.Series[1].Points.AddXY(mP.x, mP.y);
+                        try
+                        {
+                            chartPoints mP = Queue_Chart2.Dequeue();
+                            chart1.Series[1].Points.AddXY(mP.x, mP.y);
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }                 
                     }
                     else
                     {
@@ -4353,6 +4387,17 @@ namespace PneumaticServoMonitor
                             //中途数据刷新没跟上，补零
                             //chart1.Series[1].Points.AddXY(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++), 0);
                         }
+                    }
+                    try
+                    {
+                        chart1.ChartAreas[0].AxisY2.Minimum = Math.Round(chart1.Series[1].Points.FindMinByValue().YValues[0]
+                                     - (chart1.Series[1].Points.FindMaxByValue().YValues[0] - chart1.Series[1].Points.FindMinByValue().YValues[0]) * 0.06, 3);
+                        chart1.ChartAreas[0].AxisY2.Maximum = Math.Round(chart1.Series[1].Points.FindMaxByValue().YValues[0]
+                            + (chart1.Series[1].Points.FindMaxByValue().YValues[0] - chart1.Series[1].Points.FindMinByValue().YValues[0]) * 0.06, 3);
+                    }
+                    catch (Exception)
+                    {
+
                     }
 
                 }
