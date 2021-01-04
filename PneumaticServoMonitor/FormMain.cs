@@ -4299,7 +4299,10 @@ namespace PneumaticServoMonitor
                         try
                         {
                             chartPoints mP = Queue_Chart.Dequeue();
-                            chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                            if (mP !=null)
+                            {
+                                chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                            }
 
                         }
                         catch (Exception)
@@ -4366,8 +4369,10 @@ namespace PneumaticServoMonitor
                         try
                         {
                             chartPoints mP = Queue_Chart2.Dequeue();
-                            chart1.Series[1].Points.AddXY(mP.x, mP.y);
-
+                            if (mP != null)
+                            {
+                                chart1.Series[1].Points.AddXY(mP.x, mP.y);
+                            }
                         }
                         catch (Exception)
                         {
