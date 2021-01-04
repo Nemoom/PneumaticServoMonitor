@@ -67,12 +67,15 @@ namespace PneumaticServoMonitor
         }
         Queue<chartPoints> Queue_Chart = new Queue<chartPoints>();
         Queue<chartPoints> Queue_Chart_Show = new Queue<chartPoints>();
+        Queue<chartPoints> Queue_Chart2 = new Queue<chartPoints>();
+        Queue<chartPoints> Queue_Chart_Show2 = new Queue<chartPoints>();
         int SamplingCount_Cycle = 10;        
-        int n_Index = 0;
+        long n_Index = 0;
+        long n_Index2 = 0;
         DateTime timestamp = new DateTime();
         double Peak_AVE, Peak_MAX, Peak_MIN;
         double Valley_AVE, Valley_MAX, Valley_MIN;
-        double A_Max, A_Min;
+        double A_Max, A_Min, B_Max, B_Min;
         #region ini文件中的参数&对应变量
         public static string plcIP
         {
@@ -1981,6 +1984,79 @@ namespace PneumaticServoMonitor
             }
         }
         #endregion
+        #region ArrayPeakP_R[]
+        public static float[] ArrayPeakP_R;
+        public static string NodeID_ArrayPeakP
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ArrayPeakP", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ArrayPeakP", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ArrayPeakP", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+        #region ArrayLowP_R[]
+        public static float[] ArrayLowP_R;
+        public static string NodeID_ArrayLowP
+        {
+            get
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    if (!ini.KeyExists("ArrayLowP", "NodeID"))
+                    {
+                        return null;
+                    }
+                    string mStr = ini.Read("ArrayLowP", "NodeID");
+                    try
+                    {
+                        return sysPrefixNodeID + mStr;
+                    }
+                    catch (Exception)
+                    {
+                        return null;
+                    }
+
+                }
+                return null;
+            }
+            set
+            {
+                if (File.Exists(iniPath))
+                {
+                    IniFile ini = new IniFile(iniPath);
+                    ini.Write("ArrayLowP", value, "NodeID");
+                }
+            }
+        }
+        #endregion
+
         #region DataReceived_W
         public static bool DataReceived_W;
         public static string NodeID_DataReceived
@@ -3177,130 +3253,141 @@ namespace PneumaticServoMonitor
         #endregion
         public void RecipeChanged(string mProjectName)
         {
-            ProjectName = mProjectName;
-            string RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + ProjectName + ".recipe");
-            using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
+            try
             {
-                RecipeFile.ReadLine();
-                RecipeFile.ReadLine();
-                RecipeFile.ReadLine();
-                strRecipe = RecipeFile.ReadToEnd();
-            }
-            using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
-            {
-                try
+                ProjectName = mProjectName;
+                string RecipeFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Recipe\\" + ProjectName + ".recipe");
+                using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
                 {
                     RecipeFile.ReadLine();
-                    ProjectNumber = RecipeFile.ReadLine().Split(':')[1];
-                    SampleNumber = RecipeFile.ReadLine().Split(':')[1];
-                    string controlType = RecipeFile.ReadLine().Split(':')[1];
-                    Peak_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
-                    Low_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
-                    Frequence_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
-                    Times_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
-                    StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
-                    ForceMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    ForceMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    PositionMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    PositionMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    BrokenTest_Force_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    if (BrokenTest_Force_W)
+                    RecipeFile.ReadLine();
+                    RecipeFile.ReadLine();
+                    strRecipe = RecipeFile.ReadToEnd();
+                }
+                using (StreamReader RecipeFile = new StreamReader(RecipeFilePath, Encoding.UTF8))
+                {
+                    try
                     {
-                        UpPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        DownPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        UpValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        DownValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        RecipeFile.ReadLine();
+                        ProjectNumber = RecipeFile.ReadLine().Split(':')[1];
+                        SampleNumber = RecipeFile.ReadLine().Split(':')[1];
+                        string controlType = RecipeFile.ReadLine().Split(':')[1];
+                        Peak_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                        Low_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                        Frequence_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                        Times_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                        StartIndex_W = Convert.ToInt32(RecipeFile.ReadLine().Split(':')[1]);
+                        ForceMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        ForceMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        PositionMax_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        PositionMin_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        BrokenTest_Force_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                        if (BrokenTest_Force_W)
+                        {
+                            UpPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            DownPeak_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            UpValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            DownValley_Force_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        }
+                        else
+                        {
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                        }
+                        BrokenTest_Position_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
+                        if (BrokenTest_Position_W)
+                        {
+                            UpPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            DownPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            UpValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                            DownValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        }
+                        else
+                        {
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                            RecipeFile.ReadLine();
+                        }
+                        ActivationTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        DelayTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kp_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Ki_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kd_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kp_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Ki_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kd_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kp_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Ki_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        Kd_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
+                        writeLog(ex.ToString(), logFormat.File);
                     }
-                    BrokenTest_Position_W = Convert.ToBoolean(RecipeFile.ReadLine().Split(':')[1]);
-                    if (BrokenTest_Position_W)
+                }
+
+                try
+                {
+                    if (m_OpcUaClient.Connected)
                     {
-                        UpPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        DownPeak_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        UpValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                        DownValley_Position_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                        m_OpcUaClient.WriteNode(NodeID_Peak, (short)Peak_W);
+                        m_OpcUaClient.WriteNode(NodeID_Low, (short)Low_W);
+                        m_OpcUaClient.WriteNode(NodeID_Frequence, (short)Frequence_W);
+                        m_OpcUaClient.WriteNode(NodeID_ForceMax, (float)ForceMax_W);
+                        m_OpcUaClient.WriteNode(NodeID_ForceMin, (float)ForceMin_W);
+                        m_OpcUaClient.WriteNode(NodeID_PositionMax, (float)PositionMax_W);
+                        m_OpcUaClient.WriteNode(NodeID_PositionMin, (float)PositionMin_W);
+                        m_OpcUaClient.WriteNode(NodeID_Times, (int)Times_W);
+                        m_OpcUaClient.WriteNode(NodeID_StartIndex, (int)StartIndex_W);
+                        m_OpcUaClient.WriteNode(NodeID_BrokenTest_Force, BrokenTest_Force_W);
+                        if (BrokenTest_Force_W)
+                        {
+                            m_OpcUaClient.WriteNode(NodeID_UpPeak_Force, UpPeak_Force_W);
+                            m_OpcUaClient.WriteNode(NodeID_DownPeak_Force, DownPeak_Force_W);
+                            m_OpcUaClient.WriteNode(NodeID_UpValley_Force, UpValley_Force_W);
+                            m_OpcUaClient.WriteNode(NodeID_DownValley_Force, DownValley_Force_W);
+                        }
+                        m_OpcUaClient.WriteNode(NodeID_BrokenTest_Position, BrokenTest_Position_W);
+                        if (BrokenTest_Position_W)
+                        {
+                            m_OpcUaClient.WriteNode(NodeID_UpPeak_Position, UpPeak_Position_W);
+                            m_OpcUaClient.WriteNode(NodeID_DownPeak_Position, DownPeak_Position_W);
+                            m_OpcUaClient.WriteNode(NodeID_UpValley_Position, UpValley_Position_W);
+                            m_OpcUaClient.WriteNode(NodeID_DownValley_Position, DownValley_Position_W);
+                        }
+                        m_OpcUaClient.WriteNode(NodeID_ActivationTime, ActivationTime_W);
+                        m_OpcUaClient.WriteNode(NodeID_DelayTime, DelayTime_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kp_Static, Kp_Static_W);
+                        m_OpcUaClient.WriteNode(NodeID_Ki_Static, Ki_Static_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kd_Static, Kd_Static_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kp_Dynamic, Kp_Dynamic_W);
+                        m_OpcUaClient.WriteNode(NodeID_Ki_Dynamic, Ki_Dynamic_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kd_Dynamic, Kd_Dynamic_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kp_Follow, Kp_Follow_W);
+                        m_OpcUaClient.WriteNode(NodeID_Ki_Follow, Ki_Follow_W);
+                        m_OpcUaClient.WriteNode(NodeID_Kd_Follow, Kd_Follow_W);
+                        m_OpcUaClient.WriteNode(NodeID_CycleCount, 0);
                     }
-                    else
-                    {
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
-                        RecipeFile.ReadLine();
-                    }                    
-                    ActivationTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    DelayTime_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kp_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Ki_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kd_Static_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kp_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Ki_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kd_Dynamic_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kp_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Ki_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
-                    Kd_Follow_W = Convert.ToSingle(RecipeFile.ReadLine().Split(':')[1]);
+                    updateForm();
+                    n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    chart1.Series[0].Points.Clear();
+                    chart1.Series[1].Points.Clear();
+
                 }
                 catch (Exception ex)
                 {
-
+                    writeLog(ex.ToString(), logFormat.File);
                 }
-            }
 
-            try
+            }
+            catch (Exception ex2)
             {
-                if (m_OpcUaClient.Connected)
-                {
-                    m_OpcUaClient.WriteNode(NodeID_Peak, (short)Peak_W);
-                    m_OpcUaClient.WriteNode(NodeID_Low, (short)Low_W);
-                    m_OpcUaClient.WriteNode(NodeID_Frequence, (short)Frequence_W);
-                    m_OpcUaClient.WriteNode(NodeID_ForceMax, (float)ForceMax_W);
-                    m_OpcUaClient.WriteNode(NodeID_ForceMin, (float)ForceMin_W);
-                    m_OpcUaClient.WriteNode(NodeID_PositionMax, (float)PositionMax_W);
-                    m_OpcUaClient.WriteNode(NodeID_PositionMin, (float)PositionMin_W);
-                    m_OpcUaClient.WriteNode(NodeID_Times, (int)Times_W);
-                    m_OpcUaClient.WriteNode(NodeID_StartIndex, (int)StartIndex_W);
-                    m_OpcUaClient.WriteNode(NodeID_BrokenTest_Force, BrokenTest_Force_W);
-                    if (BrokenTest_Force_W)
-                    {
-                        m_OpcUaClient.WriteNode(NodeID_UpPeak_Force, UpPeak_Force_W);
-                        m_OpcUaClient.WriteNode(NodeID_DownPeak_Force, DownPeak_Force_W);
-                        m_OpcUaClient.WriteNode(NodeID_UpValley_Force, UpValley_Force_W);
-                        m_OpcUaClient.WriteNode(NodeID_DownValley_Force, DownValley_Force_W);
-                    }
-                    m_OpcUaClient.WriteNode(NodeID_BrokenTest_Position, BrokenTest_Position_W);
-                    if (BrokenTest_Position_W)
-                    {
-                        m_OpcUaClient.WriteNode(NodeID_UpPeak_Position, UpPeak_Position_W);
-                        m_OpcUaClient.WriteNode(NodeID_DownPeak_Position, DownPeak_Position_W);
-                        m_OpcUaClient.WriteNode(NodeID_UpValley_Position, UpValley_Position_W);
-                        m_OpcUaClient.WriteNode(NodeID_DownValley_Position, DownValley_Position_W);
-                    }
-                    m_OpcUaClient.WriteNode(NodeID_ActivationTime, ActivationTime_W);
-                    m_OpcUaClient.WriteNode(NodeID_DelayTime, DelayTime_W);
-                    m_OpcUaClient.WriteNode(NodeID_Kp_Static ,Kp_Static_W );
-                    m_OpcUaClient.WriteNode(NodeID_Ki_Static ,Ki_Static_W );
-                    m_OpcUaClient.WriteNode(NodeID_Kd_Static ,Kd_Static_W );
-                    m_OpcUaClient.WriteNode(NodeID_Kp_Dynamic,Kp_Dynamic_W);
-                    m_OpcUaClient.WriteNode(NodeID_Ki_Dynamic,Ki_Dynamic_W);
-                    m_OpcUaClient.WriteNode(NodeID_Kd_Dynamic,Kd_Dynamic_W);
-                    m_OpcUaClient.WriteNode(NodeID_Kp_Follow ,Kp_Follow_W );
-                    m_OpcUaClient.WriteNode(NodeID_Ki_Follow ,Ki_Follow_W );
-                    m_OpcUaClient.WriteNode(NodeID_Kd_Follow, Kd_Follow_W );
-                    m_OpcUaClient.WriteNode(NodeID_CycleCount, 0);
-                }
-                updateForm();
-                
-
-            }
-            catch (Exception ex)
-            {
-
-            }
+                writeLog(ex2.ToString(), logFormat.File);
+            }       
         }
         public void updateForm()
         {
@@ -3425,7 +3512,7 @@ namespace PneumaticServoMonitor
                 tStart.Start();
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
                 timer1.Enabled = true;
-                timer2.Enabled = true;
+                //timer2.Enabled = true;
                 btn_Connect.Text = "Online";
                 btn_Connect.BackColor = Color.Green;
             }
@@ -3454,7 +3541,7 @@ namespace PneumaticServoMonitor
                 tStart.Start();
                 tableLayoutPanel1.Invoke((ChangeStatusHandler)ChangeStatus, tableLayoutPanel1, true);
                 timer1.Enabled = true;
-                timer2.Enabled = true;
+                //timer2.Enabled = true;
                 btn_Connect.Text = "Online";
                 btn_Connect.BackColor = Color.Green;
             }
@@ -3503,26 +3590,33 @@ namespace PneumaticServoMonitor
                    
                     DataValue DataValuePeak = m_OpcUaClient2.ReadNode(NodeID_ArrayPeak);
                     DataValue DataValueLow = m_OpcUaClient2.ReadNode(NodeID_ArrayLow);
+                    DataValue DataValuePeakP = m_OpcUaClient2.ReadNode(NodeID_ArrayPeakP);
+                    DataValue DataValueLowP = m_OpcUaClient2.ReadNode(NodeID_ArrayLowP);
                     ArrayPeak_R = (float[])DataValuePeak.Value;
-                    ArrayLow_R= (float[])DataValueLow.Value;
+                    ArrayLow_R = (float[])DataValueLow.Value;
+                    ArrayPeakP_R = (float[])DataValuePeakP.Value;
+                    ArrayLowP_R = (float[])DataValueLowP.Value;
                     Array.Resize(ref ArrayPeak_R, 10);
                     Array.Resize(ref ArrayLow_R, 10);
+                    Array.Resize(ref ArrayPeakP_R, 10);
+                    Array.Resize(ref ArrayLowP_R, 10);
                     Peak_MIN = ArrayPeak_R.Min();
                     Peak_MAX = ArrayPeak_R.Max();
                     Peak_AVE = ArrayPeak_R.Average();
                     Valley_MIN = ArrayLow_R.Min();
                     Valley_MAX = ArrayLow_R.Max();
                     Valley_AVE = ArrayLow_R.Average();
-                    //write csv
-                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" 
-                        + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
+                    
+                    #region write csv
+                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "\\"
+                                   + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
                     if (saveFile_path != "")
                     {
                         if (!Directory.Exists(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd")))
                         {
                             Directory.CreateDirectory(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd"));
                         }
-                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" 
+                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\"
                             + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
                     }
                     else
@@ -3565,11 +3659,11 @@ namespace PneumaticServoMonitor
                                     }
                                 }
                             }
-                            if (fsinfos.Length==1)
+                            if (fsinfos.Length == 1)
                             {
                                 periodIndex = periodIndex - 1;
                             }
-                            
+
                             logOpened = true;
                         }
                     }
@@ -3579,26 +3673,49 @@ namespace PneumaticServoMonitor
                     {
                         if (periodIndex == 0)
                         {
-                            line = "Index,Peak,Low";
+                            line = "Index,ForcePeak,ForceValley,DisplacementPeak,DisplacementValley";
                             csvFile.WriteLine(line);
                         }
-                        
+
                         for (int i = 0; i < 10; i++)
                         {
                             periodIndex++;
-                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
+                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i] + "," + ArrayPeakP_R[i] + "," + ArrayLowP_R[i];
                             A_Max = ArrayPeak_R[i];
-                            A_Min = ArrayLow_R[i];                            
-                           
-                            for (int mm = 0; mm < SamplingCount_Cycle; mm++)
+                            A_Min = ArrayLow_R[i];
+                            B_Max = ArrayPeakP_R[i];
+                            B_Min = ArrayLowP_R[i];
+                            //if (chart1.ChartAreas[0].AxisY.Minimum > A_Min - (A_Max - A_Min) * 0.01)
+                            //{
+                            //    chart1.ChartAreas[0].AxisY.Minimum = A_Min- (A_Max - A_Min) * 0.01;
+                            //}
+                            //if (chart1.ChartAreas[0].AxisY.Maximum < A_Max+ (A_Max - A_Min) * 0.01)
+                            //{
+                            //    chart1.ChartAreas[0].AxisY.Maximum = A_Max + (A_Max - A_Min) * 0.01;
+                            //}
+                            //if (chart1.ChartAreas[1].AxisY2.Minimum > B_Min - (B_Max - B_Min) * 0.01)
+                            //{
+                            //    chart1.ChartAreas[1].AxisY2.Minimum = B_Min - (B_Max - B_Min) * 0.01;
+                            //}
+                            //if (chart1.ChartAreas[1].AxisY2.Maximum < B_Max+ (B_Max - B_Min) * 0.01)
+                            //{ 
+                            //    chart1.ChartAreas[1].AxisY2.Maximum = B_Max+ (B_Max - B_Min) * 0.01;
+                            //}
+                            if (btn_Start.BackColor == Color.Green)
                             {
-                                Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
-                                    (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+                                for (int mm = 0; mm < SamplingCount_Cycle; mm++)
+                                {
+                                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
+    (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+                                    Queue_Chart2.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++),
+             (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2));
+                                }
                             }
-                            
                             csvFile.WriteLine(line);
                         }
-                    }
+                    } 
+                    #endregion
+
                     m_OpcUaClient2.WriteNode(NodeID_DataReceived, true);
                     while (m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady))
                     {
@@ -3678,10 +3795,34 @@ namespace PneumaticServoMonitor
             }
             else
             {
+                //////chart1.Series[0] = new System.Windows.Forms.DataVisualization.Charting.Series();
+                //////chart1.Series[0].ChartArea = "ChartArea1";
+                //////chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                //////chart1.Series[0].Color = System.Drawing.Color.White;
+                //////chart1.Series[0].Legend = "Legend1";
+                //////chart1.Series[0].MarkerColor = System.Drawing.Color.Black;
+                //////chart1.Series[0].Name = "Force";
+                ////chart1.Series[0].Points.Clear();
+                ////chart1.Series[1].Points.Clear();
+                //////chart1.Series[1] = new System.Windows.Forms.DataVisualization.Charting.Series();
+                //////chart1.Series[1].ChartArea = "ChartArea1";
+                //////chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                //////chart1.Series[1].Color = System.Drawing.Color.Red;
+                //////chart1.Series[1].Legend = "Legend1";
+                //////chart1.Series[1].Name = "Position";
+                //////chart1.Series[1].YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+
+                n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
+                n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
+                Queue_Chart = new Queue<chartPoints>();
+                Queue_Chart2 = new Queue<chartPoints>();
+
                 m_OpcUaClient.WriteNode(NodeID_TestStop, false);
                 m_OpcUaClient.WriteNode(NodeID_TestStart, true);
                 Thread.Sleep(100);
                 m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                
+                timer2.Enabled = true;
                 btn_Setting.Enabled = false;
                 btn_Calibrate.Enabled = false;
                 btn_ChangePath.Enabled = false;
@@ -3728,6 +3869,7 @@ namespace PneumaticServoMonitor
             m_OpcUaClient.WriteNode(NodeID_TestStop, true);
             Thread.Sleep(100);
             m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+            timer2.Enabled = false;
             btn_Setting.Enabled = true;
             btn_Calibrate.Enabled = true;
             btn_ChangePath.Enabled = true;
@@ -3765,11 +3907,26 @@ namespace PneumaticServoMonitor
                 {
                     btn_Start.BackColor = Color.Green;
                     pic_Running.Image = imageList_Status.Images[1];
+                    if (!timer2.Enabled&& txt_ProjectNumber.Text != "")
+                    {
+                        btn_Start_Click(sender, e);
+
+                    }
                 }
                 else
                 {
                     btn_Start.BackColor = Color.Transparent;
                     pic_Running.Image = imageList_Status.Images[0];
+                    timer2.Enabled = false;
+                    btn_Setting.Enabled = true;
+                    btn_Calibrate.Enabled = true;
+                    btn_ChangePath.Enabled = true;
+                    btn_CommSetting.Enabled = true;
+                    btn_RecipeManagement.Enabled = true;
+                    btn_Adjust.Enabled = true;
+                    cmb_SaveFrequency.Enabled = true;
+                    btn_ForceClear.Enabled = true;
+                    btn_PositionClear.Enabled = true;
                 }
                 if (m_OpcUaClient.ReadNode<bool>(NodeID_StopFlag))
                 {
@@ -4065,39 +4222,142 @@ namespace PneumaticServoMonitor
         int n_Empty = 0;
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (A_Max!=0&& A_Min!=0)
-            {
-                if (Queue_Chart_Show.Count > 120)
-                {
-                    Queue_Chart_Show.Dequeue();
-                }
-                if (Queue_Chart.Count > 0)
-                {
-                    Queue_Chart_Show.Enqueue(Queue_Chart.Dequeue());
-                }
-                else
-                {
-                    //*********依据最近的波峰波谷值获取波形图，待有数值后继续显示实际波形【需要一个周期显示完整后切换显示】**********
-                    //Queue_Chart_Show.Enqueue(new chartPoints(n_Index++, (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)n_Empty++ / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
-                    //if (n_Empty >= SamplingCount_Cycle)
-                    //{
-                    //    n_Empty = 0;
-                    //}
-                    //***************************************************************************************************************
-                    
-                    //避免看出造假，直接显示0
-                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),0));
-                }
+            ////if (A_Max != 0 && A_Min != 0)
+            ////{
+            ////    if (Queue_Chart_Show.Count > 120)
+            ////    {
+            ////        Queue_Chart_Show.Dequeue();
+            ////    }
+            ////    if (Queue_Chart.Count > 0)
+            ////    {
+            ////        Queue_Chart_Show.Enqueue(Queue_Chart.Dequeue());
+            ////    }
+            ////    else
+            ////    {
+            ////        //*********依据最近的波峰波谷值获取波形图，待有数值后继续显示实际波形【需要一个周期显示完整后切换显示】**********
+            ////        //Queue_Chart_Show.Enqueue(new chartPoints(n_Index++, (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)n_Empty++ / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+            ////        //if (n_Empty >= SamplingCount_Cycle)
+            ////        //{
+            ////        //    n_Empty = 0;
+            ////        //}
+            ////        //***************************************************************************************************************
 
-                chart1.DataSource = Queue_Chart_Show.ToArray(); //将listp绑定给chart1
+            ////        if (btn_Stop.BackColor == Color.Green)
+            ////        {
+            ////            //队列中无数据，且运行已停止
+            ////        }
+            ////        else
+            ////        {
+            ////            //中途数据刷新没跟上，补零
+            ////            Queue_Chart_Show.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++), 0));
+            ////        }
+            ////    }
 
-                chart1.Series[0].XValueMember = "x";//将listp中所有Name元素作为X轴
+            ////    chart1.DataSource = Queue_Chart_Show.ToArray(); //将listp绑定给chart1
 
-                chart1.Series[0].YValueMembers = "y";//将listp中所有Value元素作为Y轴
+            ////    chart1.Series[0].XValueMember = "x";//将listp中所有Name元素作为X轴
 
-                chart1.DataBind(); //绑定数据
-            }
+            ////    chart1.Series[0].YValueMembers = "y";//将listp中所有Value元素作为Y轴
+
+            ////    chart1.DataBind(); //绑定数据
+            ////}
             
+            if (A_Max != 0 && A_Min != 0)
+            {
+                try
+                {
+                    if (chart1.ChartAreas[0].AxisY.Minimum > Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2) || chart1.ChartAreas[0].AxisY.Minimum == 0)
+                    {
+                        chart1.ChartAreas[0].AxisY.Minimum = Math.Round(A_Min - (A_Max - A_Min) * 0.01, 2);
+                    }
+                    if (chart1.ChartAreas[0].AxisY.Maximum < Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2))
+                    {
+                        chart1.ChartAreas[0].AxisY.Maximum = Math.Round(A_Max + (A_Max - A_Min) * 0.01, 2);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
+                for (int m = 0; m < SamplingCount_Cycle; m++)
+                {
+                    if (chart1.Series[0].Points.Count > 120)
+                    {
+                        chart1.Series[0].Points.RemoveAt(0);
+                    }
+                    if (Queue_Chart.Count > 0)
+                    {
+                        chartPoints mP = Queue_Chart.Dequeue();
+                        chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                    }
+                    else
+                    {
+
+                        if (btn_Start.BackColor != Color.Green)
+                        {
+                            //队列中无数据，且运行已停止
+                            timer2.Enabled = false;
+                        }
+                        else
+                        {
+                            //中途数据刷新没跟上，补零
+                            //chart1.Series[0].Points.AddXY(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++), 0);
+                        }
+                    } 
+                }
+                //if (chart1.Series[1].Points.Count > 120)
+                //{
+                //    chart1.Series[1].Points.RemoveAt(0);
+                //}
+            }
+            for (int m = 0; m < SamplingCount_Cycle; m++)
+            {
+                if (B_Max != 0 && B_Min != 0)
+                {
+                    try
+                    {
+                        if (chart1.ChartAreas[0].AxisY2.Minimum > Math.Round(B_Min - (B_Max - B_Min) * 0.01, 2))
+                        {
+                            chart1.ChartAreas[0].AxisY2.Minimum = Math.Round(B_Min - (B_Max - B_Min) * 0.01, 2);
+                        }
+                        if (chart1.ChartAreas[0].AxisY2.Maximum < Math.Round(B_Max + (B_Max - B_Min) * 0.01, 2))
+                        {
+                            chart1.ChartAreas[0].AxisY2.Maximum = Math.Round(B_Max + (B_Max - B_Min) * 0.01, 2);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+                    if (chart1.Series[1].Points.Count > 120)
+                    {
+                        chart1.Series[1].Points.RemoveAt(0);
+                    }
+                    if (Queue_Chart2.Count > 0)
+                    {
+                        chartPoints mP = Queue_Chart2.Dequeue();
+                        chart1.Series[1].Points.AddXY(mP.x, mP.y);
+                    }
+                    else
+                    {
+
+                        if (btn_Start.BackColor != Color.Green)
+                        {
+                            //队列中无数据，且运行已停止
+                            timer2.Enabled = false;
+                        }
+                        else
+                        {
+                            //中途数据刷新没跟上，补零
+                            //chart1.Series[1].Points.AddXY(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++), 0);
+                        }
+                    }
+
+                }
+
+            }       
         }
 
         private void btn_Adjust_Click(object sender, EventArgs e)
