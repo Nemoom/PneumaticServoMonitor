@@ -69,6 +69,8 @@ namespace PneumaticServoMonitor
         Queue<chartPoints> Queue_Chart_Show = new Queue<chartPoints>();
         Queue<chartPoints> Queue_Chart2 = new Queue<chartPoints>();
         Queue<chartPoints> Queue_Chart_Show2 = new Queue<chartPoints>();
+        private static readonly object SequenceLock = new object();
+        private static readonly object SequenceLock2 = new object();
         int SamplingCount_Cycle = 10;        
         long n_Index = 0;
         long n_Index2 = 0;
@@ -3379,8 +3381,14 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_ArrayPeakP, new float[51]);
                     n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
-                    Queue_Chart = new Queue<chartPoints>();
-                    Queue_Chart2 = new Queue<chartPoints>();
+                    lock (SequenceLock)
+                    {
+                        Queue_Chart = new Queue<chartPoints>(); 
+                    }
+                    lock (SequenceLock2)
+                    {
+                        Queue_Chart2 = new Queue<chartPoints>(); 
+                    }
                     chart1.Series[0].Points.Clear();
                     chart1.Series[1].Points.Clear();
                     chart1.ChartAreas[0].AxisY.Minimum = 0;
@@ -3713,10 +3721,16 @@ namespace PneumaticServoMonitor
                             {
                                 for (int mm = 0; mm < SamplingCount_Cycle; mm++)
                                 {
-                                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
-    (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
-                                    Queue_Chart2.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++),
-             (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2));
+                                    lock (SequenceLock)
+                                    {
+                                        Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
+                                   (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2)); 
+                                    }
+                                    lock (SequenceLock2)
+                                    {
+                                        Queue_Chart2.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++),
+                                            (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2)); 
+                                    }
                                 }
                             }
                             csvFile.WriteLine(line);
@@ -3822,8 +3836,14 @@ namespace PneumaticServoMonitor
 
                 n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
                 n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
-                Queue_Chart = new Queue<chartPoints>();
-                Queue_Chart2 = new Queue<chartPoints>();
+                lock (SequenceLock)
+                {
+                    Queue_Chart = new Queue<chartPoints>(); 
+                }
+                lock (SequenceLock2)
+                {
+                    Queue_Chart2 = new Queue<chartPoints>(); 
+                }
 
                 m_OpcUaClient.WriteNode(NodeID_TestStop, false);
                 m_OpcUaClient.WriteNode(NodeID_TestStart, true);
@@ -4298,7 +4318,11 @@ namespace PneumaticServoMonitor
                     {
                         try
                         {
-                            chartPoints mP = Queue_Chart.Dequeue();
+                            chartPoints mP;
+                            lock (SequenceLock)
+                            {
+                                mP = Queue_Chart.Dequeue(); 
+                            }
                             if (mP !=null)
                             {
                                 chart1.Series[0].Points.AddXY(mP.x, mP.y);
@@ -4368,7 +4392,11 @@ namespace PneumaticServoMonitor
                     {
                         try
                         {
-                            chartPoints mP = Queue_Chart2.Dequeue();
+                            chartPoints mP;
+                            lock (SequenceLock2)
+                            {
+                                mP = Queue_Chart2.Dequeue(); 
+                            }
                             if (mP != null)
                             {
                                 chart1.Series[1].Points.AddXY(mP.x, mP.y);

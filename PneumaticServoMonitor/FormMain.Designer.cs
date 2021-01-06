@@ -380,12 +380,14 @@
             chartArea1.AxisX.Title = "Time[hh:mm:ss]";
             chartArea1.AxisY.IsStartedFromZero = false;
             chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDotDot;
             chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Lime;
             chartArea1.AxisY.MinorGrid.LineColor = System.Drawing.Color.Lime;
             chartArea1.AxisY.MinorTickMark.LineColor = System.Drawing.Color.Lime;
             chartArea1.AxisY.Title = "Force[N]";
             chartArea1.AxisY2.IsStartedFromZero = false;
             chartArea1.AxisY2.MajorGrid.LineColor = System.Drawing.Color.Lime;
+            chartArea1.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.DashDotDot;
             chartArea1.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.Lime;
             chartArea1.AxisY2.MinorGrid.LineColor = System.Drawing.Color.Lime;
             chartArea1.AxisY2.MinorTickMark.LineColor = System.Drawing.Color.Lime;
@@ -1246,7 +1248,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(164, 249);
+            this.tabPage2.Size = new System.Drawing.Size(164, 245);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "历史报警";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1259,7 +1261,7 @@
             this.txt_Log.Margin = new System.Windows.Forms.Padding(0);
             this.txt_Log.Multiline = true;
             this.txt_Log.Name = "txt_Log";
-            this.txt_Log.Size = new System.Drawing.Size(164, 249);
+            this.txt_Log.Size = new System.Drawing.Size(164, 245);
             this.txt_Log.TabIndex = 1;
             // 
             // panel23
