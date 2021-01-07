@@ -48,6 +48,7 @@ namespace PneumaticServoMonitor
         private static string iniPath = "config.ini";
         IniFile ini_errorlist = new IniFile(iniPath);
         public int periodIndex = 0;
+        public int startTimes = 0;//同一样品编号启动了几次
         System.Windows.Forms.Timer clock = new System.Windows.Forms.Timer();
 
         class chartPoints
@@ -55,11 +56,16 @@ namespace PneumaticServoMonitor
             public chartPoints(DateTime mx, double my)
             {
 
-                x = (mx.DayOfYear - 1 == 0 ? "" : (mx.DayOfYear - 1).ToString() + "d")
-                    + (mx.Hour == 0 ? "" : mx.Hour.ToString() + "h")
-                    + (mx.Minute == 0 ? "" : mx.Minute.ToString() + "m")
-                    + (mx.Second == 0 ? "" : mx.Second.ToString() + "s")
-                    + mx.Millisecond.ToString() + "ms";
+                //x = (mx.DayOfYear - 1 == 0 ? "" : (mx.DayOfYear - 1).ToString() + "d")
+                //    + (mx.Hour == 0 ? "" : mx.Hour.ToString() + "h")
+                //    + (mx.Minute == 0 ? "" : mx.Minute.ToString() + "m")
+                //    + (mx.Second == 0 ? "" : mx.Second.ToString() + "s")
+                //    + mx.Millisecond.ToString() + "ms";
+                x = (mx.DayOfYear - 1 == 0 ? "" : (mx.DayOfYear - 1).ToString() + ":")
+                   + (mx.Hour == 0 ? "" : mx.Hour.ToString() + ":")
+                   + (mx.Minute == 0 ? "" : mx.Minute.ToString() + ":")
+                   + (mx.Second == 0 ? "" : mx.Second.ToString() + ".")
+                   + mx.Millisecond.ToString("000");
                 y = my;
             }
             public string x { get; set; }
@@ -213,7 +219,7 @@ namespace PneumaticServoMonitor
                 }
             }
         }
-
+        public string folderNmae;
         public static int saveFile_type
         {
             get
@@ -3253,6 +3259,18 @@ namespace PneumaticServoMonitor
         #endregion
         #endregion
         #endregion
+        public string GetNewName(string fileName)
+        {
+            if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)//GetInvalidPathChars()
+            {
+                string invalid = new string(Path.GetInvalidFileNameChars());
+                foreach (char c in invalid)
+                {
+                    fileName = fileName.Replace(c.ToString(), "_");
+                }
+            }
+            return fileName;
+        }
         public void RecipeChanged(string mProjectName)
         {
             try
@@ -3328,6 +3346,22 @@ namespace PneumaticServoMonitor
                     catch (Exception ex)
                     {
                         writeLog(ex.ToString(), logFormat.File);
+                    }
+                }
+                folderNmae = GetNewName(SampleNumber);
+                if (saveFile_path != "")
+                {
+                    if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
+                    {
+                        Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
+                    }                   
+                }
+                else
+                {
+                    saveFile_path = System.Environment.CurrentDirectory + "\\Log" + "\\";
+                    if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log" + "\\" + folderNmae))
+                    {
+                        Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log" + "\\" + folderNmae);
                     }
                 }
 
@@ -3592,13 +3626,14 @@ namespace PneumaticServoMonitor
             //}
         }
 
-        bool logOpened = false;
+        //bool logOpened = false;
         public void _GetData()
         {
             while (true)
             {
                 try
                 {
+                    //plc数据未就绪 或 设备未启动：循环等待
                     while (!m_OpcUaClient2.ReadNode<bool>(NodeID_DataPoolReady) || btn_Start.BackColor != Color.Green)
                     {
                         Thread.Sleep(50);
@@ -3622,116 +3657,136 @@ namespace PneumaticServoMonitor
                     Valley_MIN = ArrayLow_R.Min();
                     Valley_MAX = ArrayLow_R.Max();
                     Valley_AVE = ArrayLow_R.Average();
-                    
+
                     #region write csv
-                    string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + DateTime.Now.ToString("yyyyMMdd") + "\\"
-                                   + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
-                    if (saveFile_path != "")
+                    //string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + folderNmae + "\\0-"
+                    //               + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
+                    //if (saveFile_path != "")
+                    //{
+                    //    if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
+                    //    {
+                    //        Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
+                    //    }
+                    //    csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + "0-"
+                    //        + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
+                    //}
+                    //else
+                    //{
+                    //    saveFile_path = System.Environment.CurrentDirectory + "\\Log" + "\\";
+                    //    if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log" + "\\" + folderNmae))
+                    //    {
+                    //        Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log" + "\\" + folderNmae);
+                    //    }
+                    //    csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + "0-"
+                    //        + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
+                    //}
+
+                    //DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+                    //FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
+                    ////文件名命名规则：n-20210107-m.csv
+                    ////n：第几次启动
+                    ////m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                    //if (fsinfos.Length==0)
+                    //{
+                    //    startTimes = 0;
+                    //}
+                    //else
+                    //{
+                    //    int[] nArray = new int[fsinfos.Length];
+                    //    for (int i = 0; i < fsinfos.Length; i++)
+                    //    {
+                    //        if (fsinfos[i].Name.Split('-').Length == 3)
+                    //        {
+                    //            nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                    //        }
+                    //    }
+                    //    startTimes = nArray.Max() + 1;
+                    //}
+
+
+                    //if (!File.Exists(csvFilePath) && !logOpened)
+                    //{
+                    //    //不存在-1的文件
+                    //    periodIndex = 0; logOpened = true;
+                    //}
+                    //else if (fsinfos.Length == 0 && !logOpened)
+                    //{
+                    //    //不存在yyyyMMdd-n.csv类型的文件
+                    //    periodIndex = 0; logOpened = true;
+                    //}
+                    //else
+                    //{
+                    //    //更新periodIndex
+                    //    if (!logOpened)
+                    //    {
+                    //        periodIndex = (fsinfos.Length - 1) * saveFile_Frequency;//起始次数
+                    //        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + fsinfos.Length.ToString() + ".csv");
+
+                    //        //重新计算periodIndex
+                    //        using (StreamReader sr = new StreamReader(csvFilePath))
+                    //        {
+                    //            string sline;
+                    //            while ((sline = sr.ReadLine()) != null)
+                    //            {
+                    //                if (sline.Replace(" ", "") != "")
+                    //                {
+                    //                    periodIndex++;
+                    //                }
+                    //            }
+                    //        }
+                    //        if (fsinfos.Length == 1)
+                    //        {
+                    //            periodIndex = periodIndex - 1;
+                    //        }
+
+                    //        logOpened = true;
+                    //    }
+                    //}
+                    if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
                     {
-                        if (!Directory.Exists(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd")))
-                        {
-                            Directory.CreateDirectory(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd"));
-                        }
-                        csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\"
+                        Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
+                    }
+                    string csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + startTimes.ToString() + "-"
                             + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
-                    }
-                    else
-                    {
-                        saveFile_path = System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd");
-                        if (!Directory.Exists(System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd")))
-                        {
-                            Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log" + "\\" + DateTime.Now.ToString("yyyyMMdd"));
-                        }
-                    }
-                    DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd"));
-                    FileSystemInfo[] fsinfos = d.GetFileSystemInfos(DateTime.Now.ToString("yyyyMMdd") + "-*.csv");//指定文件夹下相关文件个数
-                    if (!File.Exists(csvFilePath))
-                    {
-                        //不存在-1的文件
-                        periodIndex = 0; logOpened = true;
-                    }
-                    else if (fsinfos.Length == 0)
-                    {
-                        //不存在yyyyMMdd-n.csv类型的文件
-                        periodIndex = 0; logOpened = true;
-                    }
-                    else
-                    {
-                        //更新periodIndex
-                        if (!logOpened)
-                        {
-                            periodIndex = (fsinfos.Length - 1) * saveFile_Frequency;//起始次数
-                            csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + fsinfos.Length.ToString() + ".csv");
-
-                            //重新计算periodIndex
-                            using (StreamReader sr = new StreamReader(csvFilePath))
-                            {
-                                string sline;
-                                while ((sline = sr.ReadLine()) != null)
-                                {
-                                    if (sline.Replace(" ", "") != "")
-                                    {
-                                        periodIndex++;
-                                    }
-                                }
-                            }
-                            if (fsinfos.Length == 1)
-                            {
-                                periodIndex = periodIndex - 1;
-                            }
-
-                            logOpened = true;
-                        }
-                    }
-                    csvFilePath = Path.Combine(saveFile_path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + DateTime.Now.ToString("yyyyMMdd") + "-" + (Math.Floor((double)periodIndex / (double)saveFile_Frequency) + 1).ToString() + ".csv");
+                    csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + startTimes.ToString() + "-" 
+                        + DateTime.Now.ToString("yyyyMMdd") + "-" + (Math.Floor((double)periodIndex / (double)saveFile_Frequency) + 1).ToString() + ".csv");
                     string line = string.Empty;
                     using (StreamWriter csvFile = new StreamWriter(csvFilePath, true, Encoding.UTF8))
                     {
                         if (periodIndex == 0)
                         {
-                            line = "Index,ForcePeak,ForceValley,DisplacementPeak,DisplacementValley";
+                            //line = "Index,ForcePeak,ForceValley,DisplacementPeak,DisplacementValley";
+                            line = "Index,Peak,Valley";
                             csvFile.WriteLine(line);
                         }
 
                         for (int i = 0; i < 10; i++)
                         {
                             periodIndex++;
-                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i] + "," + ArrayPeakP_R[i] + "," + ArrayLowP_R[i];
+                            //line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i] + "," + ArrayPeakP_R[i] + "," + ArrayLowP_R[i];
+                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
                             A_Max = ArrayPeak_R[i];
                             A_Min = ArrayLow_R[i];
                             B_Max = ArrayPeakP_R[i];
                             B_Min = ArrayLowP_R[i];
-                            //if (chart1.ChartAreas[0].AxisY.Minimum > A_Min - (A_Max - A_Min) * 0.01)
-                            //{
-                            //    chart1.ChartAreas[0].AxisY.Minimum = A_Min- (A_Max - A_Min) * 0.01;
-                            //}
-                            //if (chart1.ChartAreas[0].AxisY.Maximum < A_Max+ (A_Max - A_Min) * 0.01)
-                            //{
-                            //    chart1.ChartAreas[0].AxisY.Maximum = A_Max + (A_Max - A_Min) * 0.01;
-                            //}
-                            //if (chart1.ChartAreas[1].AxisY2.Minimum > B_Min - (B_Max - B_Min) * 0.01)
-                            //{
-                            //    chart1.ChartAreas[1].AxisY2.Minimum = B_Min - (B_Max - B_Min) * 0.01;
-                            //}
-                            //if (chart1.ChartAreas[1].AxisY2.Maximum < B_Max+ (B_Max - B_Min) * 0.01)
-                            //{ 
-                            //    chart1.ChartAreas[1].AxisY2.Maximum = B_Max+ (B_Max - B_Min) * 0.01;
-                            //}
+                           
                             if (btn_Start.BackColor == Color.Green)
                             {
+                                #region 添加chart队列
                                 for (int mm = 0; mm < SamplingCount_Cycle; mm++)
                                 {
                                     lock (SequenceLock)
                                     {
                                         Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
-                                   (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2)); 
+                                   (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
                                     }
                                     lock (SequenceLock2)
                                     {
                                         Queue_Chart2.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++),
-                                            (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2)); 
+                                            (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2));
                                     }
-                                }
+                                } 
+                                #endregion
                             }
                             csvFile.WriteLine(line);
                         }
@@ -3817,49 +3872,83 @@ namespace PneumaticServoMonitor
             }
             else
             {
-                //////chart1.Series[0] = new System.Windows.Forms.DataVisualization.Charting.Series();
-                //////chart1.Series[0].ChartArea = "ChartArea1";
-                //////chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-                //////chart1.Series[0].Color = System.Drawing.Color.White;
-                //////chart1.Series[0].Legend = "Legend1";
-                //////chart1.Series[0].MarkerColor = System.Drawing.Color.Black;
-                //////chart1.Series[0].Name = "Force";
-                ////chart1.Series[0].Points.Clear();
-                ////chart1.Series[1].Points.Clear();
-                //////chart1.Series[1] = new System.Windows.Forms.DataVisualization.Charting.Series();
-                //////chart1.Series[1].ChartArea = "ChartArea1";
-                //////chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-                //////chart1.Series[1].Color = System.Drawing.Color.Red;
-                //////chart1.Series[1].Legend = "Legend1";
-                //////chart1.Series[1].Name = "Position";
-                //////chart1.Series[1].YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-
-                n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
-                n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount)* SamplingCount_Cycle;
-                lock (SequenceLock)
+                if (MessageBox.Show("请确认横梁位置", "确认", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    Queue_Chart = new Queue<chartPoints>(); 
-                }
-                lock (SequenceLock2)
-                {
-                    Queue_Chart2 = new Queue<chartPoints>(); 
-                }
+                    //////chart1.Series[0] = new System.Windows.Forms.DataVisualization.Charting.Series();
+                    //////chart1.Series[0].ChartArea = "ChartArea1";
+                    //////chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                    //////chart1.Series[0].Color = System.Drawing.Color.White;
+                    //////chart1.Series[0].Legend = "Legend1";
+                    //////chart1.Series[0].MarkerColor = System.Drawing.Color.Black;
+                    //////chart1.Series[0].Name = "Force";
+                    ////chart1.Series[0].Points.Clear();
+                    ////chart1.Series[1].Points.Clear();
+                    //////chart1.Series[1] = new System.Windows.Forms.DataVisualization.Charting.Series();
+                    //////chart1.Series[1].ChartArea = "ChartArea1";
+                    //////chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+                    //////chart1.Series[1].Color = System.Drawing.Color.Red;
+                    //////chart1.Series[1].Legend = "Legend1";
+                    //////chart1.Series[1].Name = "Position";
+                    //////chart1.Series[1].YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+                    if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
+                    {
+                        Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
+                    }
+                    DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+                    FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
+                    //文件名命名规则：n-20210107-m.csv
+                    //n：第几次启动
+                    //m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                    if (fsinfos.Length == 0)
+                    {
+                        startTimes = 0;
+                    }
+                    else
+                    {
+                        int[] nArray = new int[fsinfos.Length];
+                        for (int i = 0; i < fsinfos.Length; i++)
+                        {
+                            if (fsinfos[i].Name.Split('-').Length == 3)
+                            {
+                                nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                            }
+                        }
+                        startTimes = nArray.Max() + 1;
+                    }
+                    periodIndex = 0;
+                    n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    lock (SequenceLock)
+                    {
+                        Queue_Chart = new Queue<chartPoints>();
+                    }
+                    lock (SequenceLock2)
+                    {
+                        Queue_Chart2 = new Queue<chartPoints>();
+                    }
 
-                m_OpcUaClient.WriteNode(NodeID_TestStop, false);
-                m_OpcUaClient.WriteNode(NodeID_TestStart, true);
-                Thread.Sleep(100);
-                m_OpcUaClient.WriteNode(NodeID_TestStart, false);
-                
-                timer2.Enabled = true;
-                btn_Setting.Enabled = false;
-                btn_Calibrate.Enabled = false;
-                btn_ChangePath.Enabled = false;
-                btn_CommSetting.Enabled = false;
-                btn_RecipeManagement.Enabled = false;
-                btn_Adjust.Enabled = false;
-                cmb_SaveFrequency.Enabled = false;
-                btn_ForceClear.Enabled = false;
-                btn_PositionClear.Enabled = false;
+                    m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+                    m_OpcUaClient.WriteNode(NodeID_TestStart, true);
+                    Thread.Sleep(100);
+                    m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+
+                    //logOpened = false;
+
+                    timer2.Enabled = true;
+                    btn_Setting.Enabled = false;
+                    btn_Calibrate.Enabled = false;
+                    btn_ChangePath.Enabled = false;
+                    btn_CommSetting.Enabled = false;
+                    btn_RecipeManagement.Enabled = false;
+                    btn_Adjust.Enabled = false;
+                    cmb_SaveFrequency.Enabled = false;
+                    btn_ForceClear.Enabled = false;
+                    btn_PositionClear.Enabled = false;
+                }
+                else
+                {
+                  
+                }                
             }
         }
 
@@ -3937,7 +4026,60 @@ namespace PneumaticServoMonitor
                     pic_Running.Image = imageList_Status.Images[1];
                     if (!timer2.Enabled&& txt_ProjectNumber.Text != "")
                     {
-                        btn_Start_Click(sender, e);
+                        if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
+                        {
+                            Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
+                        }
+                        DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+                        FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
+                                                                                 //文件名命名规则：n-20210107-m.csv
+                                                                                 //n：第几次启动
+                                                                                 //m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                        if (fsinfos.Length == 0)
+                        {
+                            startTimes = 0;
+                        }
+                        else
+                        {
+                            int[] nArray = new int[fsinfos.Length];
+                            for (int i = 0; i < fsinfos.Length; i++)
+                            {
+                                if (fsinfos[i].Name.Split('-').Length == 3)
+                                {
+                                    nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                                }
+                            }
+                            startTimes = nArray.Max() + 1;
+                        }
+                        periodIndex = 0;
+                        n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                        n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                        lock (SequenceLock)
+                        {
+                            Queue_Chart = new Queue<chartPoints>();
+                        }
+                        lock (SequenceLock2)
+                        {
+                            Queue_Chart2 = new Queue<chartPoints>();
+                        }
+
+                        m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+                        m_OpcUaClient.WriteNode(NodeID_TestStart, true);
+                        Thread.Sleep(100);
+                        m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+
+                        //logOpened = false;
+
+                        timer2.Enabled = true;
+                        btn_Setting.Enabled = false;
+                        btn_Calibrate.Enabled = false;
+                        btn_ChangePath.Enabled = false;
+                        btn_CommSetting.Enabled = false;
+                        btn_RecipeManagement.Enabled = false;
+                        btn_Adjust.Enabled = false;
+                        cmb_SaveFrequency.Enabled = false;
+                        btn_ForceClear.Enabled = false;
+                        btn_PositionClear.Enabled = false;
 
                     }
                 }
