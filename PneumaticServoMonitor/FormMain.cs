@@ -4494,7 +4494,7 @@ namespace PneumaticServoMonitor
                 for (int m = 0; m < fortimes; m++)
                 {
                     //if (chart1.Series[0].Points.Count > Frequence_W * 8)
-                    if (chart1.Series[0].Points.Count > 120)
+                    if (chart1.Series[0].Points.Count > 60)
                     {
                         chart1.Series[0].Points.RemoveAt(0);
                     }
@@ -4602,7 +4602,7 @@ namespace PneumaticServoMonitor
 
                     //}
                     //if (chart1.Series[1].Points.Count > Frequence_W * 8)
-                    if (chart1.Series[1].Points.Count > 120)
+                    if (chart1.Series[1].Points.Count > 60)
                     {
                         chart1.Series[1].Points.RemoveAt(0);
                     }
