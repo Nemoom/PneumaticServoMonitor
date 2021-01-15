@@ -3413,6 +3413,7 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_ArrayPeak, new float[51]);
                     m_OpcUaClient.WriteNode(NodeID_ArrayLowP, new float[51]);
                     m_OpcUaClient.WriteNode(NodeID_ArrayPeakP, new float[51]);
+                    m_OpcUaClient2.WriteNode(NodeID_DataReceived, false);
                     n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     //timer2.Interval = 1 / Frequence_W * 1000;
@@ -3996,6 +3997,7 @@ namespace PneumaticServoMonitor
             m_OpcUaClient.WriteNode(NodeID_TestStop, true);
             Thread.Sleep(100);
             m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+            m_OpcUaClient2.WriteNode(NodeID_DataReceived, false);
             timer2.Enabled = false;
             btn_Setting.Enabled = true;
             btn_Calibrate.Enabled = true;
@@ -4467,7 +4469,10 @@ namespace PneumaticServoMonitor
             ////    chart1.DataBind(); //绑定数据
             ////}
             int fortimes = (int)(DateTime.Now - mLastTime).TotalMilliseconds / (1000 / Frequence_W / SamplingCount_Cycle);
-            
+            if (fortimes<0)
+            {
+                fortimes = 6;
+            }
             if (A_Max != 0 && A_Min != 0)
             {
                 try
@@ -4675,8 +4680,10 @@ namespace PneumaticServoMonitor
                 }
 
             }
-            mLastTime = DateTime.Now;
-
+            if (fortimes>0)
+            {
+                mLastTime = DateTime.Now;
+            }
         }
 
         private void btn_Adjust_Click(object sender, EventArgs e)
