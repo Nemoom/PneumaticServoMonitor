@@ -3415,6 +3415,7 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_ArrayPeakP, new float[51]);
                     n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                    //timer2.Interval = 1 / Frequence_W * 1000;
                     lock (SequenceLock)
                     {
                         Queue_Chart = new Queue<chartPoints>(); 
@@ -3427,6 +3428,7 @@ namespace PneumaticServoMonitor
                     chart1.Series[1].Points.Clear();
                     chart1.ChartAreas[0].AxisY.Minimum = 0;
                     chart1.ChartAreas[0].AxisY2.Minimum = 0;
+                    mLastTime = DateTime.Now;
                 }
                 catch (Exception ex)
                 {
@@ -3607,14 +3609,22 @@ namespace PneumaticServoMonitor
         }
         public void firstUpdateForm()
         {
-            if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
+            while (m_OpcUaClient == null)
             {
-                btn_Enable.BackColor = Color.Green;
+                Thread.Sleep(50);
             }
-            else
+            if (m_OpcUaClient!=null)
             {
-                btn_Enable.BackColor = Color.Transparent;
+                if (m_OpcUaClient.ReadNode<bool>(NodeID_TestEnable))
+                {
+                    btn_Enable.BackColor = Color.Green;
+                }
+                else
+                {
+                    btn_Enable.BackColor = Color.Transparent;
+                }
             }
+            
             //try
             //{
             //    string curProjectName = m_OpcUaClient.ReadNode<bool>().ToString();
@@ -3931,7 +3941,7 @@ namespace PneumaticServoMonitor
                     m_OpcUaClient.WriteNode(NodeID_TestStart, true);
                     Thread.Sleep(100);
                     m_OpcUaClient.WriteNode(NodeID_TestStart, false);
-
+                    mLastTime = DateTime.Now;
                     //logOpened = false;
 
                     timer2.Enabled = true;
@@ -4390,6 +4400,31 @@ namespace PneumaticServoMonitor
             i_ErrorID_Last = 0;
         }
         int n_Empty = 0;
+        DateTime mLastTime;
+        long getTotalMillisecond(chartPoints mchartPoints)
+        {
+            long mMillisecond = 0;
+            switch (mchartPoints.x.Split(':').Length)
+            {
+                case 1:
+                    mMillisecond = (long)(Convert.ToDouble(mchartPoints.x.Split(':')[0]) * (double)1000);
+                    break;
+                case 2:
+                    mMillisecond = (long)(Convert.ToDouble(mchartPoints.x.Split(':')[1]) * (double)1000) + Convert.ToInt32(mchartPoints.x.Split(':')[0]) * 60;
+                    break;
+                case 3:
+                    mMillisecond = (long)(Convert.ToDouble(mchartPoints.x.Split(':')[2]) * (double)1000) + Convert.ToInt32(mchartPoints.x.Split(':')[1]) * 60
+                        + Convert.ToInt32(mchartPoints.x.Split(':')[0]) * 60 * 60;
+                    break;
+                case 4:
+                    mMillisecond = (long)(Convert.ToDouble(mchartPoints.x.Split(':')[3]) * (double)1000) + Convert.ToInt32(mchartPoints.x.Split(':')[2]) * 60
+                        + Convert.ToInt32(mchartPoints.x.Split(':')[1]) * 60 * 60 + Convert.ToInt32(mchartPoints.x.Split(':')[0]) * 24 * 60 * 60;
+                    break;
+                default:
+                    break;
+            }
+            return mMillisecond;
+        }
         private void timer2_Tick(object sender, EventArgs e)
         {
             ////if (A_Max != 0 && A_Min != 0)
@@ -4431,6 +4466,7 @@ namespace PneumaticServoMonitor
 
             ////    chart1.DataBind(); //绑定数据
             ////}
+            int fortimes = (int)(DateTime.Now - mLastTime).TotalMilliseconds / (1000 / Frequence_W / SamplingCount_Cycle);
             
             if (A_Max != 0 && A_Min != 0)
             {
@@ -4450,31 +4486,32 @@ namespace PneumaticServoMonitor
 
                 }
 
-                for (int m = 0; m < SamplingCount_Cycle; m++)
+                for (int m = 0; m < fortimes; m++)
                 {
+                    //if (chart1.Series[0].Points.Count > Frequence_W * 8)
                     if (chart1.Series[0].Points.Count > 120)
                     {
                         chart1.Series[0].Points.RemoveAt(0);
                     }
                     if (Queue_Chart.Count > 0)
                     {
-                        try
-                        {
-                            chartPoints mP;
-                            lock (SequenceLock)
-                            {
-                                mP = Queue_Chart.Dequeue(); 
-                            }
-                            if (mP !=null)
-                            {
-                                chart1.Series[0].Points.AddXY(mP.x, mP.y);
-                            }
+                        //try
+                        //{
+                        //    chartPoints mP;
+                        //    lock (SequenceLock)
+                        //    {
+                        //        mP = Queue_Chart.Dequeue(); 
+                        //    }
+                        //    if (mP !=null)
+                        //    {
+                        //        chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                        //    }
 
-                        }
-                        catch (Exception)
-                        {
+                        //}
+                        //catch (Exception)
+                        //{
 
-                        }               
+                        //}               
                     }
                     else
                     {
@@ -4488,8 +4525,41 @@ namespace PneumaticServoMonitor
                         {
                             //中途数据刷新没跟上，补零
                             //chart1.Series[0].Points.AddXY(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++), 0);
+                            for (int mm = 0; mm < SamplingCount_Cycle; mm++)
+                            {
+                                lock (SequenceLock)
+                                {
+                                    Queue_Chart.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index++),
+                               (A_Max - A_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (A_Max + A_Min) / 2));
+                                }                                
+                            }
                         }
-                    } 
+                    }
+                    if (Queue_Chart.Count > 0)
+                    {
+                        try
+                        {
+                            //if (Queue_Chart.Peek().x )
+                            //{
+                                
+                            //}
+
+                            chartPoints mP;
+                            lock (SequenceLock)
+                            {
+                                mP = Queue_Chart.Dequeue();
+                            }
+                            if (mP != null)
+                            {
+                                chart1.Series[0].Points.AddXY(mP.x, mP.y);
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
                 }
                 try
                 {
@@ -4506,7 +4576,7 @@ namespace PneumaticServoMonitor
                 //    chart1.Series[1].Points.RemoveAt(0);
                 //}
             }
-            for (int m = 0; m < SamplingCount_Cycle; m++)
+            for (int m = 0; m < fortimes; m++)
             {
                 if (B_Max != 0 && B_Min != 0)
                 {
@@ -4526,28 +4596,29 @@ namespace PneumaticServoMonitor
 
 
                     //}
+                    //if (chart1.Series[1].Points.Count > Frequence_W * 8)
                     if (chart1.Series[1].Points.Count > 120)
                     {
                         chart1.Series[1].Points.RemoveAt(0);
                     }
                     if (Queue_Chart2.Count > 0)
                     {
-                        try
-                        {
-                            chartPoints mP;
-                            lock (SequenceLock2)
-                            {
-                                mP = Queue_Chart2.Dequeue(); 
-                            }
-                            if (mP != null)
-                            {
-                                chart1.Series[1].Points.AddXY(mP.x, mP.y);
-                            }
-                        }
-                        catch (Exception)
-                        {
+                        //try
+                        //{
+                        //    chartPoints mP;
+                        //    lock (SequenceLock2)
+                        //    {
+                        //        mP = Queue_Chart2.Dequeue(); 
+                        //    }
+                        //    if (mP != null)
+                        //    {
+                        //        chart1.Series[1].Points.AddXY(mP.x, mP.y);
+                        //    }
+                        //}
+                        //catch (Exception)
+                        //{
 
-                        }                 
+                        //}                 
                     }
                     else
                     {
@@ -4561,6 +4632,33 @@ namespace PneumaticServoMonitor
                         {
                             //中途数据刷新没跟上，补零
                             //chart1.Series[1].Points.AddXY(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++), 0);
+                            for (int mm = 0; mm < SamplingCount_Cycle; mm++)
+                            {                               
+                                lock (SequenceLock2)
+                                {
+                                    Queue_Chart2.Enqueue(new chartPoints(timestamp.AddMilliseconds(1000 / Frequence_W / SamplingCount_Cycle * n_Index2++),
+                                        (B_Max - B_Min) / 2 * Math.Sin(Math.PI * 2 * (double)mm / (double)SamplingCount_Cycle) + (B_Max + B_Min) / 2));
+                                }
+                            }
+                        }
+                    }
+                    if (Queue_Chart2.Count > 0)
+                    {
+                        try
+                        {
+                            chartPoints mP;
+                            lock (SequenceLock2)
+                            {
+                                mP = Queue_Chart2.Dequeue();
+                            }
+                            if (mP != null)
+                            {
+                                chart1.Series[1].Points.AddXY(mP.x, mP.y);
+                            }
+                        }
+                        catch (Exception)
+                        {
+
                         }
                     }
                     try
@@ -4574,10 +4672,11 @@ namespace PneumaticServoMonitor
                     {
 
                     }
-
                 }
 
-            }       
+            }
+            mLastTime = DateTime.Now;
+
         }
 
         private void btn_Adjust_Click(object sender, EventArgs e)
