@@ -3364,7 +3364,28 @@ namespace PneumaticServoMonitor
                         Directory.CreateDirectory(System.Environment.CurrentDirectory + "\\Log" + "\\" + folderNmae);
                     }
                 }
-
+                DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+                FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
+                //文件名命名规则：n-20210107-m.csv
+                //n：第几次启动
+                //m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                if (fsinfos.Length == 0)
+                {
+                    startTimes = 0;
+                }
+                else
+                {
+                    int[] nArray = new int[fsinfos.Length];
+                    for (int i = 0; i < fsinfos.Length; i++)
+                    {
+                        if (fsinfos[i].Name.Split('-').Length == 3)
+                        {
+                            nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                        }
+                    }
+                    startTimes = nArray.Max() + 1;
+                }
+                periodIndex = 0;
                 try
                 {
                     if (m_OpcUaClient.Connected)
@@ -3554,6 +3575,11 @@ namespace PneumaticServoMonitor
         {
             if (FormMain.m_OpcUaClient.Connected && FormMain.m_OpcUaClient2.Connected)
             {
+                m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                m_OpcUaClient.WriteNode(NodeID_TestStop, true);
+                Thread.Sleep(100);
+                m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+
                 firstUpdateForm();
                 //通信建立完成，可以开始read&Write
                 ThreadStart start = delegate
@@ -3583,6 +3609,11 @@ namespace PneumaticServoMonitor
         {
             if (FormMain.m_OpcUaClient2.Connected && FormMain.m_OpcUaClient.Connected)
             {
+                m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                m_OpcUaClient.WriteNode(NodeID_TestStop, true);
+                Thread.Sleep(100);
+                m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+
                 firstUpdateForm();
                 //通信建立完成，可以开始read&Write
                 ThreadStart start = delegate
@@ -3753,6 +3784,7 @@ namespace PneumaticServoMonitor
                     //        logOpened = true;
                     //    }
                     //}
+                    
                     if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
                     {
                         Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
@@ -3761,6 +3793,36 @@ namespace PneumaticServoMonitor
                             + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//更新为设置的路径
                     csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + startTimes.ToString() + "-" 
                         + DateTime.Now.ToString("yyyyMMdd") + "-" + (Math.Floor((double)periodIndex / (double)saveFile_Frequency) + 1).ToString() + ".csv");
+                    if (periodIndex == 0 && File.Exists(csvFilePath))
+                    {
+                        int logIndex = 1;
+                        //文件中计数为0，可是已存在相关记录的CSV
+                        while (File.Exists(csvFilePath))
+                        {
+                            logIndex = logIndex + 1;
+                            csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + startTimes.ToString() + "-"
+                       + DateTime.Now.ToString("yyyyMMdd") + "-" + logIndex.ToString() + ".csv");
+                        }
+                        csvFilePath = Path.Combine(saveFile_path + "\\" + folderNmae + "\\" + startTimes.ToString() + "-"
+                       + DateTime.Now.ToString("yyyyMMdd") + "-" + (logIndex - 1).ToString() + ".csv");
+
+                        //重新计算periodIndex
+                        using (StreamReader sr = new StreamReader(csvFilePath))
+                        {
+                            string sline;
+                            while ((sline = sr.ReadLine()) != null)
+                            {
+                                if (sline.Replace(" ", "") != "")
+                                {
+                                    periodIndex++;
+                                }
+                            }
+                        }
+                        if (logIndex == 2) //只存在-1.csv文件，计数减去表头那一行
+                        {
+                            periodIndex = periodIndex - 1;
+                        }
+                    }
                     string line = string.Empty;
                     using (StreamWriter csvFile = new StreamWriter(csvFilePath, true, Encoding.UTF8))
                     {
@@ -3907,26 +3969,26 @@ namespace PneumaticServoMonitor
                     }
                     DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
                     FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
-                    //文件名命名规则：n-20210107-m.csv
-                    //n：第几次启动
-                    //m：当个文件存储记录个数有限，本次启动生成的第几份日志
-                    if (fsinfos.Length == 0)
-                    {
-                        startTimes = 0;
-                    }
-                    else
-                    {
-                        int[] nArray = new int[fsinfos.Length];
-                        for (int i = 0; i < fsinfos.Length; i++)
-                        {
-                            if (fsinfos[i].Name.Split('-').Length == 3)
-                            {
-                                nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
-                            }
-                        }
-                        startTimes = nArray.Max() + 1;
-                    }
-                    periodIndex = 0;
+                    //////文件名命名规则：n-20210107-m.csv
+                    //////n：第几次启动
+                    //////m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                    ////if (fsinfos.Length == 0)
+                    ////{
+                    ////    startTimes = 0;
+                    ////}
+                    ////else
+                    ////{
+                    ////    int[] nArray = new int[fsinfos.Length];
+                    ////    for (int i = 0; i < fsinfos.Length; i++)
+                    ////    {
+                    ////        if (fsinfos[i].Name.Split('-').Length == 3)
+                    ////        {
+                    ////            nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                    ////        }
+                    ////    }
+                    ////    startTimes = nArray.Max() + 1;
+                    ////}
+                    ////periodIndex = 0;
                     n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
                     lock (SequenceLock)
@@ -4036,53 +4098,58 @@ namespace PneumaticServoMonitor
                 {
                     btn_Start.BackColor = Color.Green;
                     pic_Running.Image = imageList_Status.Images[1];
-                    if (!timer2.Enabled&& txt_ProjectNumber.Text != "")
+                    if (txt_ProjectNumber.Text != "")//已选择型号
                     {
+                        //上次退出程序PLC没有停止运行，重新打开程序并完成选型后
                         if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
                         {
                             Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
                         }
-                        DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
-                        FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");//指定文件夹下相关文件个数
-                                                                                 //文件名命名规则：n-20210107-m.csv
-                                                                                 //n：第几次启动
-                                                                                 //m：当个文件存储记录个数有限，本次启动生成的第几份日志
-                        if (fsinfos.Length == 0)
-                        {
-                            startTimes = 0;
-                        }
-                        else
-                        {
-                            int[] nArray = new int[fsinfos.Length];
-                            for (int i = 0; i < fsinfos.Length; i++)
-                            {
-                                if (fsinfos[i].Name.Split('-').Length == 3)
-                                {
-                                    nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
-                                }
-                            }
-                            startTimes = nArray.Max() + 1;
-                        }
-                        periodIndex = 0;
-                        n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
-                        n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
-                        lock (SequenceLock)
-                        {
-                            Queue_Chart = new Queue<chartPoints>();
-                        }
-                        lock (SequenceLock2)
-                        {
-                            Queue_Chart2 = new Queue<chartPoints>();
-                        }
+                        //DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+                        //FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");
+                        ////指定文件夹下相关文件个数
+                        ////文件名命名规则：n-20210107-m.csv
+                        ////n：第几次启动
+                        ////m：当个文件存储记录个数有限，本次启动生成的第几份日志
+                        //if (fsinfos.Length == 0)
+                        //{
+                        //    startTimes = 0;
+                        //}
+                        //else
+                        //{
+                        //    int[] nArray = new int[fsinfos.Length];
+                        //    for (int i = 0; i < fsinfos.Length; i++)
+                        //    {
+                        //        if (fsinfos[i].Name.Split('-').Length == 3)
+                        //        {
+                        //            nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                        //        }
+                        //    }
+                        //    startTimes = nArray.Max() + 1;
+                        //}
+                        //periodIndex = 0;
+                        //n_Index = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                        //n_Index2 = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount) * SamplingCount_Cycle;
+                        //lock (SequenceLock)
+                        //{
+                        //    Queue_Chart = new Queue<chartPoints>();
+                        //}
+                        //lock (SequenceLock2)
+                        //{
+                        //    Queue_Chart2 = new Queue<chartPoints>();
+                        //}
 
-                        m_OpcUaClient.WriteNode(NodeID_TestStop, false);
-                        m_OpcUaClient.WriteNode(NodeID_TestStart, true);
-                        Thread.Sleep(100);
-                        m_OpcUaClient.WriteNode(NodeID_TestStart, false);
+                        //m_OpcUaClient.WriteNode(NodeID_TestStop, false);
+                        //m_OpcUaClient.WriteNode(NodeID_TestStart, true);
+                        //Thread.Sleep(100);
+                        //m_OpcUaClient.WriteNode(NodeID_TestStart, false);
 
-                        //logOpened = false;
-
-                        timer2.Enabled = true;
+                        ////logOpened = false;
+                        if (!timer2.Enabled)
+                        {
+                            timer2.Enabled = true;
+                        }
+                        
                         btn_Setting.Enabled = false;
                         btn_Calibrate.Enabled = false;
                         btn_ChangePath.Enabled = false;
@@ -4120,6 +4187,13 @@ namespace PneumaticServoMonitor
                     btn_Stop.BackColor = Color.Transparent;
                     //pic_Running.Image = imageList_Status.Images[0];
                 }
+            }
+            catch (Exception ex)
+            {
+                writeLog(ex.ToString(), logFormat.File);
+            }
+            try
+            {
                 if (m_OpcUaClient.ReadNode<bool>(NodeID_SystemError))
                 {
                     btn_Reset.BackColor = Color.Yellow;
@@ -4130,6 +4204,14 @@ namespace PneumaticServoMonitor
                     btn_Reset.BackColor = Color.Transparent;
                     pic_Error.Image = imageList_Status.Images[0];
                 }
+            }
+            catch (Exception ex)
+            {
+                writeLog(ex.ToString(), logFormat.File);
+            }
+
+            try
+            {
                 int i_ErrorID = m_OpcUaClient.ReadNode<short>(NodeID_ErrorID);
 
                 if (i_ErrorID != 0)
@@ -4152,8 +4234,16 @@ namespace PneumaticServoMonitor
                 }
                 else
                 {
-                    txt_Log_Cur.Clear();
+                    //txt_Log_Cur.Clear();
                 }
+            }
+            catch (Exception ex)
+            {
+                writeLog(ex.ToString(), logFormat.File);
+            }
+
+            try
+            {
                 if (Times_W != 0)
                 {
                     lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount).ToString();
@@ -4306,6 +4396,29 @@ namespace PneumaticServoMonitor
         private void cmb_SaveFrequency_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveFile_Frequency = Convert.ToInt32(cmb_SaveFrequency.Text);
+            DirectoryInfo d = new DirectoryInfo(saveFile_path + "\\" + folderNmae);
+            FileSystemInfo[] fsinfos = d.GetFileSystemInfos("*.csv");
+            //指定文件夹下相关文件个数
+            //文件名命名规则：n-20210107-m.csv
+            //n：第几次启动
+            //m：当个文件存储记录个数有限，本次启动生成的第几份日志
+            if (fsinfos.Length == 0)
+            {
+                startTimes = 0;
+            }
+            else
+            {
+                int[] nArray = new int[fsinfos.Length];
+                for (int i = 0; i < fsinfos.Length; i++)
+                {
+                    if (fsinfos[i].Name.Split('-').Length == 3)
+                    {
+                        nArray[i] = Convert.ToInt32(fsinfos[i].Name.Split('-')[0]);
+                    }
+                }
+                startTimes = nArray.Max() + 1;
+            }
+            periodIndex = 0;
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
