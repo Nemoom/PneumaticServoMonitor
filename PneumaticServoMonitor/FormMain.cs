@@ -83,6 +83,8 @@ namespace PneumaticServoMonitor
         DateTime timestamp = new DateTime();
         double Peak_AVE, Peak_MAX, Peak_MIN;
         double Valley_AVE, Valley_MAX, Valley_MIN;
+        double Peak_AVE1, Peak_MAX1, Peak_MIN1;
+        double Valley_AVE1, Valley_MAX1, Valley_MIN1;
         double A_Max, A_Min, B_Max, B_Min;
         #region ini文件中的参数&对应变量
         public static string plcIP
@@ -3700,6 +3702,13 @@ namespace PneumaticServoMonitor
                     Valley_MAX = ArrayLow_R.Max();
                     Valley_AVE = ArrayLow_R.Average();
 
+                    Peak_MIN1 = ArrayPeakP_R.Min();
+                    Peak_MAX1 = ArrayPeakP_R.Max();
+                    Peak_AVE1 = ArrayPeakP_R.Average();
+                    Valley_MIN1 = ArrayLowP_R.Min();
+                    Valley_MAX1 = ArrayLowP_R.Max();
+                    Valley_AVE1 = ArrayLowP_R.Average();
+
                     #region write csv
                     //string csvFilePath = Path.Combine(System.Environment.CurrentDirectory + "\\Log\\" + folderNmae + "\\0-"
                     //               + DateTime.Now.ToString("yyyyMMdd") + "-1.csv");//默认路径
@@ -3784,7 +3793,7 @@ namespace PneumaticServoMonitor
                     //        logOpened = true;
                     //    }
                     //}
-                    
+
                     if (!Directory.Exists(saveFile_path + "\\" + folderNmae))
                     {
                         Directory.CreateDirectory(saveFile_path + "\\" + folderNmae);
@@ -3828,16 +3837,16 @@ namespace PneumaticServoMonitor
                     {
                         if (periodIndex == 0)
                         {
-                            //line = "Index,ForcePeak,ForceValley,DisplacementPeak,DisplacementValley";
-                            line = "Index,Peak,Valley";
+                            line = "Index,ForcePeak,ForceValley,DisplacementPeak,DisplacementValley";
+                            //line = "Index,Peak,Valley";
                             csvFile.WriteLine(line);
                         }
 
                         for (int i = 0; i < 10; i++)
                         {
                             periodIndex++;
-                            //line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i] + "," + ArrayPeakP_R[i] + "," + ArrayLowP_R[i];
-                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
+                            line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i] + "," + ArrayPeakP_R[i] + "," + ArrayLowP_R[i];
+                            //line = periodIndex + "," + ArrayPeak_R[i] + "," + ArrayLow_R[i];
                             A_Max = ArrayPeak_R[i];
                             A_Min = ArrayLow_R[i];
                             B_Max = ArrayPeakP_R[i];
@@ -4246,9 +4255,10 @@ namespace PneumaticServoMonitor
             {
                 if (Times_W != 0)
                 {
-                    lbl_Times_Cur.Text = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount).ToString();
+                    int plc_Count = m_OpcUaClient.ReadNode<int>(NodeID_CycleCount);
+                    lbl_Times_Cur.Text = (plc_Count + StartIndex_W).ToString();
                     //lbl_TImes_Set.Text = Times_W.ToString();
-                    double d_numerator = Convert.ToDouble(lbl_Times_Cur.Text) + Convert.ToDouble(StartIndex_W);
+                    double d_numerator = Convert.ToDouble(plc_Count) + Convert.ToDouble(StartIndex_W);
                     progressBar.Value = Convert.ToInt32((d_numerator < Convert.ToDouble(Times_W) ? d_numerator : Convert.ToDouble(Times_W)) / Convert.ToDouble(Times_W) * 100);
                 }
                 lbl_ActualForce.Text = m_OpcUaClient.ReadNode<float>(NodeID_ActualForce).ToString();
@@ -4259,6 +4269,13 @@ namespace PneumaticServoMonitor
                 lbl_Valley_AVE.Text = (int)Valley_AVE == 0 ? "" : Valley_AVE.ToString("0.00");
                 lbl_Valley_MAX.Text = (int)Valley_MAX == 0 ? "" : Valley_MAX.ToString("0.00");
                 lbl_Valley_MIN.Text = (int)Valley_MIN == 0 ? "" : Valley_MIN.ToString("0.00");
+
+                lbl_Peak_AVE1.Text = (int)Peak_AVE1 == 0 ? "" : Peak_AVE1.ToString("0.00");
+                lbl_Peak_MAX1.Text = (int)Peak_MAX1 == 0 ? "" : Peak_MAX1.ToString("0.00");
+                lbl_Peak_MIN1.Text = (int)Peak_MIN1 == 0 ? "" : Peak_MIN1.ToString("0.00");
+                lbl_Valley_AVE1.Text = (int)Valley_AVE1 == 0 ? "" : Valley_AVE1.ToString("0.00");
+                lbl_Valley_MAX1.Text = (int)Valley_MAX1 == 0 ? "" : Valley_MAX1.ToString("0.00");
+                lbl_Valley_MIN1.Text = (int)Valley_MIN1 == 0 ? "" : Valley_MIN1.ToString("0.00");
                 //progressBar.Value % 100 + 1;
             }
             catch (Exception ex)
@@ -4681,9 +4698,16 @@ namespace PneumaticServoMonitor
                 }
                 try
                 {
-                    chart1.ChartAreas[0].AxisY.Minimum = Math.Round(chart1.Series[0].Points.FindMinByValue().YValues[0] - (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
-                    chart1.ChartAreas[0].AxisY.Maximum = Math.Round(chart1.Series[0].Points.FindMaxByValue().YValues[0] + (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
-
+                    //chart1.ChartAreas[0].AxisY.Minimum = Math.Round(chart1.Series[0].Points.FindMinByValue().YValues[0] - (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+                    //chart1.ChartAreas[0].AxisY.Maximum = Math.Round(chart1.Series[0].Points.FindMaxByValue().YValues[0] + (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+                    double mmMin = Math.Round(chart1.Series[0].Points.FindMinByValue().YValues[0] - (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+                    double mmMax = Math.Round(chart1.Series[0].Points.FindMaxByValue().YValues[0] + (chart1.Series[0].Points.FindMaxByValue().YValues[0] - chart1.Series[0].Points.FindMinByValue().YValues[0]) * 0.03, 3);
+                    if (mmMin >= mmMax)
+                    {
+                        mmMax = mmMin + 1;
+                    }
+                    chart1.ChartAreas[0].AxisY.Minimum = mmMin;
+                    chart1.ChartAreas[0].AxisY.Maximum = mmMax;
                 }
                 catch (Exception)
                 {
@@ -4781,10 +4805,16 @@ namespace PneumaticServoMonitor
                     }
                     try
                     {
-                        chart1.ChartAreas[0].AxisY2.Minimum = Math.Round(chart1.Series[1].Points.FindMinByValue().YValues[0]
+                        double mmMin1 = Math.Round(chart1.Series[1].Points.FindMinByValue().YValues[0]
                                      - (chart1.Series[1].Points.FindMaxByValue().YValues[0] - chart1.Series[1].Points.FindMinByValue().YValues[0]) * 0.06, 3);
-                        chart1.ChartAreas[0].AxisY2.Maximum = Math.Round(chart1.Series[1].Points.FindMaxByValue().YValues[0]
-                            + (chart1.Series[1].Points.FindMaxByValue().YValues[0] - chart1.Series[1].Points.FindMinByValue().YValues[0]) * 0.06, 3);
+                        double mmMax1 = Math.Round(chart1.Series[1].Points.FindMaxByValue().YValues[0]
+                                    + (chart1.Series[1].Points.FindMaxByValue().YValues[0] - chart1.Series[1].Points.FindMinByValue().YValues[0]) * 0.06, 3);
+                        if (mmMin1 >= mmMax1)
+                        {
+                            mmMax1 = mmMin1 + 1;
+                        }
+                        chart1.ChartAreas[0].AxisY2.Minimum = mmMin1;
+                        chart1.ChartAreas[0].AxisY2.Maximum = mmMax1;
                     }
                     catch (Exception)
                     {

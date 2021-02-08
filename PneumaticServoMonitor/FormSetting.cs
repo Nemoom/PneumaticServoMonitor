@@ -607,5 +607,161 @@ namespace PneumaticServoMonitor
             }
 
         }
+        //将秒数转化为时分秒 duration为秒数
+        public static string sec_to_hms(int duration)
+        {
+            TimeSpan ts = new TimeSpan(0, 0, duration);
+            //int _hours = 0;
+            string str = "";
+            if (ts.Days > 0)
+            {
+                str = String.Format(ts.Days.ToString()+"d"+"{0:00}", ts.Hours ) + "h" + String.Format("{0:00}", ts.Minutes) + "m" + String.Format("{0:00}", ts.Seconds + "s");
+                
+            }
+            else
+            {
+                if (ts.Hours > 0)
+                {
+
+                    str = String.Format("{0:00}", ts.Hours) + "h" + String.Format("{0:00}", ts.Minutes) + "m" + String.Format("{0:00}", ts.Seconds + "s");
+                }
+                else
+                {
+                    if (ts.Minutes > 0)
+                    {
+                        str = String.Format("{0:00}", ts.Minutes) + "m" + String.Format("{0:00}", ts.Seconds + "s");
+                    }
+                    else
+                    {
+                        str = String.Format("{0:00}", ts.Seconds + "s");
+                    }
+                    
+                }
+            }
+           
+            //if (ts.Hours == 0 && ts.Minutes > 0)
+            //{
+            //    str = "00:";
+            //    if (_hours > 0)
+            //    {
+            //        str = String.Format("{0:00}", ts.Hours + _hours) + ":";
+            //    }
+            //    str += String.Format("{0:00}", ts.Minutes) + ":" + String.Format("{0:00}", ts.Seconds);
+            //}
+            //if (ts.Hours == 0 && ts.Minutes == 0)
+            //{
+            //    str = "00";
+            //    if (_hours > 0)
+            //    {
+            //        str = String.Format("{0:00}", ts.Hours + _hours);
+            //    }
+            //    str += ":00:" + String.Format("{0:00}", ts.Seconds);
+            //}
+            return str;
+        }
+
+        private void txt_Frequence_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_Frequence.Text!=""&& txt_Times.Text != ""&& txt_StartIndex.Text != "")
+            {
+                try
+                {
+                    int mm_Frequence = Convert.ToInt32(txt_Frequence.Text);
+                    try
+                    {
+                        int mm_Times = Convert.ToInt32(txt_Times.Text);
+                        try
+                        {
+                            int mm_StartIndex = Convert.ToInt32(txt_StartIndex.Text);
+                            //txt_EstimatedTime.Text=
+                            int mm_s = (mm_Times - mm_StartIndex) / mm_Frequence;
+                            txt_EstimatedTime.Text = sec_to_hms(mm_s);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+
+        private void txt_Times_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_Frequence.Text != "" && txt_Times.Text != "" && txt_StartIndex.Text != "")
+            {
+                try
+                {
+                    int mm_Frequence = Convert.ToInt32(txt_Frequence.Text);
+                    try
+                    {
+                        int mm_Times = Convert.ToInt32(txt_Times.Text);
+                        try
+                        {
+                            int mm_StartIndex = Convert.ToInt32(txt_StartIndex.Text);
+                            //txt_EstimatedTime.Text=
+                            int mm_s = (mm_Times - mm_StartIndex) / mm_Frequence;
+                            txt_EstimatedTime.Text = sec_to_hms(mm_s);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+        }
+
+        private void txt_StartIndex_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_Frequence.Text != "" && txt_Times.Text != "" && txt_StartIndex.Text != "")
+            {
+                try
+                {
+                    int mm_Frequence = Convert.ToInt32(txt_Frequence.Text);
+                    try
+                    {
+                        int mm_Times = Convert.ToInt32(txt_Times.Text);
+                        try
+                        {
+                            int mm_StartIndex = Convert.ToInt32(txt_StartIndex.Text);
+                            //txt_EstimatedTime.Text=
+                            int mm_s = (mm_Times - mm_StartIndex) / mm_Frequence;
+                            txt_EstimatedTime.Text = sec_to_hms(mm_s);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+
+        }
     }
 }
